@@ -1,0 +1,118 @@
+main.adminDashboardContainer {
+  display: flex;
+  flex-flow: column nowrap;
+  margin: 0 auto;
+  overflow: auto;
+  padding: 24px;
+  width: 100%;
+
+  a {
+    color: var(--link-color);
+  }
+
+  header {
+    display: flex;
+    justify-content: space-between;
+    margin: 0 0 16px;
+  }
+
+  section {
+    background-color: var(--background-color-bg0);
+    border-radius: var(--border-radius-16);
+    margin-bottom: 24px;
+    padding: 16px;
+
+    h2 {
+      font-size: var(--font-size-20);
+      margin-bottom: 12px;
+    }
+
+    p {
+      color: var(--text-color-secondary);
+      margin-bottom: 20px;
+    }
+  }
+
+  .jumpLinks {
+    margin-bottom: 24px;
+
+    ol {
+      display: flex;
+      gap: 4px;
+      list-style: none;
+      padding: 0;
+    }
+
+    a {
+      border-radius: var(--border-radius-8);
+      color: var(--link-color);
+      font-size: var(--font-size-14);
+      padding: 4px 8px;
+      text-decoration: underline;
+      transition: var(--hover-transition);
+
+      &:hover {
+        background-color: var(--color-purple-10);
+        color: var(--text-color-primary);
+        text-decoration: none;
+      }
+    }
+  }
+
+  .exportButtons {
+    align-self: start;
+    display: flex;
+    gap: 12px;
+
+    a {
+      color: var(--color-white-100);
+    }
+  }
+
+  .error {
+    color: var(--text-color-error);
+    font-weight: var(--font-weight-semibold);
+    margin-top: 16px;
+  }
+
+  .attentionList {
+    border-top: 1px solid var(--border-color-chart);
+    margin-top: 24px;
+    padding-top: 24px;
+
+    h3 {
+      align-items: center;
+      display: flex;
+      font-size: var(--font-size-14);
+      font-weight: var(--font-weight-semibold);
+      gap: 6px;
+      margin-bottom: 8px;
+
+      svg {
+        font-size: var(--font-size-18);
+      }
+    }
+
+    &:first-of-type {
+      border-top: none;
+      margin-top: 0;
+      padding-top: 0;
+    }
+  }
+
+  .attentionIconPink {
+    color: var(--color-pink-53);
+  }
+
+  .attentionIconYellow {
+    color: var(--color-yellow-38);
+  }
+
+  .attentionIconOrange {
+    color: var(--color-orange-41);
+  }
+
+  .attentionIconGray {
+    color: var(--color-gray-49);
+  }
+}

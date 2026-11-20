@@ -1,0 +1,134 @@
+.conversationAndFlowCard {
+  display: flex;
+  flex-flow: row nowrap;
+  width: 100%;
+
+  &.flowOpen {
+    width: 100%;
+  }
+
+  :global(main .layout-main-column .layout-main-column-scrollable-area)& {
+    @media only screen and (width <= 500px) {
+      padding: 0;
+    }
+  }
+}
+
+.flowWrapper {
+  background-color: var(--background-color-bg1);
+  border: solid 4px var(--background-color-bg0);
+  border-end-end-radius: var(--border-radius-16);
+  border-start-end-radius: var(--border-radius-16);
+  box-shadow: var(--drop-shadow-flow);
+  min-width: 84px;
+  overflow: hidden;
+  position: relative;
+
+  .flowToggle {
+    inset-inline-end: 12px;
+    position: absolute;
+    top: 12px;
+    z-index: var(--z-index-6);
+  }
+
+  &.flowOpen {
+    flex: 1 1;
+    width: fit-content;
+  }
+}
+
+.stackWrapper {
+  background-color: var(--background-color-bg0);
+  border-end-start-radius: var(--border-radius-16);
+  border-start-start-radius: var(--border-radius-16);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+
+  &.chatOpen {
+    flex: 1;
+    max-width: var(--width-dialog-large);
+    min-width: var(--width-dialog-small);
+  }
+
+  header {
+    align-items: flex-start;
+    display: flex;
+    flex-flow: row wrap;
+    gap: 16px;
+    padding: 16px 12px 16px 16px;
+    place-content: flex-start space-between;
+
+    &.borderBottom {
+      border-bottom: 1px solid var(--border-color-panel);
+    }
+  }
+
+  .headerTitle {
+    display: flex;
+    flex: 1;
+    flex-direction: row;
+    gap: 12px;
+
+    &.hidden {
+      display: none;
+    }
+
+    &:global(.editing-title) + .headerButtons {
+      display: none;
+    }
+  }
+
+  .headerButtons {
+    display: flex;
+    flex: 0 1 auto;
+    flex-flow: row nowrap;
+    gap: 8px;
+
+    .divider {
+      border-inline-start: 1px solid var(--border-color-panel);
+      padding-inline-start: 8px;
+    }
+
+    /* The collapsed column is only as wide as the toggle, so the menu goes beneath it */
+    &.headerButtonsCollapsed {
+      align-items: center;
+      flex-direction: column;
+    }
+  }
+
+  .conversationMessagesScrollArea {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+  }
+
+  @media only screen and (width <= 1250px) {
+    .headerButtons {
+      justify-content: end;
+      width: 100%;
+    }
+  }
+
+  @media only screen and (width <= 500px) {
+    border-radius: var(--border-radius-0);
+  }
+}
+
+.footerWrapper {
+  border-top: 1px solid var(--border-color-panel);
+}
+
+.readOnlyFooter {
+  background-color: var(--background-color-bg1);
+  border-radius: var(--border-radius-12);
+  color: var(--text-color-secondary);
+  display: flex;
+  justify-content: center;
+  margin: 8px;
+  padding: 8px;
+}
+
+.hidden {
+  display: none;
+}

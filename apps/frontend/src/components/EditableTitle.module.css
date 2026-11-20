@@ -1,0 +1,181 @@
+.titleIcon {
+  flex: 0 0 var(--icon-size-32);
+  font-size: var(--icon-size-32);
+  height: var(--icon-size-32);
+}
+
+.editTitleContainer {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+
+.editInputWrapper {
+  align-items: center;
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: row;
+  gap: 12px;
+  margin: -4px 0 0;
+  width: 100%;
+
+  .editInput {
+    flex: 1;
+
+    input {
+      font: var(--font-18-regular);
+    }
+
+    :global(input) {
+      color: var(--text-color-primary);
+      font: var(--font-18-regular);
+      line-height: 1.2;
+    }
+  }
+}
+
+.hgroup {
+  cursor: text;
+  display: flex;
+  flex: 1;
+  flex-flow: column nowrap;
+  gap: 4px;
+  padding: 1px 0 0;
+  z-index: var(--z-index-1);
+
+  h2,
+  h3 {
+    color: var(--text-color-primary);
+    flex: 1;
+    font: var(--font-18-semibold);
+    margin: 0;
+    position: relative;
+
+    .editIndicator {
+      align-self: start;
+      margin-block-start: -2px;
+      transition: opacity 150ms var(--easing-function);
+    }
+  }
+
+  h3 {
+    font: var(--font-12-semibold);
+  }
+
+  .metaWrapper {
+    opacity: 1;
+    transition: opacity 0.2s ease;
+  }
+
+  &:not(.readOnly) {
+    h2 {
+      display: flex;
+      gap: 12px;
+    }
+
+    h2:hover,
+    h3:hover {
+      .editIndicator {
+        opacity: 0;
+      }
+
+      &::before {
+        background-color: var(--background-color-input-enabled);
+        border: solid 1px var(--border-color-input-enabled);
+        border-radius: var(--border-radius-8);
+        content: '';
+        inset-block: -8px;
+        inset-inline: -12px;
+        position: absolute;
+        z-index: var(--z-index-min);
+      }
+
+      &::after {
+        animation-delay: 300ms;
+        animation-duration: 300ms;
+        animation-fill-mode: forwards;
+        animation-name: slide-down-and-fade;
+        animation-timing-function: var(--easing-function);
+        background-color: var(--color-black-21);
+        border-radius: var(--border-radius-8);
+
+        /* font size of parent + parent padding + tooltip padding + animation destination */
+        bottom: calc((1em + 26px) * -1);
+        box-shadow: var(--drop-shadow);
+        color: var(--color-white-100);
+        content: attr(data-tooltip);
+        font: var(--font-12-regular);
+        inset-inline-start: 0;
+        line-height: 1;
+        opacity: 0;
+        padding: 8px;
+        position: absolute;
+        text-decoration: none;
+        user-select: none;
+        will-change: transform, opacity;
+        z-index: var(--z-index-max);
+      }
+
+      + .metaWrapper {
+        opacity: 0;
+      }
+    }
+  }
+}
+
+.editableTitleWrapper {
+  align-items: start;
+  display: flex;
+  flex: 1;
+  flex-flow: row nowrap;
+  gap: 12px;
+
+  &.editingTitle {
+    .titleIcon {
+      display: none;
+    }
+
+    .hgroup .metaWrapper {
+      opacity: 0;
+    }
+
+    &.small .hgroup .metaWrapper {
+      display: none;
+    }
+  }
+
+  &.small .editInputWrapper {
+    margin: 0;
+
+    .editInput {
+      input {
+        font: var(--font-12-regular);
+      }
+
+      :global(input) {
+        color: var(--text-color-primary);
+        font: var(--font-12-regular);
+      }
+    }
+  }
+}
+
+.editActions {
+  display: flex;
+  flex: 0 0 auto;
+  flex-flow: row nowrap;
+  gap: 4px;
+}
+
+@keyframes slide-down-and-fade {
+  from {
+    opacity: 0;
+    transform: translateY(-2px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

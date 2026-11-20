@@ -1,0 +1,41 @@
+.content {
+  overflow: auto;
+  width: 100%;
+
+  dl {
+    font: var(--font-12-regular);
+    padding: 0 16px 16px;
+
+    > div {
+      align-items: center;
+      border-bottom: 1px solid var(--border-color-panel);
+      display: flex;
+      flex-flow: row nowrap;
+      gap: 4px;
+      padding: 12px 0;
+
+      &:last-of-type {
+        border-bottom: 0;
+      }
+    }
+
+    dt {
+      font: var(--font-12-semibold);
+
+      &::after {
+        content: ':';
+      }
+    }
+
+    dd {
+      align-items: center;
+      display: flex;
+      flex-flow: row nowrap;
+      gap: 8px;
+
+      svg {
+        font-size: var(--icon-size-20);
+      }
+    }
+  }
+}

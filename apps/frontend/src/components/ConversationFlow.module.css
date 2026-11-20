@@ -1,0 +1,78 @@
+.wrapper {
+  flex: 1;
+  height: 100%;
+  width: 100%;
+
+  .flowBackground {
+    background-color: var(--background-color-bg1);
+
+    .flowBackgroundPattern {
+      fill: var(--background-color-dots);
+    }
+  }
+
+  :global(.react-flow__edge.selectable),
+  :global(.react-flow__edge-path),
+  :global(.react-flow__edge-path.selectable),
+  :global(.react-flow__handle),
+  :global(.react-flow__node-group),
+  :global(.react-flow__node-group.selectable),
+  :global(.react-flow__node-group.selectable.selected) {
+    cursor: default;
+    pointer-events: none;
+
+    &:hover {
+      cursor: default;
+    }
+  }
+
+  :global(.react-flow__edge-path),
+  :global(.react-flow__edge-path.selectable) {
+    stroke: var(--flow-edges-handles-color);
+    stroke-width: 2px;
+  }
+
+  /* Edges mount once their nodes are measured; fading them in avoids a pop, and existing edges don't replay it */
+  :global(.react-flow__edge) {
+    animation: edge-fade-in 150ms ease-out;
+  }
+
+  :global(.react-flow__handle) {
+    background-color: var(--flow-edges-handles-color);
+  }
+
+  :global(.react-flow__viewport) {
+    will-change: transform;
+  }
+
+  :global(.react-flow__node-group),
+  :global(.react-flow__node-group.selected),
+  :global(.react-flow__node-group.selectable),
+  :global(.react-flow__node-group.selectable.selected) {
+    background-color: var(--background-color-cover);
+    border: 0;
+    border-color: transparent;
+    border-radius: var(--border-radius-16);
+    box-shadow: none;
+
+    &:hover {
+      box-shadow: none;
+    }
+  }
+}
+
+@keyframes edge-fade-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wrapper :global(.react-flow__edge) {
+    animation: none;
+  }
+}

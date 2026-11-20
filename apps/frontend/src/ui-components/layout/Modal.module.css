@@ -1,0 +1,178 @@
+.dialogOverlay {
+  animation: overlay-show 150ms var(--easing-function);
+  backdrop-filter: blur(2px);
+  background-color: var(--background-color-cover);
+  inset-block: 0;
+  inset-inline: 0;
+  position: fixed;
+  z-index: var(--z-index-7); /* the same as the content, so a modal opened over another is stacked above it, overlay and all */
+}
+
+.dialogContent {
+  animation: content-show 150ms var(--easing-function);
+  background-color: var(--background-color-dialog);
+  border-radius: var(--border-radius-24);
+  box-shadow: var(--drop-shadow);
+  display: flex;
+  flex-flow: column nowrap;
+  inset-inline: 0;
+  margin-inline: auto;
+  max-height: 85vh;
+  overflow: hidden;
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 90vw;
+  z-index: var(--z-index-7);
+
+  .dialogTitle {
+    align-items: start;
+    border-bottom: 1px solid var(--border-color-panel);
+    display: flex;
+    flex: 1 0 auto;
+    gap: 24px;
+    justify-content: space-between;
+    padding: 12px 8px 16px;
+
+    > h2 {
+      -webkit-box-orient: vertical;
+      color: var(--text-color-primary);
+      display: -webkit-box; /* stylelint-disable-line */
+      flex: 1;
+      -webkit-line-clamp: 2;
+      overflow: hidden;
+      padding: 8px 16px 0;
+      text-overflow: ellipsis;
+
+      small {
+        align-items: center;
+        display: flex;
+        flex-direction: row;
+        font: var(--font-12-regular);
+        gap: 4px;
+        padding: 8px 0 0;
+        width: 100%;
+
+        svg {
+          font-size: var(--icon-size-24);
+        }
+
+        > span,
+        > strong {
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
+      }
+    }
+
+    button {
+      flex: 0;
+    }
+  }
+
+  .dialogBody {
+    display: flex;
+    flex-flow: row nowrap;
+    max-height: 75vh;
+    overflow: auto;
+    overscroll-behavior: contain;
+
+    p a {
+      color: var(--link-color);
+    }
+
+    &.alert {
+      flex-direction: column;
+      padding: 24px;
+
+      p {
+        font: var(--font-12-regular);
+        margin: 0 0 8px;
+      }
+    }
+  }
+
+  .detailsRow {
+    align-items: center;
+    border-bottom: 1px solid var(--border-color-panel);
+    display: flex;
+    flex-flow: row nowrap;
+    padding: 16px 24px;
+  }
+
+  .dialogActions {
+    border-top: 1px solid var(--border-color-panel);
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+    justify-content: end;
+    padding: 16px;
+  }
+
+  &.sizeSmall {
+    max-width: var(--width-dialog-small);
+
+    .dialogTitle {
+      h2 {
+        font: var(--font-14-semibold);
+      }
+    }
+  }
+
+  &.sizeMedium {
+    max-width: var(--width-dialog-medium);
+
+    .dialogTitle {
+      h2 {
+        font: var(--font-18-semibold);
+      }
+    }
+  }
+
+  &.sizeLarge {
+    max-width: var(--width-dialog-large);
+
+    .dialogTitle {
+      h2 {
+        font: var(--font-24-semibold);
+      }
+    }
+  }
+
+  &.sizeXlarge {
+    max-width: var(--width-dialog-xlarge);
+
+    .dialogTitle {
+      h2 {
+        font: var(--font-24-semibold);
+      }
+    }
+  }
+
+  &:focus {
+    outline: none;
+  }
+}
+
+@keyframes overlay-show {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes content-show {
+  from {
+    opacity: 0;
+    transform: translateY(-48%) scale(0.96);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(-50%) scale(1);
+  }
+}

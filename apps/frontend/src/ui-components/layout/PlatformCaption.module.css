@@ -1,0 +1,9 @@
+.platformCaption {
+  align-items: center;
+  display: flex;
+  gap: 3px;
+
+  svg {
+    font-size: var(--icon-size-font-relative-large);
+  }
+}

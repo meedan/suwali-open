@@ -1,0 +1,26 @@
+.sortable {
+
+  /* 32px small icon button plus the gap before it; reserved even while unsorted so columns don't shift */
+  --sort-button-space: 36px;
+}
+
+.sortButton {
+  display: inline;
+  margin-block-end: -8px;
+  margin-inline-start: 4px;
+  vertical-align: bottom;
+}
+
+/* Stays focusable while hidden, so keyboard users can reach it */
+.unsorted .sortButton {
+  opacity: 0;
+}
+
+.unsorted:hover .sortButton,
+.unsorted:focus-within .sortButton {
+  opacity: 1;
+}
+
+.unsorted:hover .sortButton:hover {
+  opacity: .6;
+}

@@ -1,0 +1,100 @@
+/* Cascade layer order for the whole app, read top to bottom: reset globals lose to base globals,
+   which lose to vendor (third-party) styles, which lose to shared ui-components, which lose to
+   feature/page styles — including vendor stylesheets, which aren't imported here but from a
+   per-component wrapper file (e.g. styles/vendor-mdxeditor.css), since a component's own
+   :global(...) overrides need to reliably beat that vendor's defaults. The two `components.*` names
+   must match scripts/postcss-layer-css-modules.js, which wraps every compiled CSS Module in one of
+   them based on its file path.
+   The order is actually fixed by the inline `@layer ...;` statement in index.html’s head, not by this
+   file: `vite build` does not keep this file's own <link> first in the built <head> — it can land
+   after CSS-Module `<link>` tags that Vite injects for eagerly-imported components, which would
+   register `components.*` before this file gets a chance to register `reset`/`base`/`vendor`,
+   inverting the whole precedence order. An inline style element in the document head is not subject to
+   that reordering, so it — not this file's load position — is the actual source of truth for order.
+   This statement is left here too, for readability, but Vite's @import bundling silently drops a
+   bare `@layer name-list;` statement from the shipped build (confirmed by inspecting build output),
+   so it has no effect in production; keep it in sync with index.html and the four blocks below if
+   this list ever changes. */
+@layer reset, base, vendor, components.shared, components.feature;
+
+@import url("styles/reset.css") layer(reset);
+@import url("styles/variables.css") layer(base);
+@import url("styles/layouts.css") layer(base);
+@import url("styles/forms.css") layer(base);
+
+@layer vendor {
+  :where(:root) { --layer-order-anchor: 0; }
+}
+
+@layer components.shared {
+  :where(:root) { --layer-order-anchor: 1; }
+}
+
+@layer components.feature {
+  :where(:root) { --layer-order-anchor: 2; }
+}
+
+@layer base {
+  html,
+  body {
+    background-color: var(--background-color-bg1);
+    height: 100dvh;
+    margin: 0;
+    overflow: hidden;
+  }
+
+  body {
+    color: var(--text-color-primary);
+    font-size: var(--font-size-12);
+    min-height: 100vh;
+    min-height: 100dvh;
+    min-width: var(--width-dialog-small);
+    overscroll-behavior-y: none; /* prevent pull-to-refresh for Chrome 63+ */
+    place-items: center;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: underline;
+
+    &:hover {
+      text-decoration: none;
+    }
+  }
+
+  .suwali-icon {
+    box-sizing: content-box;
+    display: inline-block;
+    fill: currentcolor;
+    flex-shrink: 0;
+    height: 1em;
+    line-height: 1;
+    overflow: visible;
+    padding: 0;
+    width: 1em;
+  }
+
+  /* Mirrors a directional icon (e.g. a forward/back chevron) for RTL locales */
+  [dir="rtl"] .icon-flip-rtl {
+    transform: scaleX(-1);
+  }
+
+  /* prevent pull-to-refresh for Safari 16+ */
+  @media screen and (pointer: coarse) {
+    @supports (-webkit-backdrop-filter: blur(1px)) and (overscroll-behavior-y: none)  {
+      html {
+        min-height: 100%;
+        overscroll-behavior-y: none;
+      }
+    }
+  }
+
+  @media only screen and (width <= 500px) {
+    div.no-mobile-access,
+    button.no-mobile-access,
+    footer.no-mobile-access,
+    .no-mobile-access.suwali-icon {
+      display: none;
+    }
+  }
+}

@@ -1,0 +1,15 @@
+.scenarioPickerHeader {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: space-between;
+}
+
+.scenarioShortcuts {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  font: var(--font-12-regular);
+  gap: 8px;
+}

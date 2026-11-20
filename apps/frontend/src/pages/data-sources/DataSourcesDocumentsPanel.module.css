@@ -1,0 +1,299 @@
+.tableWrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+  .tableHeader {
+    display: flex;
+    flex: 0 0 66px;
+    flex-flow: row wrap;
+    gap: 8px 24px;
+    padding: 0 16px 16px;
+    place-content: start space-between;
+
+    .tableHeaderTitle {
+      flex-basis: 50%;
+    }
+
+    .tableHeaderButtons {
+      display: flex;
+      flex-flow: row nowrap;
+      gap: 16px;
+
+      > button {
+        align-self: start;
+      }
+    }
+
+    :global(.editing-title) + .tableHeaderButtons {
+      display: none;
+    }
+  }
+
+  @media only screen and (width <= 850px) {
+    .tableHeader .tableHeaderButtons {
+      flex-wrap: wrap;
+      margin: 0;
+     }
+  }
+
+  @media only screen and (width <= 500px) {
+    .tableHeader {
+      padding: 8px;
+    }
+  }
+
+  thead th {
+    &.topicsHeader {
+      width: 10ch;
+    }
+
+    &.tableHeaderUsernameColumn {
+      width: calc(14ch + var(--sort-button-space, 0px));
+    }
+
+    &.tableHeaderPlatformColumn {
+      width: 12ch;
+    }
+
+    @media only screen and (width <= 850px) {
+      &.tableHeaderUsernameColumn {
+        width: calc(10ch + var(--sort-button-space, 0px));
+      }
+    }
+  }
+
+  tbody tr {
+    td {
+      &.rowPreview {
+        cursor: pointer;
+      }
+
+      &.titleComfortable {
+        font-size: var(--font-size-14);
+        font-weight: var(--font-weight-semibold);
+        line-height: var(--line-height-20);
+      }
+
+      &.rowUsername {
+        cursor: pointer;
+
+        span {
+          align-items: center;
+          display: flex;
+          gap: 3px;
+        }
+
+        span svg {
+          font-size: var(--icon-size-18);
+        }
+
+        span span {
+          display: block;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
+
+        @media only screen and (width <= 850px) {
+          span svg {
+            display: none;
+          }
+        }
+      }
+    }
+
+    &.rowPaused {
+      color: var(--text-color-secondary);
+      font-style: italic;
+    }
+
+    /* In comfortable density an item is two rows; the divider goes under the pair and they highlight together */
+    &.hasTopicsRow {
+      box-shadow: unset;
+    }
+
+    /* In comfortable density the topics row below supplies the space under the cells */
+    &.rowComfortable {
+      td {
+        padding-block-end: 0;
+      }
+
+      .dateCell,
+      .rowUsername {
+        font-size: var(--font-size-14);
+        line-height: var(--line-height-20);
+      }
+    }
+
+    /* Paused items drop the bold title; the title component resets font-style, so italics are restored on it */
+    &.rowPaused td.titleComfortable {
+      font-weight: var(--font-weight-regular);
+
+      .titlePaused {
+        font-style: italic;
+      }
+    }
+
+    &.rowCompact td {
+      height: auto;
+      padding-block: 6px;
+    }
+
+    &.topicsRow td {
+      height: auto;
+      padding-block: 8px 16px;
+    }
+
+    &.hasTopicsRow:hover + .topicsRow,
+    &.hasTopicsRow:has(+ .topicsRow:hover) {
+      background-color: var(--button-background-color);
+    }
+
+    &.hasTopicsRow:has(+ .topicsRow:hover) .quickActions {
+      visibility: visible;
+    }
+
+    .errorReason {
+      display: block;
+      font-style: italic;
+      margin-inline-start: 18px;
+      padding-top: 6px;
+    }
+
+    &.noDocuments {
+      box-shadow: unset;
+
+      td {
+        height: auto;
+        padding: 24px;
+      }
+    }
+
+    &:hover:not(.rowUnsupported) {
+      background-color: var(--button-background-color);
+    }
+
+    &:hover {
+      &.noDocuments {
+        background-color: inherit;
+      }
+    }
+  }
+
+  tfoot.scrollObserver {
+    td {
+      padding: 24px;
+
+      p {
+        display: block;
+        padding: 1rem;
+        text-align: center;
+      }
+    }
+  }
+}
+
+.noTopics {
+  border-radius: var(--border-radius-4);
+  color: var(--text-color-secondary);
+  cursor: pointer;
+  font-style: italic;
+  padding-block: 2px;
+  padding-inline: 6px;
+
+  &:focus-visible,
+  &:hover {
+    text-decoration: underline;
+  }
+
+  &.noTopicsActive {
+    background-color: var(--list-item-active-background-color);
+    color: var(--link-color);
+  }
+}
+
+.topicsPopover {
+  max-width: min(360px, calc(100vw - 32px));
+  padding: 12px;
+}
+
+tbody.subBody {
+  > tr > td {
+    padding: 0;
+  }
+
+  /* No separator under the last section when the main tbody after it has no rows */
+  &:has(+ tbody:empty) > tr {
+    box-shadow: unset;
+  }
+
+  table {
+    border: 0;
+    border-radius: var(--border-radius-0);
+
+    th {
+      padding-block: 0;
+    }
+
+    td {
+      cursor: initial;
+    }
+
+    thead {
+      --sort-button-space: 36px;
+
+      height: 0;
+      visibility: hidden;
+    }
+
+    tr:last-of-type {
+      box-shadow: unset;
+    }
+
+    tbody tr :global(.table-priority-cell) + td {
+      padding-inline-start: 0;
+    }
+  }
+
+  details {
+    summary {
+      cursor: pointer;
+      font: var(--font-12-semibold);
+      list-style-position: outside;
+      margin-inline-start: 30px;
+      padding-block: 16px;
+      padding-inline: 38px 8px;
+
+      &::marker {
+        content: "▶";
+        font-size: var(--font-size-14);
+      }
+    }
+
+    &[open] {
+      background-color: var(--button-background-color);
+      padding: 0 8px 8px;
+
+      summary {
+        margin-inline-start: 22px;
+
+        &::marker {
+          content: "▼";
+        }
+      }
+    }
+  }
+
+  [dir="rtl"] & {
+    details {
+      summary::marker {
+        content: "◀";
+      }
+
+      &[open] summary::marker {
+        content: "▼";
+      }
+    }
+  }
+}

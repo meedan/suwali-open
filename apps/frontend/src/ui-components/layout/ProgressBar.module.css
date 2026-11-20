@@ -1,0 +1,32 @@
+.progressBar {
+  align-items: center;
+  display: flex;
+  flex-flow: row wrap;
+  gap: 4px;
+  min-width: 150px;
+
+  label {
+    color: var(--text-color-primary);
+    font: var(--font-12-semibold);
+  }
+
+  progress {
+    appearance: none;
+    background-color: var(--color-orange-10);
+    border: none;
+    flex: 1;
+    height: 4px;
+
+    &::-webkit-progress-bar {
+      background-color: var(--color-orange-10);
+    }
+
+    &::-webkit-progress-value {
+      background-color: var(--color-orange-59);
+    }
+
+    &::-moz-progress-bar {
+      background-color: var(--color-orange-59);
+    }
+  }
+}

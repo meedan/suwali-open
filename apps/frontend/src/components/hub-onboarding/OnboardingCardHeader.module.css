@@ -1,0 +1,77 @@
+.onboardingCardHeader {
+  align-items: center;
+  background-color: var(--background-color-bg0);
+  border-radius: var(--border-radius-12);
+  display: flex;
+  flex-flow: row wrap;
+  gap: 16px;
+  padding: 16px;
+  position: relative;
+
+  .hubCard {
+    align-items: center;
+    background: var(--background-color-bg1);
+    border-radius: var(--border-radius-8);
+    display: flex;
+    flex: 0 0 150px;
+    flex-direction: column;
+    gap: 8px;
+    justify-content: space-between;
+    padding: 12px;
+    width: 123px;
+  }
+
+  .hubName {
+    color: var(--text-color-primary);
+    font: var(--font-14-semibold);
+    text-align: center;
+  }
+
+  .hubImage {
+    border: 2px solid var(--border-color-panel);
+    border-radius: var(--border-radius-circle);
+    flex: 0 0 75px;
+    height: 75px;
+    overflow: hidden;
+    width: 75px;
+
+    img {
+      height: 100%;
+      object-fit: cover;
+      width: 100%;
+    }
+  }
+
+  hgroup {
+    display: flex;
+    flex: 1;
+    flex-flow: column nowrap;
+    gap: 8px;
+    text-align: start;
+
+    h1,
+    h2 {
+      text-align: start;
+    }
+
+    h1 {
+      font: var(--font-24-regular);
+    }
+
+    h2 {
+      font: var(--font-18-regular);
+    }
+
+    a {
+      color: var(--link-color);
+    }
+  }
+
+  p {
+    font: var(--font-14-regular);
+
+    a {
+      font-weight: var(--font-weight-semibold);
+    }
+  }
+}

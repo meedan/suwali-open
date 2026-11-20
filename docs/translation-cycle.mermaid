@@ -1,0 +1,16 @@
+graph TD
+  A[Push / Manual Trigger] --> B[GitHub Action]
+
+  B --> C[Checkout repo]
+
+  C --> D[Upload sources to Crowdin]
+
+  D --> E[Crowdin translation happens asynchronously]
+
+  E --> F[Download available translations]
+
+  F --> G[Update l10n branch]
+
+  G --> H[Create PR to main]
+
+  H --> I[Human review]

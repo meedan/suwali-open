@@ -1,0 +1,343 @@
+fieldset,
+.form-sections {
+  border: 0;
+  display: flex;
+  flex-flow: column nowrap;
+  gap: 16px;
+  padding: 0 1px;
+}
+
+.form-sections section,
+.base-input-wrapper {
+  .base-label {
+    color: var(--text-color-primary);
+    flex: 1;
+    font: var(--font-12-semibold);
+  }
+
+  .base-label-context {
+    color: var(--text-color-primary);
+  }
+}
+
+.form-sections section {
+  .base-label {
+    min-height: 48px;
+    padding: 12px 0;
+  }
+}
+
+.base-input-wrapper {
+  .base-input {
+    background-color: var(--background-color-input-enabled);
+    border: solid 1px var(--border-color-input-enabled);
+    border-radius: var(--border-radius-8);
+    color: var(--text-color-primary);
+    font: var(--font-12-regular);
+    padding: 8px 12px;
+    transition: var(--hover-transition);
+    width: 100%;
+
+    &:placeholder-shown:disabled,
+    &:has(input:placeholder-shown:disabled) {
+      background-color: var(--background-color-input-disabled);
+      border-color: var(--border-color-input-disabled);
+    }
+
+    &:user-invalid,
+    &:has(input:user-invalid) {
+      border-color: var(--border-color-error);
+    }
+
+    &:focus-within {
+      background-color: var(--background-color-input-enabled);
+      border-color: var(--color-purple-67);
+      /* stylelint-disable-next-line scale-unlimited/declaration-strict-value */
+      box-shadow: 0 0 0 1px var(--color-purple-67);
+      outline: none;
+    }
+
+    &:hover:not(:disabled, :has(input:disabled)) {
+      border-color: var(--color-purple-67);
+    }
+
+    &:user-valid,
+    &:has(input:user-valid) {
+      background-color: var(--background-color-input-enabled);
+      border-color: var(--color-purple-67);
+    }
+  }
+
+  .base-input-row {
+    align-items: center;
+    display: flex;
+    gap: .5ch;
+    padding: 0;
+
+    input {
+      background: none;
+      border: none;
+      flex: 1;
+      font: inherit;
+      min-width: 0;
+      padding-block: 9px;
+      padding-inline: 12px;
+
+      &:focus {
+        outline: none;
+      }
+    }
+  }
+
+  .base-input-prefix {
+    color: var(--text-color-secondary);
+    flex: 0 0 auto;
+    padding-inline-start: 12px;
+    white-space: nowrap;
+  }
+
+  textarea.base-input {
+    resize: none;
+  }
+
+  input[type="radio"] {
+    accent-color: var(--color-purple-67);
+    background-color: transparent;
+    color: var(--color-purple-67);
+    height: 1.25em;
+    margin: 4px;
+    outline: none;
+    padding: 0;
+    transition: outline 0.1s;
+    vertical-align: middle;
+    width: 1.25em;
+
+    &:not(:disabled):checked {
+      background-color: var(--color-purple-67);
+      border-color: var(--color-purple-67);
+      color: var(--color-white-100);
+    }
+
+    &:disabled {
+      background-color: var(--background-color-input-disabled);
+      border-color: var(--border-color-input-disabled);
+    }
+
+    &:disabled:checked {
+      background-color: var(--background-color-input-disabled);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--color-purple-67);
+      transform: scale(1.05);
+    }
+  }
+
+  input[type="checkbox"] {
+    appearance: none;
+    background-color: transparent;
+    border: 2px solid var(--border-color-input-enabled);
+    border-radius: var(--border-radius-2);
+    box-sizing: border-box;
+    height: 1.25em;
+    margin: 4px;
+    outline: none;
+    padding: 0;
+    transition: outline 0.1s;
+    vertical-align: middle;
+    width: 1.25em;
+
+    &:checked {
+      background-size: cover;
+      padding: 2px;
+    }
+
+    &:not(:disabled):checked {
+      background-color: var(--color-purple-67);
+      background-image: url('data:image/svg+xml;utf8,<svg width="9" height="7" viewBox="0 0 9 7" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0 3.69043L1.00195 2.67676L3.07617 4.70996L7.55273 0.262695L8.56641 1.27051L3.07617 6.7373L0 3.69043Z" fill="white"/></svg>');
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: contain;
+      border-color: var(--color-purple-67);
+      color: var(--color-white-100);
+    }
+
+    &:disabled {
+      background-color: var(--background-color-input-disabled);
+      border-color: var(--border-color-input-disabled);
+    }
+
+    &:disabled:checked {
+      background-color: var(--background-color-input-disabled);
+      background-image: url('data:image/svg+xml;utf8,<svg width="9" height="7" viewBox="0 0 9 7" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0 3.69043L1.00195 2.67676L3.07617 4.70996L7.55273 0.262695L8.56641 1.27051L3.07617 6.7373L0 3.69043Z" fill="rgb(128,128,128)"/></svg>');
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: contain;
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--color-purple-67);
+      transform: scale(1.05);
+    }
+  }
+
+  .base-help-container,
+  .base-error-container {
+    color: var(--text-color-primary);
+    display: flex;
+    font: var(--font-12-regular);
+    gap: 4px;
+    padding: 8px 4px 0;
+
+    ul {
+      line-height: 1.25rem;
+      margin: .25rem 1rem 0;
+    }
+  }
+
+  .base-error-container {
+    color: var(--text-color-error);
+
+    .suwali-icon {
+      font-size: var(--icon-size-18);
+      margin: -1px 0 0;
+    }
+  }
+
+  &.disabled {
+    label {
+      color: var(--text-color-secondary);
+    }
+
+    .base-input {
+      color: var(--text-color-secondary);
+    }
+  }
+
+  /* .label-errors marks the label alone, for a field made of several inputs where only one of them is wrong */
+  &.errors,
+  &.label-errors,
+  &:has(input:required:user-invalid) {
+    label {
+      &::after {
+        color: var(--text-color-error);
+        content: " *";
+        font-weight: var(--font-weight-semibold);
+        vertical-align: text-top;
+      }
+    }
+  }
+
+  &.errors,
+  &:has(input:required:user-invalid) {
+    .base-input {
+      border-color: var(--border-color-error);
+
+      /* A text input is a row that holds the input, so it is the row that has the focus within it, and its ring has to be the error one too */
+      &:focus,
+      &:focus-within {
+        /* stylelint-disable-next-line scale-unlimited/declaration-strict-value */
+        box-shadow: 0 0 0 1px var(--border-color-error);
+      }
+    }
+  }
+
+  &:has(input:user-valid):not(.label-errors) {
+    label {
+      &::after {
+        display: none;
+      }
+    }
+  }
+}
+
+.check-wrapper {
+  display: flex;
+  flex: 0 0 auto;
+  gap: 3px;
+
+  input {
+    flex: 0 0 auto;
+  }
+
+  label {
+    div {
+      display: grid;
+      gap: 1em;
+      grid-template-columns: 1em auto;
+
+      span {
+        margin: 3px 0 0;
+      }
+    }
+
+    .base-help-container span {
+      margin: 0;
+    }
+  }
+
+  &.size-large {
+    label {
+      font: var(--font-14-semibold);
+
+      div span {
+        margin: 2px 0 0;
+      }
+
+      .base-help-container {
+        span {
+          margin: 0;
+        }
+      }
+    }
+  }
+
+  &.theme-mode {
+    input[type="checkbox"],
+    input[type="radio"] {
+      accent-color: var(--text-color-secondary);
+      color: var(--text-color-secondary);
+
+      &:not(:disabled):checked {
+        background-color: var(--text-color-secondary);
+      }
+
+      &:focus-visible {
+        outline: 2px solid var(--text-color-secondary);
+      }
+    }
+
+    input[type="checkbox"] {
+      border-color: var(--border-color-chart);
+
+      &:not(:disabled):checked {
+        background-image: url('data:image/svg+xml;utf8,<svg width="9" height="7" viewBox="0 0 9 7" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0 3.69043L1.00195 2.67676L3.07617 4.70996L7.55273 0.262695L8.56641 1.27051L3.07617 6.7373L0 3.69043Z" fill="%231E1E1E" /></svg>');
+      }
+    }
+  }
+}
+
+.errors-container {
+  background-color: var(--color-pink-85);
+  border: solid 1px var(--color-negative);
+  border-radius: var(--border-radius-4);
+  color: var(--color-black-12);
+  display: flex;
+  flex-flow: column nowrap;
+  font: var(--font-12-regular);
+  gap: 4px;
+  margin: 8px 0 0;
+  padding: 8px;
+
+  h3 {
+    font: var(--font-12-semibold);
+  }
+
+  ul {
+    padding-inline-start: 2em;
+
+    li {
+      padding: 0 0 4px;
+    }
+  }
+}

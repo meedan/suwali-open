@@ -1,0 +1,117 @@
+source "https://rubygems.org"
+
+ruby "3.3.10"
+
+# Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
+gem "rails", "~> 7.1.5", ">= 7.1.5.1"
+
+# Default locale data (to_sentence connectors, pluralization rules, validation messages)
+gem "rails-i18n", "~> 7.0"
+
+# Use postgresql as the database for Active Record
+gem "pg", "~> 1.1"
+gem "neighbor"  # Rails integration for pgvector
+
+# Use the Puma web server [https://github.com/puma/puma]
+gem "puma", ">= 5.0"
+
+# Use Sinatra for Sidekiq health check
+gem "sinatra"
+
+# Build JSON APIs with ease [https://github.com/rails/jbuilder]
+# gem "jbuilder"
+
+# Use Redis adapter for Rack::Attack and caching
+gem "redis", ">= 4.0.1"
+
+# Pin connection_pool to 2.x for Rails 7.1 compatibility
+gem "connection_pool", "< 3.0"
+
+# Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
+# gem "kredis"
+
+# Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
+# gem "bcrypt", "~> 3.1.7"
+
+# Windows does not include zoneinfo files, so bundle the tzinfo-data gem
+gem "tzinfo-data", platforms: %i[windows jruby]
+
+# Reduces boot times through caching; required in config/boot.rb
+gem "bootsnap", require: false
+
+# Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
+# gem "image_processing", "~> 1.2"
+
+# Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin Ajax possible
+# gem "rack-cors"
+
+# Authentication
+gem "devise"
+gem "devise-jwt"
+gem "rack-cors"
+
+# Rate limiting
+gem "rack-attack"
+
+# Background jobs
+gem "sidekiq"
+gem "sidekiq-cron"
+
+# Sources
+gem "aws-sdk-s3"
+
+# CloudWatch metrics
+gem "aws-sdk-cloudwatch"
+
+# Website ingestor
+gem "httparty"
+gem "nokogiri"
+
+# Google Drive Folder ingestor
+gem "googleauth"
+gem "google-apis-drive_v3"
+
+# RSS Feed ingestor
+gem "feedjira"
+
+# Swagger
+gem "rswag-ui"
+gem "rswag-api"
+
+# Pagination
+gem "kaminari"
+
+# Sentry.io
+gem "stackprof"
+gem "sentry-ruby"
+gem "sentry-rails"
+gem "sentry-sidekiq"
+
+group :development, :test do
+  # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
+  gem "debug", platforms: %i[mri windows]
+  gem "rspec"
+  gem "rspec-rails"
+  gem "factory_bot_rails"
+  gem "faker"
+  gem "bullet"
+  gem "brakeman"
+
+  gem "rswag-specs"
+end
+
+group :development do
+  # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
+  gem "spring"
+  gem "standard"
+end
+
+group :test do
+  gem "simplecov", require: false
+  gem "shoulda-matchers"
+  gem "webmock"
+  gem "rspec-sqlimit"
+  gem "database_cleaner-active_record"
+end
+
+gem "ruby_llm", "~> 1.15"

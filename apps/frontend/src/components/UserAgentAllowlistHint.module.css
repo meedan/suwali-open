@@ -1,0 +1,6 @@
+.userAgent {
+  align-items: center;
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}

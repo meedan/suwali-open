@@ -1,0 +1,4 @@
+/* Demotes @mdxeditor/editor's own styles into the vendor layer, below our own component layers,
+   so MarkdownEditor.module.css's :global(.mdxeditor-*) overrides reliably win regardless of
+   specificity. See src/index.css for the full layer manifest. */
+@import url("@mdxeditor/editor/style.css") layer(vendor);

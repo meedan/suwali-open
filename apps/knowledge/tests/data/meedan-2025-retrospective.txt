@@ -1,0 +1,40 @@
+2025 in retrospect: Toward information equity — together
+
+In a challenging year, we found strength in partnerships. Read about what we've been up to and find out where we're headed.
+
+As we prepare for another trip around the sun, we're taking a moment to reflect on 2025, a year of dramatic change for media and civil society groups worldwide. Massive funding cuts by the Trump administration took a toll on Meedan's partners across these sectors. We also saw tech giants — emboldened by that same administration — create formidable new roadblocks for everyone working to build a more equitable internet.
+
+At Meedan, we've made changes that we know will help us tackle emerging challenges in the years ahead. We navigated a successful leadership transition and carved out a new path that will blend together our technical, research, and programmatic work so we can embrace new technological advances in the name of promoting information equity. Here's a quick recap of some of our most impactful projects and partnerships in 2025.
+Upholding our commitment to information equity — especially during elections
+
+After Meta announced plans to divest from fact-checking, a move neatly aligned with the interests of the Trump administration, we decried the decision as politics, plain and simple. We also redoubled our efforts to promote access to trustworthy information around the world — especially during elections, where access to knowledge is essential for robust participation in the democratic process. In the first half of 2025, we supported election initiatives in the Philippines and Ecuador.
+
+During the Philippine midterm elections, our partners at Tsek.ph operated a Messenger-based tipline powered by Meedan's open source tool Check to monitor mis- and disinformation targeting Filipino voters. Tsek.ph tracked false narratives surrounding the arrest of former President Rodrigo Duterte on a warrant from the International Criminal Court, producing research that helped to advance a deeper investigation of the issue by Reuters.
+
+In Ecuador, our partner Ecuador Chequea helped run live fact-checking during presidential debates. Fact-checks for 21 different statements made by the two finalist candidates reached 144,686 people on X, Facebook, and Instagram. And to help reach Indigenous Ecuadorian voters, our colleagues at Lupa Media translated fact-checks into the languages of Kichwa and Shuar. These fact-checks were distributed across multiple digital channels and 70 community radio stations, reaching an estimated 200,000 people.
+
+Throughout the year, our program team hosted a series of regional consultations on journalists' safety to prepare for providing sustained support on this issue in 2026, and the team continued to facilitate core support for newsroom partners and civil society organizations across the Larger World.
+Building a new tool
+
+This July, we announced that we had begun building a new AI-powered tool that will equip media and civil society groups to draw on their own reporting and research as they engage with their audiences through 1:1 chatbot messaging. This past November, at Mozilla Festival, aka MozFest, we gave the new tool a soft launch and debuted its name, Suwali.
+
+Suwali is intended to strengthen the knowledge networks that span local media, civil society, public health organizations, and the communities they serve. Throughout 2025, our product and program teams worked with key partners from these sectors to collect input that would help us sculpt our new tool.
+
+Under one initiative, we worked with partners in Indonesia to gather questions that would inform reporting on climate change and environmental degradation. Our colleagues at Tempo Witness, the Indigenous Peoples Alliance of the Archipelago, and member organizations from Asosiasi Media Siber Indonesia collected more than 1,000 questions from 50 Indigenous communities in remote and environmentally sensitive regions throughout the country. These questions are helping our team develop a more detailed understanding of the information needs of communities on the frontlines of the climate crisis.
+
+We conducted further fact-finding with Omgyno — a sexual and reproductive health outreach organization — to better understand current information gaps in North Africa and Western Asia. Through surveys, focus groups, and other information-gathering activities, this effort has given us key insights into how to best deliver information-based, health-related interventions.
+
+We also worked with several media partners in the U.S. — Verite News in New Orleans,  Epicenter NYC in the New York City borough of Queens, and Mississippi Today — to better understand the needs of small, independent newsrooms.
+Inquiry and AI research
+
+Throughout the year, Meedan Research Director Scott Hale played a linchpin role in producing cutting-edge research on information equity and AI alignment. One such paper delved into novel questions about relationships between humans and AI systems, arguing that human beings' innately social attributes leave us open to feeling like we are forming real and socially meaningful relationships with AI systems. The authors argue that this paradigm demands we develop thoughtful processes for matching an AI tool's value system and functioning to the long-term psychological and behavioral well-being of its human users. Another study, presented at a conference of the Association for Computational Linguistics, investigated the ways in which purveyors of misinformation regularly alter content, introduce slang, and present dialectical variants. The report also assessed how AI models perform on these modifications.
+
+In addition, Meedan's researchers partnered with teams at the Jordan Open Source Association and KICTANet, short for the Kenya Internet and Communications Technology Action Network. Together, their goal was to better understand how technology-facilitated gender-based violence manifests in Arabic, African French, and Swahili and to develop AI classifiers that can help us — and other tool builders — get ahead of the issue.
+Conferences and events
+
+From Media Party in Buenos Aires, Argentina, to MozFest in Barcelona, Spain, Meedanis lent their voices to global journalism and digital rights events around the world on the conference circuit this year. A few other highlights included RightsCon, the Skoll World Forum, the International Journalism Festival, GlobalFact, and the conference of the Association for Computational Linguistics.
+Gratitude to our supporters and our global community
+
+We continue to benefit from core support from the Swedish International Development Cooperation Agency for all of our programmatic initiatives, and we're grateful for the renewed commitment of the Patrick J. McGovern Foundation. We are also celebrating new support from Press Forward, the McNulty Foundation, the National Philanthropic Trust, and Battery Powered.
+
+In addition, we are equally thankful for our community of partners and allies around the world, especially as we navigate these unprecedented times of authoritarianism — in both government and technology. The headwinds may be harsh, but they also have us doubling down. We believe that the urgency of our work has never been greater.

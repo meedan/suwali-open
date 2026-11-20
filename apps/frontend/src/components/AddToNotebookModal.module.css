@@ -1,0 +1,37 @@
+.optionsWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  list-style: none;
+  overflow: auto;
+  padding: 16px 24px;
+  width: 100%;
+
+  li {
+    align-items: center;
+    display: flex;
+    flex-flow: row nowrap;
+    gap: 16px;
+
+    button {
+      flex: 0 0 35px;
+      visibility: hidden;
+    }
+
+    .createNotebookOption {
+      align-items: center;
+      border: 1px solid var(--border-color-panel);
+      border-radius: var(--border-radius-4);
+      display: flex;
+      gap: 4px;
+      margin: 0;
+      padding: 2px 4px 2px 2px;
+    }
+
+    &:hover {
+      button {
+        visibility: visible;
+      }
+    }
+  }
+}

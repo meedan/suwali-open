@@ -1,0 +1,29 @@
+.status {
+  align-items: flex-start;
+  display: flex;
+  font: var(--font-14-regular);
+  gap: 8px;
+  justify-content: space-between;
+  margin-top: 8px;
+  min-height: 32px;
+}
+
+.statusLabel {
+  align-items: flex-start;
+  display: flex;
+  gap: 4px;
+
+  :global(.suwali-icon) {
+    flex: none;
+    height: var(--icon-size-18);
+    width: var(--icon-size-18);
+  }
+}
+
+.quiet {
+  color: var(--color-negative);
+}
+
+.covered {
+  color: var(--color-positive);
+}

@@ -1,0 +1,19 @@
+.status {
+  align-self: center;
+  color: var(--text-color-secondary);
+  font: var(--font-14-regular);
+}
+
+.chevron {
+  align-self: center;
+}
+
+.group {
+  margin-block-start: 16px;
+}
+
+.groupHeading {
+  color: var(--text-color-secondary);
+  font: var(--font-14-regular);
+  margin: 0 0 8px;
+}

@@ -1,0 +1,18 @@
+.jumpButtons {
+  inset-inline-end: 16px;
+  position: absolute;
+  z-index: var(--z-index-2);
+}
+
+.top {
+  inset-block-start: 8px;
+}
+
+.bottom {
+  inset-block-end: 8px;
+}
+
+.jumpButton {
+  box-shadow: var(--drop-shadow);
+  margin-inline-end: 8px;
+}

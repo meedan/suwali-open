@@ -1,0 +1,164 @@
+Frequently Asked Questions about Suwali
+1. What is Suwali?
+Suwali is a conversational AI platform built specifically for nonprofits and mission-driven organizations.
+Developed by Meedan, a nonprofit that has worked with more than 70 organizations across 45 countries
+on information integrity and public information access, Suwali enables organizations to provide trusted,
+AI-powered conversations grounded in their own verified content. Unlike generic chatbot tools, Suwali is
+designed to ensure responses reflect your organization's expertise, guidance, and mission.
+2. Who is Suwali for?
+Suwali is built for publishers, civil society and mission-driven organizations that want to share trusted
+information with their audiences. It focuses specifically on journalism and media, public health, civic
+engagement, and human rights.
+3. What can Suwali help my organization do?
+Suwali helps organizations bridge the gap between static reporting and active community engagement.
+Specifically, it enables you to:
+- Expand Reach: Make trusted information available to far more people than traditional phone or
+in-person outreach can reach.
+- Increase Capacity: Handle routine questions automatically, allowing staff and volunteers to focus
+on complex cases and higher-value community support.
+- Improve Accessibility: Provide support in multiple languages without requiring additional
+multilingual staffing or technical resources.
+- Generate Actionable Insights: Understand what communities are asking in real time through
+anonymized conversation data, helping identify information gaps, emerging concerns, and
+unmet needs.
+- Deploy Quickly: Launch an AI-powered information service without requiring a dedicated
+technical team or significant infrastructure investment.
+4. How is Suwali different from other chatbots?
+
+Suwali was built specifically for public interest and mission-driven organizations:
+- A Suwali-powered chatbot draws answers exclusively from your organization’s verified data and
+reporting.
+- Suwali is equipped with guardrails and pipelines carefully designed to prevent the hallucinations
+and factual errors common in general-purpose AI models.
+- Suwali is also built to keep going — inviting people to share tips, insights, and experiences from
+their daily lives for your team to review, verify, and fold into future responses.
+5. What channels does Suwali work on (WhatsApp, SMS, Telegram)?
+
+
+Suwali is built to meet audiences on the messaging platforms they already use. We currently support
+WhatsApp and Telegram, and will add SMS support soon.
+6. What languages does Suwali speak?
+Suwali is currently available in the following languages: English, Spanish, French, Hindi, Arabic and
+Portuguese
+7. What results have other organizations seen with Suwali?
+Suwali enables organizations to extend their impact, strengthen community engagement, and ensure
+critical information reaches more people when it matters most.
+Here’s how organizations benefit from Suwali based on their focus areas:
+- Journalism: Turn audience questions into story leads. Distribute reporting at scale and learn what
+your readers actually need to know.
+- Public health: Deliver verified health updates in the languages your community speaks. Surface
+misinformation trends before they spread.
+- Civic engagement: Answer questions about elections, policy, and local governance and hear
+back what’s confusing, missing, or wrong.
+- Human rights: Help communities access safety and legal resources, then hear what's actually
+happening on the ground.
+8. How do I measure whether Suwali is working (conversations, reach, satisfaction)?
+Suwali’s dashboard is your source to access audience and community insights. It surfaces unanswered
+questions, information gaps, and emerging topics across every conversation — without compromising
+anyone's privacy.
+9. Where do Suwali’s answers come from?
+Suwali’s answers come exclusively from your organization’s own verified data, reporting, and archives.
+The system is intentionally designed so that the underlying Large Language Model (LLM) is fed chunks of
+your data and context (both conversational and document context) to draw its responses directly from
+your trusted content.
+10. How does Suwali prevent hallucinations and wrong answers?
+
+Suwali prevents hallucinations and incorrect answers by using a multi-stage pipeline that acts as a
+"layered hallway with multiple gates” that an answer must pass through. At every stage, the system uses
+classifiers and automated “judges” (LLMs) to verify whether the generated response is properly
+grounded in your organization’s source data, names the correct entities, and remains accurate.
+
+
+Additionally, if the bot attempts to assert an answer without any citation, internal adequacy heuristics will
+flag it as inadequate, bouncing the response back for retrial.
+11. What happens when Suwali does not know the answer?
+When Suwali does not know an answer because a source match is not strong enough, the multi-stage
+pipeline and its classifiers determine that the answer is not safely grounded in the provided documents.
+In these cases, the system refuses to answer rather than risk a hallucinated or incorrect response.
+12. How does Suwali protect the privacy of people who message it?
+Suwali protects user privacy by hiding and anonymizing user-identifying information (such as WhatsApp
+names or phone numbers) at the interface layer where applicable. Furthermore, the underlying
+communication data is stored securely with strict access controls and in line with Meedan's established
+privacy practices.
+See our Privacy Policy page for more details about data collection and user rights:
+https://www.suwali.io/privacy-policy/
+See our Data Processing & Privacy FAQ page for common questions about key aspects of our
+technology: https://www.suwali.io/faq-data-processing-&-privacy/
+13. Who can see the conversations?
+
+Your organization’s team can see the conversations, but user-identifying information (such as WhatsApp
+names or phone numbers) is hidden at the interface layer.
+See our Privacy Policy page for more details about data collection and user rights:
+https://www.suwali.io/privacy-policy/
+See our Data Processing & Privacy FAQ page for common questions about key aspects of our
+technology: https://www.suwali.io/faq-data-processing-&-privacy/
+14. Is conversation data used to train AI models?
+No, conversation data is not used to train AI models
+See our Data Processing & Privacy FAQ page for common questions about key aspects of our
+technology: https://www.suwali.io/faq-data-processing-&-privacy/
+15. What happens to our content and data if we leave?
+When a hub is deleted, all the data in that hub is deleted. When a user deletes their individual account
+we permanently delete personally identifiable information about the user. We retain data that the user
+created in the hub.
+See our Data Processing & Privacy FAQ page for common questions about key aspects of our
+technology: https://www.suwali.io/faq-data-processing-&-privacy/
+16. Can users send images and links to verify?
+
+
+Suwali is a text-based chatbot and does not process incoming media like screenshots, images, or
+videos. However, users can describe an image or video in writing. If their question matches your
+organization's verified content, Suwali will provide the relevant response.
+17. Can users send voice notes, and can Suwali send audio responses?
+Suwali is a text-based chatbot. It does not process incoming voice notes or generate audio responses.
+18. Will Suwali be available on Messenger and Viber?
+Suwali currently supports WhatsApp, Telegram, and SMS. If you are interested in integrating Suwali with
+other messaging platforms, please contact us at support@suwali.io.
+19. Can Suwali pull resources from my social media channels (e.g., Facebook or Instagram)?
+Not directly. But it is possible to create an RSS feed based on a social media channel’s public updates.
+Suwali supports RSS data sources and can use them to ingest content. Please contact us at
+support@suwali.io if you need assistance setting this up.
+20. Can I use feeds or content from other organizations?
+You can use feeds or content from other organizations, provided you have their explicit permission, or if
+their content is in the public domain and free to use.
+21. Can we pull data from multiple organizations for a coalition use case?
+Yes. Suwali can ingest data from sources owned and hosted by multiple organizations. A coalition is an
+excellent use case for organizations seeking to pool resources and maximize audience reach, especially
+during high-profile events such as elections.
+22. Do you provide an API?
+While the underlying API is technically available, it is currently undocumented and unsupported for
+general use. Please contact us at support@suwali.io to discuss your specific needs.
+23. Is the Suwali dashboard only available in English?
+No. The Suwali dashboard is localized into multiple languages. Editors on your team can easily update
+their language preferences in their profile settings page. Supported languages include Arabic, English,
+French, Hindi, Portuguese, and Spanish.
+24. Who is behind Suwali? What is Meedan?
+Meedan is a global technology nonprofit that builds open-source software and mobilizes knowledge
+networks to help people stay informed, exercise their rights, and participate in democracy. They focus on
+
+
+creating purpose-built tools for independent media, digital rights groups, public health organizations,
+and human rights defenders. Suwali is Meedan’s newly launched, AI-powered conversational platform.
+25. How long has Meedan worked on technology like this? Who already uses Suwali?
+Meedan built Suwali over 18 months of rigorous product design and engineering, leading up to its official
+launch. However, this is built upon a much longer legacy:
+For over a decade, Meedan's engineering team has pioneered conversational media and verification
+tech. Meedan’s flagship product, Check, supports global fact-checking collaborations, manages secure
+information tiplines (supporting 34 languages and dialects), and facilitates data exchange networks
+during critical global events such as elections and natural disasters.
+26. Who Already Uses Suwali?
+Several publishers and mission-driven organizations have already integrated Suwali and are using it to
+reach their audiences. These include:
+- Rede de Jornalistas Pretos (Brazil)
+- The Quint (India)
+- The Healthy Indian Project (India)
+- Omgyno (Lebanon)
+- Deep South Today (United States)
+- Epicenter NYC (United States)
+27. Can Suwali proactively send updates and alerts to the audience?
+Yes. While Suwali primarily responds to incoming user queries, it can also proactively send updates to
+users who have explicitly opted in.
+Here is how it works:
+- The opt-in process: After a user interacts with your chatbot and receives a response, Suwali can
+automatically prompt them to subscribe to that specific topic of interest.
+- Frequency cap: To maintain a high-quality user experience and prevent spam, automated
+updates are strictly limited to one per day per subscribed user.

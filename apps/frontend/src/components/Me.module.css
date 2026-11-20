@@ -1,0 +1,53 @@
+.userMenu,
+.userMenuLoading {
+  background-color: var(--background-color-bg1);
+  border-radius: var(--border-radius-24);
+  height: 36px;
+}
+
+.userMenuLoading {
+
+  /* exact resulting width of the loaded userMenu's avatar */
+  width: var(--icon-size-36);
+
+  &::after {
+    background-color: var(--background-color-bg0);
+    border: solid 1px var(--border-color-panel);
+    border-radius: var(--border-radius-circle);
+    content: '';
+    display: block;
+    height: var(--icon-size-36);
+    width: var(--icon-size-36);
+  }
+}
+
+.userMenu {
+  color: var(--text-color-primary);
+  cursor: pointer;
+  display: flex;
+  transition: var(--hover-transition);
+
+  .meAvatar {
+    border: solid 1px var(--border-color-panel);
+    border-radius: var(--border-radius-circle);
+    font: var(--font-12-regular);
+    height: var(--icon-size-36);
+    width: var(--icon-size-36);
+  }
+
+  &.avatarOnly {
+    background-color: var(--background-color-bg0);
+    height: var(--icon-size-42);
+    width: var(--icon-size-42);
+
+    .meAvatar {
+      height: var(--icon-size-42);
+      width: var(--icon-size-42);
+    }
+  }
+
+  &:focus,
+  &:hover {
+    opacity: .6;
+  }
+}

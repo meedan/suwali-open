@@ -1,0 +1,113 @@
+.loginTop {
+  display: flex;
+  flex-flow: column nowrap;
+  gap: 20px;
+  width: 100%;
+
+  h1 {
+    font: var(--font-24-regular);
+    text-align: center;
+  }
+
+  h2 {
+    font: var(--font-14-regular);
+    text-align: center;
+  }
+}
+
+.forgotPasswordMessage {
+  display: flex;
+  flex-flow: column nowrap;
+  gap: 24px;
+
+  p {
+    font: var(--font-14-regular);
+  }
+
+  div {
+    font: var(--font-18-semibold);
+  }
+
+  a {
+    color: var(--text-color-primary);
+  }
+}
+
+.loginForm {
+  display: flex;
+  flex-flow: column nowrap;
+  gap: 8px;
+  width: 100%;
+
+  .buttonWrapper {
+    display: flex;
+    flex-flow: column nowrap;
+    gap: 12px;
+    padding: 12px 0 0;
+
+    button {
+      min-width: 0;
+    }
+
+    p {
+      font: var(--font-12-regular);
+      text-align: center;
+
+      a {
+        color: var(--text-color-primary);
+      }
+    }
+  }
+}
+
+.signupInviteToggle {
+  border: solid 1px var(--border-color-panel);
+  margin: 24px 0 0;
+
+  span {
+    white-space: wrap;
+  }
+}
+
+.signupInviteHidden {
+  display: none;
+}
+
+.signupInvite {
+  background-color: var(--color-purple-10);
+  border-radius: var(--border-radius-8);
+  margin: 24px 0 16px;
+  padding: 0 16px 16px;
+
+  p {
+    font: var(--font-12-regular);
+    margin: 16px 0 0;
+  }
+}
+
+.loginFooter {
+  align-items: center;
+  border-top: solid 1px var(--border-color-panel);
+  display: flex;
+  flex-flow: column nowrap;
+  gap: 8px;
+  padding: 24px 0;
+  width: 100%;
+
+  p {
+    align-items: center;
+    display: flex;
+    flex-flow: column nowrap;
+    font: var(--font-12-regular);
+    margin-bottom: 24px;
+    text-align: center;
+
+    a {
+      color: var(--text-color-primary);
+
+      &.loginFooterAction {
+        margin: 8px 0 0;
+      }
+    }
+  }
+}

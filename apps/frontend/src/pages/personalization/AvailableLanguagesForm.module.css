@@ -1,0 +1,27 @@
+.languageRows {
+  display: flex;
+  flex-flow: column nowrap;
+  gap: 12px;
+}
+
+.languageRow {
+  align-items: center;
+  display: flex;
+  gap: 8px;
+  position: relative;
+
+  .languageOption {
+    padding: 16px;
+  }
+
+  .languageOption.languageOptionImplied {
+    border-color: var(--border-color-input-enabled);
+    outline: none;
+  }
+
+  .languageDefault {
+    inset-block-start: 12px;
+    inset-inline-end: 16px;
+    position: absolute;
+  }
+}

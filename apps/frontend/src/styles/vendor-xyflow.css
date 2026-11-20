@@ -1,0 +1,4 @@
+/* Demotes @xyflow/react's own styles into the vendor layer, below our own component layers, so
+   ConversationFlow.module.css's :global(.react-flow__*) overrides reliably win regardless of
+   specificity. See src/index.css for the full layer manifest. */
+@import url("@xyflow/react/dist/style.css") layer(vendor);

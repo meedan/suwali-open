@@ -1,0 +1,15 @@
+.added,
+.pending {
+  align-items: center;
+  color: var(--color-positive);
+  display: inline-flex;
+  gap: 4px;
+
+  svg {
+    font-size: var(--icon-size-16);
+  }
+}
+
+.pending {
+  color: inherit;
+}

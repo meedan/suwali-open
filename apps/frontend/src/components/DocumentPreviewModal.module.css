@@ -1,0 +1,159 @@
+.bodyWrapper {
+  display: flex;
+  flex: 0 0 auto;
+  flex-flow: column nowrap;
+  overflow: hidden;
+  width: 100%;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  font: var(--font-14-regular);
+  gap: 16px;
+  min-height: 256px;
+  overflow: auto;
+  overscroll-behavior: contain;
+  padding: 16px 24px;
+
+  .embed {
+    height: 75vh;
+  }
+}
+
+.detailsMeta {
+  flex: 1;
+  min-width: 0;
+}
+
+.sourceLink {
+  align-items: center;
+  display: inline-flex;
+  gap: 6px;
+  max-width: 100%;
+
+  span {
+    overflow: hidden;
+    text-decoration: underline;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
+
+.person {
+  align-items: center;
+  display: flex;
+  gap: 6px;
+}
+
+.titleWrapper {
+  align-items: center;
+  display: flex;
+  gap: 4px;
+}
+
+.editorModal .content {
+  padding: 0 8px 16px;
+}
+
+/* The layout below answers to the width of the modal, not of the window */
+.sideContainer {
+  container-type: inline-size;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+  .content {
+    border-top: solid 1px var(--border-color-panel);
+  }
+}
+
+/* Fills the height the modal body has left under the banners, so the panes below are what scrolls and the body never does */
+.sideLayout {
+  display: grid;
+  flex: 1 1 auto;
+  grid-template-columns: minmax(0, 1fr) var(--width-dialog-details);
+  grid-template-rows: minmax(0, 1fr);
+  min-height: 0;
+}
+
+.sideDetails {
+  border-inline-start: 1px solid var(--border-color-panel);
+  grid-column: 2;
+  grid-row: 1;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 16px;
+}
+
+/* A section being edited has the whole column, and handles its own padding and scrolling, so there is one scrollbar and its buttons stay in view */
+.sideDetails:has([data-editing]) {
+  display: flex;
+  flex-direction: column;
+  overflow-y: hidden;
+  padding: 0;
+
+  > * {
+    flex: 1 1 auto;
+    min-height: 0;
+  }
+}
+
+/* The content scrolls itself, so this pane must not, or text would get two scrollbars */
+.sideContent {
+  display: flex;
+  flex-direction: column;
+  grid-column: 1;
+  grid-row: 1;
+  min-height: 0;
+  overflow: hidden;
+
+  .content {
+    flex: 1 1 auto;
+    min-height: 0;
+  }
+
+  /* Shrinks to the pane instead of overflowing it, which left a scrollbar on the pane around the one in the embed */
+  .embed {
+    flex: 0 1 auto;
+    min-height: 0;
+  }
+}
+
+/* Editing needs more room than the details have, and the preview is only there for reference meanwhile */
+@container (width >= 880px) {
+  .sideLayout:has([data-editing]) {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+}
+
+/* Only shown when there is no room for two columns */
+.paneToggle {
+  display: none;
+}
+
+/* Too narrow for the preview to have room beside the details, so one shows at a time and the toggle chooses */
+@container (width < 880px) {
+  .paneToggle {
+    display: flex;
+    margin: 8px auto;
+  }
+
+  .sideLayout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .sideDetails,
+  .sideContent {
+    grid-column: 1;
+  }
+
+  .sideDetails {
+    border-inline-start: 0;
+  }
+
+  .sideLayout[data-pane='content'] .sideDetails,
+  .sideLayout[data-pane='details'] .sideContent {
+    display: none;
+  }
+}

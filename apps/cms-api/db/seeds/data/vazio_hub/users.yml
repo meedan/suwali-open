@@ -1,0 +1,6 @@
+- name: Francis Wayland Thurston
+  email: francis@example.org
+  password: xyz123@@
+  password_confirmation: xyz123@@
+  admin: true
+

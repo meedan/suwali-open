@@ -1,0 +1,112 @@
+[project]
+name = "knowledge"
+version = "0.1.0"
+description = "Suwali Chat API"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+  "asgi-correlation-id>=4.3.4",
+  "boto3>=1.42.51",
+  "circuitbreaker>=2.1.3",
+  "debugpy>=1.8.20",
+  "fastapi[standard]>=0.129.0",
+  "fsspec>=2026.6.0",
+  "glom>=25.12.0",
+  "gunicorn>=25.1.0",
+  "langchain-aws>=1.2.5",
+  "langchain-openai>=1.1.9",
+  "langchain-text-splitters>=1.1.2",
+  "fast-langdetect==1.0.0",
+  "langdetect>=1.0.9",
+  "pycld2==0.42",
+  "loguru>=0.7.3",
+  "markdown-it-py>=4.0.0",
+  "neo4j-graphrag[openai,sentence-transformers]>=1.13.1",
+  "nltk>=3.10.4",
+  "numpy>=2.4.2",
+  "openai>=1.109.1",
+  "openai-guardrails>=0.2.1",
+  "pydantic-settings>=2.14.2",
+  "pypdf>=6.21.4",
+  "pdfminer-six>=20251230",
+  "pytest-order>=1.3.0",
+  "redis>=7.2.0",
+  "rq>=2.6.1",
+  "semchunk>=3.2.5",
+  "sentry-sdk[fastapi]>=2.53.0",
+  "tiktoken>=0.12.0",
+  "torch>=2.10.0",
+  "torchvision>=0.25.0",
+  "markitdown[all]>=0.1.5",
+  "httpx2>=2.12.0",
+]
+
+[tool.ruff]
+line-length = 120
+target-version = "py313"
+fix = true
+
+[tool.mypy]
+python_version = "3.13"
+strict = true
+ignore_missing_imports = true
+plugins = ['pydantic.mypy']
+
+[tool.pytest_env]
+DEPLOY_ENV={ value = "local", skip_if_set = true }
+KNOWLEDGE_API_PORT={ value = "8000", skip_if_set = true }
+OPENAI_API_KEY={ value = "test-key", skip_if_set = true }
+OPENAI_MODEL={ value = "gpt-4o-mini", skip_if_set = true }
+EMBEDDING_MODEL_PROVIDER={ value = "SBERT", skip_if_set = true }
+EMBEDDING_MODEL_NAME={ value = "all-mpnet-base-v2", skip_if_set = true }
+TEXT_SPLITTER={ value = "FIXED_SIZE", skip_if_set = true }
+CHUNK_SIZE={ value = "500", skip_if_set = true }
+CHUNK_OVERLAP={ value = "100", skip_if_set = true }
+NEO4J_PASSWORD={ value = "password", skip_if_set = true }
+REDIS_URL={ value = "redis://redis:6379/0", skip_if_set = true }
+RQ_RETRY_MAX={ value = "5", skip_if_set = true }
+RQ_HEALTH_CHECK_PORT={ value = "8001", skip_if_set = true }
+
+[tool.coverage.run]
+omit = [
+  "rq_worker.py",
+  "init_models.py",
+  "*/tests/*",
+  "*/__pycache__/*",
+  ".venv/*"
+]
+
+[tool.coverage.report]
+exclude_lines = [
+  "pragma: no cover",
+  "def __repr__",
+  "if self.debug:",
+  "if settings.DEBUG",
+  "raise AssertionError",
+  "raise NotImplementedError",
+  "if 0:",
+  "if __name__ == .__main__.:",
+  "class .*\\bProtocol\\):",
+  "@(abc\\.)?abstractmethod"
+]
+
+[dependency-groups]
+dev = [
+  "bandit>=1.9.4",
+  "mypy>=1.19.1",
+  "pytest>=9.0.3",
+  "pytest-asyncio>=1.3.0",
+  "pytest-cov>=7.0.0",
+  "pytest-env>=1.5.0",
+  "ruff>=0.15.1",
+  "types-requests>=2.32.4.20260107",
+]
+
+[tool.uv.sources]
+torch = [{ index = "pytorch-cpu" }]
+torchvision = [{ index = "pytorch-cpu" }]
+
+[[tool.uv.index]]
+name = "pytorch-cpu"
+url = "https://download.pytorch.org/whl/cpu"
+explicit = true

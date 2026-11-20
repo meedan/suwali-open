@@ -1,0 +1,34 @@
+# Replaces ruby.rails.security.audit.xss.templates.avoid-content-tag (excluded in
+# .semgrep-exclude-rules), which fired on the word `content_tag` — the very thing that makes these
+# lines safe. This rule flags the inverse.
+rules:
+  - id: html-safe-without-content-tag
+    message: |
+      `.html_safe` disables escaping for every value interpolated into this string, and at least
+      one here is unwrapped. Wrap each — not just the first — in `content_tag`, which escapes it
+      first: `t('key', hub_name: content_tag(:strong, @hub_name)).html_safe`.
+      If nothing user-controlled can reach it:
+      `<%# nosemgrep: html-safe-without-content-tag -- <reason> %>`.
+    languages: [generic]
+    severity: WARNING
+    paths:
+      include:
+        - "*.erb"
+    metadata:
+      cwe:
+        - "CWE-79: Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')"
+      category: security
+      confidence: MEDIUM
+      references:
+        - https://semgrep.dev/r/ruby.rails.security.audit.xss.templates.avoid-content-tag.avoid-content-tag
+    # Two branches so one `content_tag` can't vouch for the whole expression. They don't fold into
+    # one: semgrep has no lookahead, and a nested `pattern-not-regex` matches nothing, silently.
+    pattern-either:
+      # Nothing is wrapped.
+      - patterns:
+          - pattern: <%= ... .html_safe %>
+          - pattern-not-regex: content_tag
+      # Something is wrapped, but a hash value or interpolation is still a bare ivar/params read.
+      - patterns:
+          - pattern: <%= ... .html_safe %>
+          - pattern-regex: '(?::[ \t]*|#\{[ \t]*)(?:@[A-Za-z_]|params[ \t]*\[)'

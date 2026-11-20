@@ -1,0 +1,13 @@
+.trigger {
+  justify-content: center;
+  width: 100%;
+}
+
+.popover {
+  width: var(--radix-popover-trigger-width);
+}
+
+.create button > span {
+  overflow-wrap: anywhere;
+  text-align: start;
+}

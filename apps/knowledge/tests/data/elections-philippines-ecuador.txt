@@ -1,0 +1,29 @@
+Election integrity initiatives ramp up in the Philippines and Ecuador
+
+Our partners are working to deliver trustworthy information to voters during crucial electoral contests this season.
+
+Despite the retreat of major tech platforms from supporting election integrity work, our team remains committed to enabling communities around the world to access critical, trustworthy information about electoral contests in their countries. In the first half of 2025, we're supporting election initiatives in the Philippines and Ecuador.
+
+This blog post was adapted from the March 2025 edition of our monthly newsletter. Subscribe to the Checklist today.
+The Philippines
+
+Our partners at Rappler report that the upcoming 2025 Philippine midterm elections promise to deliver “a showdown between President Ferdinand Marcos Jr. and the Duterte clan.” The latter of these two Philippine political dynasties has seen its share of trouble lately, between lawmakers' recent moves to impeach Vice President Sara Duterte and the March 11 arrest of her father, former President Rodrigo Duterte, on charges of crimes against humanity at the International Criminal Court.
+
+Over the past two weeks, unverified stories that portray the elder Duterte as a victim, and describe his arrest as a “kidnapping,” have run rampant online, according to research by our partners at Tsek.ph. Alongside these narratives, the group has also tracked a smattering of bogus Facebook accounts and AI-generated images intended to suggest a rising popular movement demanding Duterte's release.
+
+Tsek.ph, a collaborative initiative that includes academic institutions, media groups, and civil society organizations, works to track false narratives and provide the public with quick access to reliable information. With midterm elections fast approaching, Tsek.ph will connect with voters using a Messenger-based tipline powered by Meedan's open-source tool, Check.
+
+Our partners at VERA Files have also been tracking these narratives and reporting on developments in Duterte's case at The Hague. VERA Files operates a Check-powered Messenger tipline that is helping the organization monitor potential instances of mis- and disinformation targeting Filipino voters. This April, VERA Files will also host workshops on voter awareness and fact-checking in Manila and Quezon City.
+Ecuador
+
+By the end of March, official first-round vote totals from the Ecuadorian presidential election had the top two candidates — incumbent President Daniel Noboa and challenger Luisa González — within a single percentage point of each other, and neither holding an outright majority.
+
+As voters head to the polls again on April 13, The Cuenca Dispatch reports that concerns about crime and the economy will weigh heavily on their decision, as will popular sentiment about the political legacy of former President Rafael Correa. González is considered a protege of the former president, whose 10 years in power were marked by large amounts of social spending in an era that preceded the nation's current challenges with crime, according to reporting by the Associated Press. Correa — whose critics say his actions veered toward authoritarianism — left the country before being convicted in absentia on corruption charges in 2020.
+
+In this highly polarized political climate, election-related misinformation can pose a threat to democratic integrity. Meedan is supporting key initiatives to promote access to trustworthy news and information, particularly among marginalized communities.
+
+Our partner Ecuador Chequea is part of a coalition effort to fact-check relevant news surrounding the election, which will include providing live fact-checking during debates.
+
+To help reach Indigenous voters, our colleagues at Lupa Media, a Quito-based fact-checking and media literacy organization, will be translating fact-checks into Kichwa and Shuar, two of the more commonly spoken languages among an estimated 1.3 million Ecuadorians who identify as Indigenous. Lupa will also host workshops with Indigenous leaders and youth and develop specialized content on media literacy for use by community-based radio stations.
+
+Throughout the course of the campaign, Lupa identified several instances of misleading and fake content targeting a variety of communities, including Indigenous groups. Some deepfake videos made with generative AI have been dispatched to scam viewers into sharing personal information.

@@ -1,0 +1,24 @@
+enqueue_source_ingestions:
+  cron: "*/30 * * * *"  # Every 30 minutes
+  class: "EnqueueSourceIngestionsWorker"
+  queue: source_ingestion
+
+enqueue_expired_trial_hub_deletions:
+  cron: "0 2 * * *"  # Daily at 2:00 AM
+  class: "EnqueueExpiredTrialHubDeletionsWorker"
+  queue: delete
+
+send_trial_drip_emails:
+  cron: "0 14 * * *"  # Daily at 2:00 PM UTC
+  class: "SendTrialDripEmailsWorker"
+  queue: default
+
+jwt_denylist_cleanup:
+  cron: "0 3 * * *"  # Daily at 3:00 AM
+  class: "JwtDenylistCleanupWorker"
+  queue: default
+
+bulk_conversation_export_cleanup:
+  cron: "0 * * * *"  # Hourly
+  class: "BulkConversationExportCleanupWorker"
+  queue: default

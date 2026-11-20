@@ -1,0 +1,89 @@
+.lineChart {
+  .legend {
+    display: flex;
+    flex-flow: row wrap;
+    margin: 0 0 8px;
+    padding: 0 0 0 64px;
+
+    .legendItemHidden {
+      opacity: 0.35;
+    }
+  }
+
+  .lineChartContainer {
+    display: flex;
+    flex-flow: column nowrap;
+    gap: 0;
+    height: 260px;
+    padding: 0 64px 0 0;
+    position: relative;
+    width: 100%;
+
+    :global(.recharts-surface) {
+      outline-color: var(--color-purple-67);
+      outline-width: 1px;
+    }
+
+    .lineChartWrapper {
+      position: relative;
+      z-index: var(--z-index-2);
+    }
+
+    .contextChart {
+      border: solid 1px var(--border-color-chart);
+      border-width: 0 1px 1px;
+      margin: -30px 0 0 64px;
+      padding: 36px 0 0;
+      position: relative;
+
+      .brushWrapper {
+        position: relative;
+        z-index: var(--z-index-2);
+
+        :global(.recharts-surface) {
+          overflow: visible;
+        }
+
+        :global(.recharts-brush-slide) {
+          fill: var(--color-purple-40);
+          stroke: var(--background-color-scrollbar);
+        }
+
+        :global(.recharts-brush-texts) text {
+          fill: var(--text-color-primary);
+        }
+
+        :global(.recharts-brush-traveller) {
+          outline-color: var(--color-purple-67);
+          outline-width: 1px;
+        }
+
+        :global(.recharts-brush-traveller) rect {
+          fill: var(--color-purple-67);
+        }
+
+        :global(.recharts-brush-traveller) line {
+          stroke: var(--color-white-100);
+        }
+      }
+
+      .areaIt {
+        inset-inline: 0 9px;
+        bottom: 0;
+        pointer-events: none;
+        position: absolute;
+        width: auto;
+        z-index: var(--z-index-1);
+
+        &::before {
+          background-color: var(--border-color-chart);
+          content: '';
+          height: 1px;
+          inset-block: 0;
+          inset-inline: 0 -9px;
+          position: absolute;
+        }
+      }
+    }
+  }
+}

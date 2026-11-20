@@ -1,0 +1,30 @@
+Extreme Weather, Extreme Content: How Platforms Amplify Climate Disinformation in the Veridian Republic
+
+Introduction
+
+Across the Veridian Republic, the past year brought record heat, prolonged drought, and severe flooding. Alongside these physical impacts, false and misleading claims about the climate have spread faster and reached further than ever before. This report documents how large social platforms operating in Veridian accelerate the circulation of climate disinformation, and what should be done to slow it.
+
+What climate disinformation is
+
+Climate disinformation is the deliberate spread of false or misleading claims about the climate and its causes. It works by distorting scientific data, cherry-picking figures, and reframing settled findings as open controversy. Common narratives deny that warming is happening, claim that renewable energy is unreliable or dangerous, and recast extreme weather events as ordinary or fabricated. The effect is to erode public understanding and to delay action.
+
+How platforms amplify it
+
+The report finds that platform design choices make the problem worse. Recommendation systems reward outrage and novelty, so polarising and inflammatory posts travel farther than careful explanations. Advertising systems allow misleading claims about fossil fuels and energy policy to be monetised. Repeat offenders who have previously broken content rules continue to publish with little consequence. During flood and wildfire emergencies, false claims about the causes of the disasters routinely outperformed verified guidance from emergency services.
+
+Access to data is shrinking
+
+Independent study of these trends has become harder. Over the past year, platforms operating in Veridian have restricted or withdrawn the research tools that once allowed large-scale, real-time analysis of how harmful content spreads. Without the ability to measure the problem, it cannot be corrected, and responses cannot be made proportionate.
+
+What should be done
+
+The report sets out recommendations addressed to platforms and regulators, without assigning them to any single body:
+- Platforms should publish transparent plans to prevent the spread of climate disinformation, and enforce content standards consistently against repeat offenders.
+- Platforms should stop the monetisation of climate disinformation so that no one profits from misleading content.
+- Platforms should label and down-rank demonstrably false claims, and preserve research access so that independent analysts can verify enforcement.
+- Regulators should require meaningful transparency reporting and restore researcher access to platform data.
+- Public bodies should publicly recognise climate disinformation as a threat to the information ecosystem and invest in resilience so that people can identify false content before they are exposed to it.
+
+Conclusion
+
+The decay of information integrity is not inevitable. The narratives change year to year, but the underlying incentives stay the same. Addressing the incentives, rather than chasing individual posts, is the only durable remedy.

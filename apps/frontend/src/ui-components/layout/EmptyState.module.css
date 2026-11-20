@@ -1,0 +1,41 @@
+.emptyStateWrapper {
+  align-items: center;
+  color: var(--text-color-primary);
+  display: flex;
+  flex-flow: column wrap;
+  gap: 24px;
+  height: 100%;
+  justify-content: center;
+  padding: 24px;
+  text-align: center;
+  width: 100%;
+
+  .emptyIcon{
+    font-size: var(--icon-size-48);
+  }
+
+  p {
+    color: var(--text-color-primary);
+    font: var(--font-18-semibold);
+  }
+
+  .emptyActions {
+    margin: 16px 0 0;
+  }
+
+  &.sizeSmall {
+    gap: 8px;
+
+    .emptyIcon{
+      font-size: var(--icon-size-30);
+    }
+
+    p {
+      font: var(--font-12-semibold);
+    }
+  }
+
+  &.layoutList {
+    height: auto;
+  }
+}

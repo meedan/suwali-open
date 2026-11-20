@@ -1,0 +1,15 @@
+.reportsTable {
+  td.wrap {
+    max-width: 360px;
+    min-width: 200px;
+    white-space: normal;
+  }
+}
+
+.pager {
+  align-items: center;
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+  margin-top: 16px;
+}

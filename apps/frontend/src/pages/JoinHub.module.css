@@ -1,0 +1,53 @@
+.joinHubWrapper {
+  display: flex;
+  flex-flow: column nowrap;
+  gap: 24px;
+  padding: 32px 48px 16px;
+  width: 100%;
+
+  hgroup {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+}
+
+.options {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+}
+
+.subtitle {
+  color: var(--text-color-primary);
+  font: var(--font-18-regular);
+}
+
+.hubRadio {
+  .hubDescription {
+    display: block;
+    font: var(--font-14-regular);
+  }
+}
+
+.divider {
+  border: none;
+  border-top: solid 1px var(--border-color-panel);
+  margin: 0;
+  width: 100%;
+}
+
+.footerEnd, .footerStart {
+  display: flex;
+  width: 100%;
+}
+
+.footerEnd {
+  justify-content: flex-end;
+}
+
+.footerStart {
+  justify-content: flex-start;
+}

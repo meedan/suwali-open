@@ -1,0 +1,5 @@
+# Veridian Republic Labor Note
+Published: February 2025
+
+A labor note reports the informal employment rate in the Veridian Republic at 9.9%.
+This note uses a non-ISO publication format in metadata to exercise temporal filtering behavior.

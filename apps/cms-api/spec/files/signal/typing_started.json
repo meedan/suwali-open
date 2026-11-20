@@ -1,0 +1,17 @@
+{
+  "envelope": {
+    "source": "22222222-2222-4222-8222-222222222222",
+    "sourceNumber": null,
+    "sourceUuid": "22222222-2222-4222-8222-222222222222",
+    "sourceName": "",
+    "sourceDevice": 1,
+    "timestamp": 1791466990138,
+    "serverReceivedTimestamp": 1791466990172,
+    "serverDeliveredTimestamp": 1791466990180,
+    "typingMessage": {
+      "action": "STARTED",
+      "timestamp": 1791466990138
+    }
+  },
+  "account": "+15555550100"
+}

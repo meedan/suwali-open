@@ -1,0 +1,19 @@
+.scenarioRow {
+  position: relative;
+
+  .scenarioCard {
+    padding-inline-end: 48px;
+
+    &.scenarioCardPreviewed {
+      background-color: var(--color-purple-4);
+      border-color: var(--color-purple-67);
+    }
+  }
+
+  /* Over the card's edge rather than in it, as a card is a button and cannot hold another */
+  .scenarioInfo {
+    inset-block-start: 8px;
+    inset-inline-end: 8px;
+    position: absolute;
+  }
+}

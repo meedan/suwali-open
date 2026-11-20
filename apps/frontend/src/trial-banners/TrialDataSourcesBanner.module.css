@@ -1,0 +1,19 @@
+.banner {
+  align-items: center;
+  display: flex;
+  font: var(--font-12-regular);
+  gap: 4px;
+  justify-content: center;
+  margin: 0 0 12px;
+
+  & strong:first-child {
+    color: var(--color-orange-59);
+  }
+}
+
+.icon {
+  color: var(--color-orange-59);
+  flex-shrink: 0;
+  height: var(--icon-size-18);
+  width: var(--icon-size-18);
+}

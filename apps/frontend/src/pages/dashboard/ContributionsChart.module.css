@@ -1,0 +1,82 @@
+.contributionsChartColumns {
+  .chartColumn {
+    flex: 1 1 350px;
+    padding: 8px 0 0;
+  }
+
+  tr {
+    .rowPreview {
+      cursor: pointer;
+    }
+
+    &:hover {
+      background-color: var(--button-background-color);
+    }
+  }
+}
+
+.chartAndHintsWrapper {
+  align-items: flex-start;
+  display: flex;
+  flex-flow: row wrap;
+  gap: 16px;
+}
+
+.chartWrapper {
+  flex: 1 1 300px;
+}
+
+.hintsWrapper {
+  display: flex;
+  flex: 1 1 300px;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.rowContent {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+
+  .titleAndDate {
+    align-items: center;
+    display: flex;
+    flex: 1;
+    justify-content: space-between;
+    margin-inline-end: 8px;
+
+    .dataSourceItemTitle {
+      span {
+        -webkit-line-clamp: 1;
+      }
+    }
+  }
+}
+
+.rowDetails {
+  align-items: center;
+  display: flex;
+  gap: 4px;
+  line-height: var(--line-height-18);
+  margin-inline-start: 32px;
+
+  :global(.suwali-icon) {
+    height: var(--icon-size-20);
+    width: var(--icon-size-20);
+  }
+
+  .badge {
+    border-radius: var(--border-radius-4);
+    padding: 2px 6px;
+  }
+
+  .firstContribution {
+    background: var(--color-green-4);
+    color: var(--color-positive);
+    font: var(--font-12-semibold);
+  }
+
+  .returning {
+    background: var(--button-background-color);
+  }
+}

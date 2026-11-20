@@ -1,0 +1,22 @@
+.banner {
+  align-items: center;
+  background-color: var(--color-orange-10);
+  display: flex;
+  font: var(--font-12-semibold);
+  gap: 8px;
+  justify-content: center;
+  padding: 12px 24px;
+  width: 100%;
+}
+
+.icon {
+  color: var(--color-orange-59);
+  flex-shrink: 0;
+  height: var(--icon-size-24);
+  width: var(--icon-size-24);
+}
+
+.upgradeLink {
+  font: var(--font-12-semibold);
+  text-decoration: underline;
+}

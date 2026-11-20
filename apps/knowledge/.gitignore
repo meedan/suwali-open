@@ -1,0 +1,12 @@
+# Backups
+backups/*
+!backups/.gitkeep
+.models/
+
+# Integration tests
+.env.integration
+.env.local
+test-logs/
+benchmarks/
+# Performance analysis output (production-derived data)
+tmp/

@@ -1,0 +1,14 @@
+# ok: unsafe-url-in-mailer-href
+<p><a href="<%= @confirmation_url %>" target="_blank" rel="noopener noreferrer">Confirm</a></p>
+
+# ok: unsafe-url-in-mailer-href
+<p><a href='<%= @frontend_url %>' target="_blank">Open</a></p>
+
+# ruleid: unsafe-url-in-mailer-href
+<p><a href="<%= params[:next] %>" target="_blank">Continue</a></p>
+
+# ruleid: unsafe-url-in-mailer-href
+<p><a href="<%= @user.website %>" target="_blank">Website</a></p>
+
+# ruleid: unsafe-url-in-mailer-href
+<p><a href="<%= @hub_name %>" target="_blank">Hub</a></p>

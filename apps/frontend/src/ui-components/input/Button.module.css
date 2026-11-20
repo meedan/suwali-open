@@ -1,0 +1,117 @@
+.button {
+  align-items: center;
+  background-color: var(--color-purple-67);
+  border-radius: var(--border-radius-12);
+  color: var(--color-white-100);
+  cursor: pointer;
+  display: flex;
+  flex-flow: row nowrap;
+  gap: 8px;
+  justify-content: center;
+  min-width: auto;
+  text-decoration: none;
+  touch-action: manipulation;
+  transition: var(--hover-transition);
+
+  .leftIcon,
+  .rightIcon {
+    display: flex;
+    width: fit-content;
+  }
+
+  &.variantText {
+    background-color: unset;
+    color: var(--link-color);
+  }
+
+  &.themeMode {
+    background-color: var(--button-background-color);
+    color: var(--button-text-color);
+
+    &.variantText {
+      background-color: unset;
+      color: var(--button-text-color);
+    }
+  }
+
+  &.variantMenu {
+    background-color: unset;
+    justify-content: start;
+    width: 100%;
+
+    &:focus-visible,
+    &:hover {
+      background-color: var(--button-background-color);
+    }
+
+    &.active {
+      background-color: var(--color-purple-10);
+    }
+  }
+
+  &.sizeSmall {
+    border-radius: var(--border-radius-8);
+    font: var(--font-12-semibold);
+    gap: 4px;
+    padding: 8px;
+
+    .leftIcon,
+    .rightIcon {
+      font-size: var(--icon-size-16);
+    }
+  }
+
+  &.sizeMedium {
+    font: var(--font-14-semibold);
+    padding: 12px;
+
+    .leftIcon,
+    .rightIcon {
+      font-size: var(--icon-size-20);
+    }
+  }
+
+  &.sizeLarge {
+    font: var(--font-18-semibold);
+    padding: 14px 16px;
+
+    .leftIcon,
+    .rightIcon {
+      font-size: var(--icon-size-24);
+    }
+  }
+
+  &.orientationVertical {
+    flex-flow: column nowrap;
+
+    &.sizeSmall {
+      gap: 8px;
+
+      .leftIcon,
+      .rightIcon {
+        font-size: var(--icon-size-18);
+      }
+    }
+  }
+
+  span {
+    white-space: nowrap;
+  }
+
+  &:not(.active):focus-visible,
+  &:not(.active):hover {
+    opacity: .6;
+  }
+
+  &[type='button']:disabled,
+  &[type='submit']:disabled {
+    cursor: not-allowed;
+    opacity: .4;
+    pointer-events: none;
+    transform: scale3d(.97, .97, 1);
+  }
+
+  &:not(.active):active {
+    transform: scale3d(.97, .97, 1);
+  }
+}

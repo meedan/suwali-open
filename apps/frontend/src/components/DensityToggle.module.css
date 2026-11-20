@@ -1,0 +1,8 @@
+.densityToggle.densityToggle {
+  align-self: flex-start;
+  padding: 2px;
+}
+
+.option {
+  display: flex;
+}

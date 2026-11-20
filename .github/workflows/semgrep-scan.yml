@@ -1,0 +1,60 @@
+name: Semgrep Scan
+
+on:
+  workflow_call:
+    inputs:
+      app-name:
+        description: "Short app name, used to label the uploaded report (e.g. knowledge)"
+        required: true
+        type: string
+      path:
+        description: "App directory to scan (e.g. apps/knowledge)"
+        required: true
+        type: string
+
+jobs:
+  scan:
+    name: Run Semgrep scan
+    runs-on: ubuntu-24.04-arm
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Run Semgrep scan
+        id: semgrep
+        continue-on-error: true
+        run: |
+          pip install semgrep
+
+          # --exclude-rule drops registry rules that .github/semgrep/semgrep-rules/ replaces or that are not pertinent to this codebase.
+          # A wrong id is ignored silently, so copy it verbatim from a report's check_id.
+          # `|| [[ -n "$rule" ]]` keeps a last line with no trailing newline, which `read` drops.
+          exclude_args=()
+          while IFS= read -r rule || [[ -n "$rule" ]]; do
+              [[ -z "$rule" || "$rule" == \#* ]] && continue
+              exclude_args+=(--exclude-rule "$rule")
+          done < .github/semgrep/.semgrep-exclude-rules
+
+          semgrep scan --config auto --config .github/semgrep/semgrep-rules \
+            "${exclude_args[@]}" \
+            --error \
+            ${{ inputs.path }} --json --output semgrep-report.json
+
+      - name: Test project Semgrep rules
+        run: semgrep --test .github/semgrep/semgrep-rules
+
+      - name: Upload Semgrep report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: semgrep-report-${{ inputs.app-name }}
+          path: semgrep-report.json
+          retention-days: 5
+          if-no-files-found: ignore
+
+      # The scan step uses continue-on-error so the rule tests and report upload still run; fail here instead.
+      - name: Fail on Semgrep findings
+        if: steps.semgrep.outcome == 'failure'
+        run: |
+          echo "::error::Semgrep reported findings (or failed to run). See the semgrep-report-${{ inputs.app-name }} artifact."
+          exit 1

@@ -1,0 +1,2 @@
+<% if @greeting_name %><p><%= t('mailer_hub_trial_greeting', name: @greeting_name) %></p><% end %>
+<%= simple_format(@body, {}, sanitize: false) %>

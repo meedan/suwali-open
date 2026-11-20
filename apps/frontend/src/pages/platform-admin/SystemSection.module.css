@@ -1,0 +1,17 @@
+main {
+  section.systemEquation {
+    padding: 8px;
+
+    dl {
+      align-items: center;
+      display: flex;
+      flex-flow: row wrap;
+      gap: 16px;
+    }
+  }
+
+  .operator {
+    color: var(--text-color-secondary);
+    font: var(--font-24-semibold);
+  }
+}

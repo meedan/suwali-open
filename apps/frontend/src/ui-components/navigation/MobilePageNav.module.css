@@ -1,0 +1,23 @@
+.mobilePageNav {
+  align-items: center;
+  display: none;
+  flex: 0 0 66px;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  padding: 0 16px;
+
+  nav {
+    display: flex;
+    flex: 1;
+    place-content: center center;
+  }
+
+  @media only screen and (width <= 500px) {
+    display: flex;
+  }
+}
+
+.mobileMainPageNav nav {
+  padding: 24px;
+  width: 100%;
+}

@@ -1,0 +1,25 @@
+.trustedUserStatus {
+  align-items: center;
+  color: var(--text-color-secondary);
+  display: flex;
+  gap: 3px;
+
+  svg {
+    display: none;
+  }
+
+  &.icon {
+    svg {
+      display: block;
+      font-size: var(--icon-size-font-relative-large);
+    }
+  }
+
+  &.trusted {
+    color: var(--text-color-primary);
+
+    svg {
+      color: var(--text-color-trusted);
+    }
+  }
+}

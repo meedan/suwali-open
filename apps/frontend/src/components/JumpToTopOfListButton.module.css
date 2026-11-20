@@ -1,0 +1,21 @@
+/* Zero height so it docks over the list without pushing the first item down */
+.dock {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  height: 0;
+  inset-block-start: 0;
+  justify-content: start;
+  position: sticky;
+  z-index: var(--z-index-2);
+}
+
+.button {
+  background-color: var(--background-color-bg2);
+  margin-block-start: 8px;
+
+  &:hover {
+    background-color: var(--background-color-bg1);
+    opacity: 0.9;
+  }
+}

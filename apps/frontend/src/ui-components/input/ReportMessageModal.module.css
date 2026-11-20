@@ -1,0 +1,10 @@
+.body {
+  gap: 16px;
+  padding: 16px 24px;
+  width: 100%;
+
+  p {
+    font: var(--font-12-regular);
+    margin-block-end: 8px;
+  }
+}

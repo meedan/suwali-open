@@ -1,0 +1,14 @@
+.buttonsWrapper {
+  display: flex;
+  gap: 16px;
+}
+
+.bodyWrapper {
+  flex: 1;
+  font: var(--font-14-regular);
+  padding: 16px;
+}
+
+.staleSummaryWarning {
+  margin-bottom: 16px;
+}

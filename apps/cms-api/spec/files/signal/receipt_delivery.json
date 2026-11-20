@@ -1,0 +1,22 @@
+{
+  "envelope": {
+    "source": "22222222-2222-4222-8222-222222222222",
+    "sourceNumber": null,
+    "sourceUuid": "22222222-2222-4222-8222-222222222222",
+    "sourceName": "Test User",
+    "sourceDevice": 1,
+    "timestamp": 1791467008930,
+    "serverReceivedTimestamp": 1791467008792,
+    "serverDeliveredTimestamp": 1791467008803,
+    "receiptMessage": {
+      "when": 1791467008930,
+      "isDelivery": true,
+      "isRead": false,
+      "isViewed": false,
+      "timestamps": [
+        1791467007267
+      ]
+    }
+  },
+  "account": "+15555550100"
+}

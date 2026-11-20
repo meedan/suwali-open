@@ -1,0 +1,126 @@
+.mainPages {
+  menu {
+    list-style: none;
+    padding: 0;
+
+    li {
+      margin: 0 0 4px;
+      padding: 0;
+
+      &.mainPagesMenuSettings {
+        display: none;
+      }
+
+      button {
+        cursor: pointer;
+        width: 100%;
+      }
+
+      & > span {
+        display: block;
+        width: 100%;
+      }
+
+      a,
+      button {
+        align-items: center;
+        border-radius: var(--border-radius-12);
+        color: var(--text-color-primary);
+        cursor: pointer;
+        display: flex;
+        gap: 8px;
+        padding: 16px 8px;
+        text-decoration: none;
+        transition: var(--hover-transition);
+
+        .sectionIcon {
+          color: var(--text-color-secondary);
+          font-size: var(--icon-size-20);
+        }
+
+        .sectionNavigate {
+          display: none;
+          font-size: var(--icon-size-16);
+        }
+
+        span {
+          flex: 1 1 0;
+          font: var(--font-14-semibold);
+          white-space: nowrap;
+        }
+
+        &:global(.active),
+        &:global(.active):hover {
+          background-color: var(--list-item-active-background-color);
+          color: var(--list-item-active-text-color);
+        }
+
+        &:global(.active) .sectionIcon,
+        &:global(.active):hover .sectionIcon {
+          color: var(--list-item-active-text-color);
+        }
+
+        &:hover {
+          background-color: var(--button-background-color);
+        }
+      }
+
+      .navItemDisabled {
+        cursor: not-allowed;
+        opacity: 0.45;
+      }
+    }
+  }
+
+  &.homePage {
+    border-bottom: 0;
+    display: flex;
+    flex-flow: column nowrap;
+    gap: 24px;
+    height: 100%;
+    padding: 8px;
+
+    menu {
+      flex: 1;
+    }
+
+    menu li {
+      &.mainPagesMenuSettings {
+        display: block;
+      }
+
+      &.sectionBreak::before {
+        background-color: var(--border-color-panel);
+        content: '';
+        display: block;
+        height: 1px;
+        margin: 24px 0;
+        width: 100%;
+      }
+
+      a,
+      button {
+        .sectionNavigate {
+          display: block;
+        }
+      }
+    }
+  }
+
+  .homeNavExtras {
+    display: flex;
+    flex-flow: column nowrap;
+    gap: 16px;
+    padding: 16px;
+  }
+}
+
+.pendingApprovalsIndicator {
+  background-color: var(--color-positive);
+  border-radius: var(--border-radius-circle);
+  display: inline-block;
+  height: 8px;
+  margin: 0 8px;
+  vertical-align: top;
+  width: 8px;
+}

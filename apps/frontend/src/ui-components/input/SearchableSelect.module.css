@@ -1,0 +1,24 @@
+.trigger {
+  cursor: pointer;
+
+  &:disabled {
+    cursor: not-allowed;
+  }
+
+  &[data-state='open'] {
+    border-color: var(--color-purple-67);
+    /* stylelint-disable-next-line scale-unlimited/declaration-strict-value */
+    box-shadow: 0 0 0 1px var(--color-purple-67);
+  }
+}
+
+.popover {
+  width: max(320px, var(--radix-popover-trigger-width));
+}
+
+.value {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

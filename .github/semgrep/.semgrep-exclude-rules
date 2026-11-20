@@ -1,0 +1,6 @@
+ruby.rails.security.brakeman.check-unscoped-find.check-unscoped-find
+ruby.rails.security.audit.xss.templates.var-in-href.var-in-href
+ruby.rails.security.audit.xss.templates.avoid-content-tag.avoid-content-tag
+# Rails 2/3 check for models missing attr_accessible. Not model-attr-accessible, which we suppress inline.
+ruby.lang.security.model-attributes-attr-accessible.model-attributes-attr-accessible
+ruby.lang.security.unprotected-mass-assign.mass-assignment-vuln

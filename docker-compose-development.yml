@@ -1,0 +1,4 @@
+include:
+  - apps/cms-api/docker-compose-development.yml
+  - apps/frontend/docker-compose-development.yml
+  - apps/knowledge/docker-compose-development.yml

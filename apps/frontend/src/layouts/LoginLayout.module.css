@@ -1,0 +1,53 @@
+.login {
+  align-items: center;
+  background-color: var(--background-color-bg0);
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+  height: 100vh;
+  overflow: auto;
+  padding: 48px;
+  width: 100vw;
+
+  .loginHeader {
+    align-items: center;
+    display: flex;
+    height: 48px;
+    justify-content: space-between;
+    top: 0;
+    width: 100%;
+
+    .loginHeaderLogo {
+      display: flex;
+      font-size: var(--icon-size-128);
+      height: var(--icon-size-24);
+
+      :global(.suwali-icon) {
+        height: var(--icon-size-24);
+      }
+    }
+  }
+
+  @media only screen and (width <= 850px) {
+    padding: 24px;
+  }
+}
+
+.loginContainer {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  max-width: 450px;
+  width: 100%;
+}
+
+@media only screen and (width <= 500px) {
+  .login {
+    padding: 16px;
+  }
+
+  .loginContainer {
+    max-width: unset;
+  }
+}

@@ -1,0 +1,10 @@
+/* The icon of the state sits before it like that of the status below, and in proportion to the other values */
+.value {
+  align-items: center;
+  display: inline-flex;
+
+  svg {
+    font-size: var(--icon-size-font-relative-small);
+    margin-inline-end: 1px;
+  }
+}

@@ -1,0 +1,67 @@
+.onboardingModalWrapper {
+  display: flex;
+  flex-flow: column nowrap;
+  gap: 16px;
+  padding: 24px;
+
+  .onboardingModalHeader {
+    padding: 0;
+  }
+
+  .currentOnboardingStep {
+    align-items: start;
+    background-color: var(--background-color-bg0);
+    border: solid 3px var(--border-color-dialog);
+    border-radius: var(--border-radius-12);
+    box-shadow: var(--drop-shadow-menu);
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: 12px;
+    padding: 16px;
+  }
+}
+
+.formSection {
+  margin-bottom: 24px;
+}
+
+.sourceList {
+  display: flex;
+  flex-flow: column nowrap;
+  font: var(--font-14-regular);
+  gap: 4px;
+  list-style: disc;
+  margin: 0 0 0 12px;
+  padding: 0 0 0 16px;
+}
+
+.firstInternalConversationHint {
+  width: 100%;
+}
+
+.firstInternalConversationMessage footer {
+  padding: 0;
+  width: 100%;
+}
+
+.modalFooter {
+  border-top: solid 1px var(--border-color-dialog);
+  display: flex;
+  justify-content: flex-end;
+  padding: 16px 0;
+  width: 100%;
+}
+
+.buttonWrapper {
+  align-items: end;
+  display: flex;
+  flex-flow: column nowrap;
+  gap: 12px;
+  padding: 12px 0 0;
+  width: 100%;
+
+  button {
+    min-width: 0;
+  }
+}

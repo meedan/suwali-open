@@ -1,0 +1,268 @@
+.wizardMainLayout {
+  display: flex;
+  gap: 16px;
+  width: 100%;
+
+  &.wizardMainSetupLayout {
+    flex-direction: column;
+    padding: 8px 0 0;
+  }
+}
+
+.wizardHeader {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+}
+
+.wizardFileUpload {
+  align-items: center;
+  display: flex;
+  gap: 16px;
+
+  & > span {
+    font: var(--font-14-regular);
+  }
+}
+
+.wizardCard {
+  background-color: var(--background-color-bg0);
+  border-radius: var(--border-radius-16);
+  height: fit-content;
+  padding: 16px 24px;
+  width: 100%;
+
+  hgroup {
+    align-items: start;
+    display: flex;
+    flex-flow: column wrap;
+    gap: 4px;
+    text-align: start;
+
+    h3 {
+      color: var(--text-color-primary);
+      font: var(--font-18-semibold);
+    }
+
+    h4 {
+      color: var(--text-color-primary);
+      font: var(--font-14-semibold);
+    }
+
+    span {
+      font: var(--font-12-regular);
+    }
+  }
+
+  .wizardCardBody {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin: 16px 0;
+
+    .helpContainer {
+      align-items: start;
+      display: flex;
+      font: var(--font-12-regular);
+      gap: 4px;
+
+      :global(.suwali-icon) {
+        font-size: var(--icon-size-20);
+        margin: -1px 0 0;
+      }
+    }
+
+    .stepCount {
+      align-items: center;
+      color: var(--color-positive);
+      display: flex;
+      flex-flow: row wrap;
+      font: var(--font-12-regular);
+      gap: 4px;
+      line-height: var(--line-height-16);
+    }
+
+    > p {
+      font-size: var(--font-size-14);
+    }
+
+    span.highlight {
+      background-color: var(--color-purple-40);
+      border-radius: var(--border-radius-4);
+      color: var(--text-color-primary);
+      font-weight: var(--font-weight-semibold);
+      padding: 4px;
+    }
+  }
+
+  .wizardReviewItem,
+  .wizardPatterns {
+    background-color: var(--background-color-bg1);
+    border-radius: var(--border-radius-8);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 8px 16px;
+
+    a {
+      color: var(--link-color);
+    }
+
+    .row {
+      align-items: center;
+      display: flex;
+      font-size: var(--font-size-12);
+      gap: 8px;
+      line-height: var(--line-height-20);
+      overflow-wrap: anywhere;
+    }
+  }
+
+  .wizardPatterns {
+    background-color: var(--color-purple-10);
+  }
+
+  .wizardOrderedList {
+    padding-inline-start: 1rem;
+
+    li {
+      margin-block-end: 24px;
+
+      &::marker,
+      h4 {
+        font: var(--font-14-semibold);
+      }
+
+      h4 {
+        margin-block-end: 8px;
+      }
+
+      p {
+        font: var(--font-14-regular);
+
+        a {
+          color: var(--link-color);
+        }
+
+        + p {
+          margin: 12px 0 0;
+        }
+      }
+    }
+  }
+
+  .taglineCode {
+    align-content: center;
+    display: flex;
+    flex-flow: row wrap;
+    gap: 8px;
+
+    span.highlight {
+      align-self: center;
+      font: var(--font-14-semibold);
+      padding: 6px 8px;
+    }
+  }
+
+  .descriptionHelpWrapper {
+    background: var(--color-purple-10);
+    border: 1px solid var(--color-purple-40);
+    border-radius: var(--border-radius-8);
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    margin-top: 8px;
+    padding: 16px;
+  }
+
+  .wizardSourcePreviewNoFiles,
+  .wizardSourcePreviewHasFiles {
+    border: 2px dashed var(--border-color-chart);
+    border-radius: var(--border-radius-8);
+    color: var(--text-color-secondary);
+    font: var(--font-12-semibold);
+    padding: 16px;
+  }
+
+  .wizardSourcePreviewHasFiles {
+    border-color: var(--color-positive);
+    color: var(--text-color-primary);
+    font: var(--font-14-semibold);
+  }
+
+  .wizardSourcePreviewArea ul {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 0 16px;
+
+    .wizardsourcePreviewItem {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      overflow-wrap: anywhere;
+
+      .content {
+        -webkit-box-orient: vertical;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        line-clamp: 3;
+        overflow: hidden;
+      }
+    }
+  }
+
+  .wizardCardFooter {
+    align-items: center;
+    border-top: 1px solid var(--border-color-dialog);
+    display: flex;
+    margin-top: 16px;
+    padding: 16px;
+
+    .wizardCardFooterNavigation {
+      display: flex;
+      gap: 16px;
+      justify-content: flex-end;
+      width: 100%;
+    }
+  }
+
+  &.wizardSetupCard {
+    padding: 0;
+
+    hgroup {
+      margin: 0 24px 8px;
+
+      h3 {
+        font: var(--font-14-semibold);
+      }
+    }
+
+    .dataSourceCreateWizareSetupTitle {
+      display: flex;
+      gap: 4px;
+      padding: 0 24px 16px;
+
+      h6 {
+        font: var(--font-14-semibold);
+        margin: 2px 0 0;
+      }
+
+      svg {
+        font-size: var(--icon-size-24);
+      }
+    }
+
+    .wizardCardBody {
+      margin: 0 24px;
+    }
+
+    .wizardCardFooter {
+      padding: 16px 16px 0;
+    }
+
+    .wizardFileUpload {
+      margin: 16px 0 0;
+    }
+  }
+}

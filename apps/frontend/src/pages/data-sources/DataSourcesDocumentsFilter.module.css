@@ -1,0 +1,34 @@
+.modalBody {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 16px 24px;
+  width: 100%;
+}
+
+.filterText {
+  padding: 10px 0 0;
+}
+
+.filterActionsRow {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+
+  .mainActions {
+    display: flex;
+    gap: 16px;
+  }
+}
+
+.teamSelectItem {
+  align-items: center;
+  display: flex;
+  gap: 8px;
+}
+
+.editorAvatar {
+  border-radius: var(--border-radius-circle);
+  height: var(--icon-size-24);
+  width: var(--icon-size-24);
+}

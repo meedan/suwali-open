@@ -1,0 +1,67 @@
+.statusBanner {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  padding: 16px 24px;
+  width: 100%;
+
+  &.paused {
+    background-color: var(--color-orange-10);
+  }
+
+  &.error {
+    background-color: var(--color-pink-10);
+  }
+
+  &.pausing,
+  &.processing {
+    background-color: var(--color-yellow-10);
+  }
+}
+
+.statusPrefix {
+  align-items: center;
+  display: inline-flex;
+  flex-shrink: 0;
+  font-style: normal;
+  vertical-align: text-bottom;
+
+  svg {
+    font-size: var(--icon-size-font-relative-small);
+    margin-inline-end: 1px;
+  }
+
+  &.paused {
+    color: var(--color-paused);
+
+    svg {
+      color: var(--color-paused);
+    }
+  }
+
+  &.error {
+    color: var(--color-negative);
+
+    svg {
+      color: var(--color-negative);
+    }
+  }
+
+  &.pausing,
+  &.processing {
+    color: var(--color-neutral);
+
+    svg {
+      color: var(--color-neutral);
+    }
+  }
+
+  &.unsupported {
+    color: var(--text-color-readonly);
+
+    svg {
+      color: var(--text-color-readonly);
+      margin-inline-end: 4px;
+    }
+  }
+}

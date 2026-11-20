@@ -1,0 +1,90 @@
+.previewDetails {
+  --heading-height: 16px;
+  --heading-gap: 6px;
+  --section-gap: 12px;
+
+  display: flex;
+  flex-direction: column;
+  font: var(--font-14-regular);
+}
+
+.section {
+  border-top: 1px solid var(--border-color-panel);
+  display: flex;
+  flex-direction: column;
+  gap: var(--section-gap);
+  padding: 16px 0;
+
+  &:first-child {
+    border-top: 0;
+    padding-top: 0;
+  }
+
+  &:last-child {
+    padding-bottom: 0;
+  }
+}
+
+/* Editing a section is the only thing to do, so it has the details to itself, and its content decides its own padding and scrolling */
+.previewDetails:has(> .section[data-editing]) {
+  flex: 1 1 auto;
+  min-height: 0;
+
+  > .section:not([data-editing]) {
+    display: none;
+  }
+}
+
+.section[data-editing] {
+  border-top: 0;
+  flex: 1 1 auto;
+  min-height: 0;
+  padding: 0;
+
+  > .header {
+    height: auto;
+    margin-block-end: 0;
+    min-height: var(--heading-height);
+    padding: 16px 16px 0;
+  }
+}
+
+.header {
+  align-items: center;
+  display: flex;
+
+  /* A heading is as tall as its text whatever its action is, so the action takes its room from the gap around it */
+  height: var(--heading-height);
+  justify-content: space-between;
+
+  /* The heading of a section and the label of a field look the same, and sit the same way above what they are for */
+  h3 {
+    font: var(--font-12-semibold);
+    line-height: var(--heading-height);
+  }
+}
+
+/* Directly in a section the heading is below the section gap rather than the heading gap, and the fields' own are not */
+.section > .header {
+  margin-block-end: calc(var(--heading-gap) - var(--section-gap));
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--heading-gap);
+}
+
+.value {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+/* The action wraps below the value, rather than squeezing it, when a translation makes it too long to sit beside it */
+.valueRow {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--heading-gap);
+  justify-content: space-between;
+}

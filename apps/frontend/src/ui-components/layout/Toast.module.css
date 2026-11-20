@@ -1,0 +1,87 @@
+.root {
+  align-items: start;
+  background-color: var(--background-color-popup);
+  border: solid 2px var(--color-black-12);
+  border-radius: var(--border-radius-12);
+  box-shadow: var(--drop-shadow);
+  color: var(--text-color-primary);
+  column-gap: 16px;
+  display: grid;
+  grid-template-areas: "icon content close" "icon content close";
+  grid-template-columns: max-content auto max-content;
+  padding: 12px;
+
+  &.variantSuccess {
+    border-color: var(--color-positive);
+  }
+
+  &.variantError {
+    border-color: var(--color-negative);
+  }
+
+  &[data-state="open"] {
+    animation: slide-in-toast 150ms var(--easing-function);
+  }
+
+  &[data-state="closed"] {
+    animation: hide-toast 100ms var(--easing-function);
+  }
+
+  &[data-swipe="move"] {
+    transform: translateX(100px);
+  }
+
+  &[data-swipe="cancel"] {
+    transform: translateX(0);
+    transition: transform 200ms var(--easing-function);
+  }
+}
+
+@keyframes hide-toast {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes slide-in-toast {
+  from {
+    transform: translateY(calc(100% + 25px));
+  }
+
+  to {
+    transform: translateY(0);
+  }
+}
+
+.icon {
+  font-size: var(--icon-size-24);
+  grid-area: icon;
+  margin: 2px 0 0;
+}
+
+.content {
+  grid-area: content;
+  padding: 4px 0 0;
+
+  .title {
+    font: var(--font-14-semibold);
+    min-height: 0;
+  }
+
+  .description {
+    font: var(--font-14-regular);
+    margin: 0;
+  }
+}
+
+.close {
+  grid-area: close;
+}
+
+.actionButton {
+  margin: 4px 0 0;
+}

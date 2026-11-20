@@ -1,0 +1,33 @@
+networks:
+  dev:
+
+volumes:
+  playwright_node_modules:
+
+services:
+  playwright:
+    build:
+      context: ./apps/frontend
+      dockerfile: Dockerfile.playwright
+    container_name: suwali_playwright
+    volumes:
+      - ./apps/frontend:/app
+      - playwright_node_modules:/app/node_modules
+    ports:
+      - "5900:5900"   # VNC
+      - "9323:9323"
+    environment:
+      DISPLAY: ":0"
+      CMS_API_HOST: cms-api
+      CMS_API_BASE: "http://cms-api:3000"
+      CMS_API_URL: "http://cms-api:3000"
+      FRONTEND_URL: "http://frontend:5173"
+      VITE_API_BASE_URL: "http://cms-api:3000/api"
+      CI: "true"
+    networks:
+      - dev
+
+  frontend:
+    environment:
+      VITE_API_BASE_URL: http://cms-api:3000/api
+      NODE_ENV: test

@@ -1,0 +1,23 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Suwali">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover" />
+    <!-- Fixes cascade layer order before any stylesheet loads. `vite build` doesn't keep the
+         index.css <link> below first in the built head, so relying on load order (as src/index.css
+         used to) let a component's `@layer components.*` register before this ran, inverting
+         precedence. -->
+    <style>@layer reset, base, vendor, components.shared, components.feature;</style>
+    <link rel="stylesheet" href="/src/index.css" />
+    <title>Suwali</title>
+    <script src="/config.js"></script>
+  </head>
+  <body>
+    <div id="root" class="layout-wrapper"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

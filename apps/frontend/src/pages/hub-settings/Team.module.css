@@ -1,0 +1,117 @@
+.inviteCodeWrapper {
+  background-color: var(--background-color-bg1);
+  border-radius: var(--border-radius-16);
+  display: flex;
+  flex-flow: row nowrap;
+  gap: 24px;
+  margin: 8px 0;
+  padding: 16px;
+
+  .inviteCodeDescription {
+    flex: 1;
+
+    a {
+      color: var(--text-color-primary);
+      display: block;
+      font: var(--font-12-semibold);
+      margin: 4px 0;
+    }
+  }
+
+  .inviteCodeActions {
+    align-items: center;
+    display: flex;
+    flex: 0 0 auto;
+    flex-flow: column nowrap;
+    gap: 4px;
+  }
+
+  .inviteCode {
+    align-items: center;
+    background-color: var(--color-purple-10);
+    border-radius: var(--border-radius-16);
+    display: flex;
+    font: var(--font-24-semibold);
+    gap: 16px;
+    padding: 16px;
+  }
+}
+
+.teamList {
+  margin: 16px 0;
+
+  ul {
+    list-style: none;
+    margin: 16px 0;
+
+    li {
+      border-top: solid 1px var(--border-color-panel);
+      display: flex;
+      flex-flow: row wrap;
+      gap: 8px;
+      padding: 16px 8px;
+      transition: var(--hover-transition);
+
+      .editorPhoto {
+        border: solid 2px var(--border-color-panel);
+        border-radius: var(--border-radius-circle);
+        flex: 0 0 44px;
+        font: var(--font-12-regular);
+        height: 44px;
+        width: 44px;
+      }
+
+      > div {
+        display: flex;
+        flex: 1;
+        flex-flow: column nowrap;
+        gap: 3px;
+      }
+
+      div + div {
+        align-items: flex-end;
+        flex: 0 1 auto;
+        justify-content: space-between;
+      }
+
+      .roleSelect,
+      .approveMembership {
+        margin: 8px 0 0;
+      }
+
+      span {
+        font: var(--font-14-semibold);
+      }
+
+      small {
+        color: var(--text-color-secondary);
+        font: var(--font-12-regular);
+
+        &.editorConfirmation {
+          align-items: center;
+          color: var(--color-neutral);
+          display: flex;
+          font-style: italic;
+          gap: 3px;
+        }
+
+        &.editorConfirmation.editorConfirmed {
+          color: var(--color-positive);
+          font-style: normal;
+        }
+
+        &.editorConfirmation.editorPendingApproval {
+          color: var(--color-neutral);
+        }
+
+        &.editorConfirmation svg {
+          font-size: var(--icon-size-16);
+        }
+      }
+
+      &:hover {
+        background-color: var(--button-background-color);
+      }
+    }
+  }
+}

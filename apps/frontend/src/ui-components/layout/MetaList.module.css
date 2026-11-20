@@ -1,0 +1,69 @@
+.metalist {
+  align-items: center;
+  color: var(--text-color-primary);
+  display: flex;
+  flex-flow: row wrap;
+  font: var(--font-12-regular);
+  gap: 4px;
+  list-style: none;
+  transition: var(--hover-transition);
+  width: 100%;
+
+  &.secondary {
+    color: var(--text-color-secondary);
+  }
+
+  &.modal {
+    border-bottom: 1px solid var(--border-color-panel);
+    padding: 16px 24px;
+  }
+
+  li {
+    align-items: center;
+    display: flex;
+    gap: 4px;
+
+    .icon {
+      font-size: var(--icon-size-font-relative-large);
+    }
+
+    a {
+      color: var(--text-color-primary);
+      display: block;
+      flex: 1;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+
+      span {
+        align-items: center;
+        display: flex;
+        gap: 4px;
+      }
+    }
+
+    &:not(:first-child)::before {
+      content: '\0000B7';
+      display: inline-block;
+      font-size: var(--font-size-18);
+      font-weight: var(--font-weight-semibold);
+      margin: -.25rem 0 0;
+    }
+
+    &.breakList {
+      flex-basis: 100%;
+      padding: 8px 0 0;
+
+      &::before {
+        display: none;
+      }
+    }
+
+    &.avatarLayout {
+      align-items: center;
+      display: flex;
+      font-weight: var(--font-weight-semibold);
+      gap: 3px;
+    }
+  }
+}

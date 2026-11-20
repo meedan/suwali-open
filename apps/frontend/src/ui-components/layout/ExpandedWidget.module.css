@@ -1,0 +1,179 @@
+.expandedWidget {
+  --columns-gap: 24px;
+
+  /* Clears the chart's Y axis, so the filters and legend line up with the plot rather than with
+     its labels. Mirrors CHART_VISUAL_CONSTANTS.AXIS_WIDTH. */
+  --gutter: 64px;
+
+  /* A chart's own height, and the rows stacked around it, so a table beside one can match it */
+  --chart-height: 260px;
+  --chart-extras: 48px;
+
+  /* What a section fills at the panel's narrowest: 650px wide, less 16px of padding on each side,
+     less the gap. Both sections claim it, so they stack until the panel is wide enough for two of
+     them and only then sit side by side. */
+  --section-min-width: calc(650px - 32px - var(--columns-gap));
+
+  background-color: var(--background-color-bg0);
+  border-radius: var(--border-radius-24);
+  min-height: 374px;
+  min-width: 650px;
+  padding: 16px;
+  position: relative;
+
+  &.empty {
+    min-height: var(--chart-height);
+  }
+
+  .titleWrapper {
+    display: flex;
+    justify-content: space-between;
+
+    h3 {
+      font: var(--font-14-semibold);
+    }
+
+    .actions {
+      display: flex;
+      gap: 8px;
+    }
+  }
+
+  .message {
+    color: var(--text-color-secondary);
+    margin-top: 16px;
+  }
+
+  .columns {
+    display: flex;
+    flex-flow: row wrap;
+    gap: var(--columns-gap);
+    margin-top: 16px;
+  }
+
+  .column {
+    display: flex;
+    flex: 1 1 var(--section-min-width);
+    flex-direction: column;
+    min-width: 0;
+
+    h4 {
+      font: var(--font-14-semibold);
+      margin: 0 0 16px;
+    }
+  }
+
+  .filters {
+    align-items: center;
+    display: flex;
+    flex-flow: row wrap;
+    gap: 8px;
+    margin-inline-start: var(--gutter);
+    margin-bottom: 16px;
+
+    &>span {
+      color: var(--text-color-primary);
+      font: var(--font-14-semibold);
+    }
+  }
+
+  .separator {
+    user-select: none;
+  }
+
+  .legendPlacement {
+    margin: 16px 0 0 var(--gutter);
+  }
+
+  .rowName {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .rowValues {
+    text-align: end;
+    white-space: nowrap;
+
+    .separator {
+      margin: 0 4px;
+    }
+  }
+
+  .chart {
+    width: 100%;
+  }
+
+  .quadrants {
+    display: flex;
+    justify-content: space-between;
+    padding-inline: var(--axis-width) 16px;
+
+    span {
+      color: var(--text-color-secondary);
+      font: var(--font-12-regular);
+    }
+  }
+
+  /* Pulled back up into the tick band so the corner labels sit just under the plot */
+  .quadrantsBottom {
+    margin-top: -24px;
+  }
+
+  .axisLabel {
+    color: var(--text-color-secondary);
+    font: var(--font-12-regular);
+    margin-top: 8px;
+    padding-inline: var(--axis-width) 16px;
+    text-align: center;
+  }
+
+  .tooltip {
+    display: flex;
+    flex-direction: column;
+    font: var(--font-12-regular);
+    gap: 4px;
+    padding: 8px;
+
+    .tooltipTitle {
+      align-items: center;
+      display: flex;
+      gap: 8px;
+    }
+
+    .tooltipStats {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      list-style: disc;
+      padding-inline-start: 16px;
+    }
+  }
+
+  .tableContainer {
+    max-height: 480px;
+    overflow-y: auto;
+  }
+
+  .table {
+    border-radius: var(--border-radius-0);
+    border-width: 0;
+
+    td {
+      padding-block: 8px;
+    }
+
+    thead {
+      height: auto;
+
+      th {
+        top: 0;
+
+        h4 {
+          margin: 0;
+        }
+      }
+    }
+  }
+}
+

@@ -1,0 +1,95 @@
+.hintBoxWrapper {
+  border-radius: var(--border-radius-8);
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  padding: 12px 8px;
+
+  .hintBoxIcon {
+    font-size: var(--icon-size-20);
+  }
+
+  &.success {
+    background-color: var(--color-green-10);
+
+    .hintBoxIcon {
+      color: var(--color-green-33);
+    }
+  }
+
+  &.error {
+    background-color: var(--color-pink-10);
+
+    .hintBoxIcon {
+      color: var(--color-pink-53);
+    }
+  }
+
+  &.info {
+    background-color: var(--color-purple-10);
+
+    .hintBoxIcon {
+      color: var(--color-purple-67);
+    }
+  }
+
+  &.warning {
+    background-color: var(--color-yellow-10);
+
+    .hintBoxIcon {
+      color: var(--color-yellow-38);
+    }
+  }
+
+  &.theme {
+    background-color: var(--background-color-bg0);
+
+    .hintBoxIcon {
+      color: var(--button-text-color);
+    }
+  }
+
+  .hintBoxContent {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .hintBoxBody {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  &.sizeSmall {
+    .hintBoxBody {
+      font: var(--font-12-regular);
+    }
+
+    .hintBoxTitle {
+      font: var(--font-12-semibold);
+      line-height: var(--line-height-20);
+    }
+  }
+
+  &.sizeLarge {
+    padding: 16px 12px;
+
+    .hintBoxIcon {
+      font-size: var(--icon-size-24);
+    }
+
+    .hintBoxBody {
+      font: var(--font-14-regular);
+    }
+
+    .hintBoxTitle {
+      font: var(--font-14-semibold);
+      line-height: var(--line-height-24);
+    }
+  }
+
+  .hintBoxActions {
+    margin-top: 8px;
+  }
+}

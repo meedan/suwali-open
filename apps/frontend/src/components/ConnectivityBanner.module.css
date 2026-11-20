@@ -1,0 +1,41 @@
+/* Floats over the page, since the layouts fill the viewport exactly and an extra row would push their bottom off screen */
+.region {
+  display: flex;
+  inset-inline: 16px;
+  justify-content: center;
+  pointer-events: none;
+  position: fixed;
+  top: 16px;
+  z-index: var(--z-index-max);
+}
+
+.banner {
+  align-items: center;
+  background-color: var(--background-color-popup);
+  border: solid 2px var(--color-green-33);
+  border-radius: var(--border-radius-12);
+  box-shadow: var(--drop-shadow);
+  color: var(--text-color-primary);
+  display: flex;
+  flex-wrap: wrap;
+  font: var(--font-12-semibold);
+  gap: 8px;
+  justify-content: center;
+  max-width: 600px;
+  padding: 8px 12px;
+  pointer-events: auto;
+}
+
+.offline {
+  border-color: var(--color-orange-59);
+}
+
+.icon {
+  flex-shrink: 0;
+  height: var(--icon-size-24);
+  width: var(--icon-size-24);
+}
+
+.offline .icon {
+  color: var(--color-orange-59);
+}

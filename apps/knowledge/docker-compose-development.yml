@@ -1,0 +1,112 @@
+networks:
+  dev:
+
+services:
+  knowledge:
+    build:
+      context: .
+    ports:
+      - "${KNOWLEDGE_API_PORT}:${KNOWLEDGE_API_PORT}"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:${KNOWLEDGE_API_PORT}/health/"]
+      interval: 60s
+      timeout: 60s
+      retries: 15
+      start_period: 60s
+    env_file: .env
+    volumes:
+      - ./:/app
+    depends_on:
+      redis:
+        condition: service_started
+      neo4j:
+        condition: service_healthy
+    networks:
+      - dev
+
+  redis:
+    image: redis:7
+    volumes:
+      - redis:/data
+    networks:
+      - dev
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 60s
+      timeout: 60s
+      retries: 15
+      start_period: 60s
+
+  neo4j:
+    image: neo4j:2026.06.0
+    volumes:
+      - neo4j:/data
+      - ./backups:/data/backups
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:7474"]
+      interval: 30s
+      timeout: 60s
+      retries: 20
+      start_period: 60s
+    ports:
+      - "7474:7474"
+      - "7687:7687"
+    environment:
+      NEO4J_PLUGINS: '["apoc", "genai", "graph-data-science"]'
+      # Username must be neo4j
+      NEO4J_AUTH: "neo4j/${NEO4J_PASSWORD}"
+      # neo4j-graphrag's HybridCypherRetriever emits the native Cypher 25 SEARCH
+      # clause on Neo4j >= 2026.01; the server otherwise still parses under the
+      # CYPHER_5 default, which rejects that clause with a syntax error.
+      NEO4J_db_query_default__language: "CYPHER_25"
+    networks:
+      - dev
+    
+  neo4j_yago:
+    profiles:
+      - yago
+    image: ${YAGO_NEO4J_IMAGE:-}
+    volumes:
+      - neo4j_yago:/data
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:7474"]
+      interval: 30s
+      timeout: 60s
+      retries: 10
+      start_period: 30s
+    ports:
+      - "17474:7474" # HOST:CONTAINER
+      - "17687:7687"
+    environment:
+      NEO4J_PLUGINS: '["apoc", "genai", "graph-data-science"]'
+      NEO4J_AUTH: "neo4j/${NEO4J_PASSWORD}"
+    networks:
+      - dev
+
+  rq_worker:
+    build:
+      context: .
+    command: ./bin/start-rq.sh
+    env_file: .env
+    environment:
+      RAILS_ENV: development
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8001/health"]
+      interval: 60s
+      timeout: 60s
+      retries: 15
+      start_period: 60s
+    depends_on:
+      redis:
+        condition: service_started
+      neo4j:
+        condition: service_healthy
+      knowledge:
+        condition: service_healthy
+    networks:
+      - dev
+
+volumes:
+  redis:
+  neo4j:
+  neo4j_yago:

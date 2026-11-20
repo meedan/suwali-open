@@ -1,0 +1,106 @@
+# Force-delete caches for closed PRs, deleted branches, and leftover refs.
+# See https://docs.github.com/en/actions/how-tos/manage-workflow-runs/manage-caches#force-deleting-cache-entries
+name: Cleanup Actions Cache
+
+on:
+  pull_request:
+    types: [closed]
+  delete:
+  schedule:
+    # Safety net for branches/PRs that were not cleaned by the events above.
+    - cron: "0 4 * * 1"
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: Which caches to delete (main is always kept)
+        type: choice
+        options:
+          - orphan
+          - all-except-main
+        default: orphan
+
+permissions:
+  actions: write
+  contents: read
+  pull-requests: read
+
+concurrency:
+  group: cleanup-actions-cache
+  cancel-in-progress: false
+
+jobs:
+  cleanup:
+    name: Delete unused Actions caches
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Delete caches
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
+          EVENT_NAME: ${{ github.event_name }}
+          MODE: ${{ inputs.mode }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          PR_HEAD_REF: ${{ github.event.pull_request.head.ref }}
+          PR_HEAD_REPO: ${{ github.event.pull_request.head.repo.full_name }}
+          DELETED_REF: ${{ github.event.ref }}
+          DELETED_REF_TYPE: ${{ github.event.ref_type }}
+        run: |
+          set -euo pipefail
+
+          protected="refs/heads/main"
+
+          delete_ref() {
+            local ref="$1"
+            if [ -z "$ref" ] || [ "$ref" = "$protected" ]; then
+              echo "Skipping protected or empty ref: ${ref:-<empty>}"
+              return 0
+            fi
+            echo "Deleting caches for $ref"
+            gh cache delete --all --ref "$ref" --succeed-on-no-caches
+          }
+
+          case "$EVENT_NAME" in
+            pull_request)
+              delete_ref "refs/pull/${PR_NUMBER}/merge"
+              if [ "$PR_HEAD_REPO" = "$GH_REPO" ]; then
+                delete_ref "refs/heads/${PR_HEAD_REF}"
+              fi
+              ;;
+            delete)
+              if [ "$DELETED_REF_TYPE" = "branch" ]; then
+                delete_ref "refs/heads/${DELETED_REF}"
+              else
+                echo "Ignoring tag delete: $DELETED_REF"
+              fi
+              ;;
+            schedule|workflow_dispatch)
+              mode="${MODE:-orphan}"
+              echo "Mode: $mode"
+
+              declare -A keep
+              keep["$protected"]=1
+
+              if [ "$mode" = "orphan" ]; then
+                while IFS= read -r name; do
+                  [ -n "$name" ] && keep["refs/heads/${name}"]=1
+                done < <(gh api "repos/${GH_REPO}/branches?per_page=100" --paginate --jq '.[].name')
+
+                while IFS= read -r number; do
+                  [ -n "$number" ] && keep["refs/pull/${number}/merge"]=1
+                done < <(gh pr list --state open --limit 1000 --json number --jq '.[].number')
+              fi
+
+              while IFS= read -r ref; do
+                [ -z "$ref" ] && continue
+                if [ "$mode" = "all-except-main" ] || [ -z "${keep[$ref]:-}" ]; then
+                  delete_ref "$ref"
+                else
+                  echo "Keeping $ref"
+                fi
+              done < <(gh cache list --limit 1000 --json ref --jq '[.[].ref] | unique[]')
+              ;;
+            *)
+              echo "Unexpected event: $EVENT_NAME"
+              exit 1
+              ;;
+          esac

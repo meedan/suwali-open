@@ -1,0 +1,71 @@
+graph TB
+    subgraph "Client Layer"
+        FE[Frontend]
+    end
+    
+    FE -->|API| CMS
+
+    subgraph "Backend Layer"
+        CMS[Content Management System / API]
+        CMS <-->|Store/Retrieve Data| DB
+        CMS -->|AI Requests| AI
+        
+        subgraph "Messaging Module"
+            MM[Messaging Module]
+            MM <--> CMS
+            MM <-->|Send/Receive| WA[WhatsApp API]
+            MM <-->|Send/Receive| TG[Telegram API]
+        end
+        
+        subgraph "Data Insights Module" 
+            DI[Analytics Engine]
+            DI <--> CMS
+        end
+    end
+        
+    subgraph "AI Layer"
+        AI[Knowledge Service]
+        AI <-->|Query/Update| VDB[Full Text Index]
+        AI <-->|Relationship Data| GDB[Graph Database]
+        AI <-->|Request/Response| LLM
+    end
+    
+    subgraph "Data Sources"
+        WS[Website]
+        RS[RSS]
+        GD[Google Drive Folder]
+        JA[JSON API]
+    end
+    
+    subgraph "Community Users"
+        CU[Community Members]
+    end
+    
+    subgraph "Partners"
+        PA[Partner Admins]
+    end
+    
+    %% Data Flow Paths
+    WS -->|Data Extraction| CMS
+    GD -->|Data Extraction| CMS
+    JA -->|Data Extraction| CMS
+    RS -->|Data Extraction| CMS
+    
+    CU <-->|Questions/Contributions| MM
+    
+    PA -->|Manage/Configure| FE
+    PA -->|Approve/Update/Moderate Content| FE
+    
+    classDef frontend fill:#d0e0ff,stroke:#000,color:#000
+    classDef backend fill:#c9e7c9,stroke:#000,color:#000
+    classDef ai fill:#ffe0cc,stroke:#000,stroke-width:2px,color:#000
+    classDef data fill:#ffd9d9,stroke:#000,color:#000
+    classDef user fill:#e0d6ff,stroke:#000,color:#000
+    classDef external fill:#f9d6ff,stroke:#000,color:#000
+    
+    class FE frontend
+    class CMS,MM,DI backend
+    class AI,LLM ai
+    class DB,VDB,GDB data
+    class WS,TG,GD,WA,JA,RS external
+    class CU,PA user

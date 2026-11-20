@@ -1,0 +1,18 @@
+.label {
+  color: var(--text-color-primary);
+  font: var(--font-12-semibold);
+  margin: 12px 0 4px;
+}
+
+.description {
+  font: var(--font-12-regular);
+  margin: 0 0 8px;
+}
+
+/* The same mark as the label of an input in an error state, see forms.css */
+.invalid::after {
+  color: var(--text-color-error);
+  content: " *";
+  font-weight: var(--font-weight-semibold);
+  vertical-align: text-top;
+}

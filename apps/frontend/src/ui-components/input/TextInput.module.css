@@ -1,0 +1,84 @@
+.titleWrapper {
+  display: flex;
+  flex-flow: row wrap;
+  gap: 4px;
+  min-height: 32px;
+  padding: 12px 0;
+}
+
+.prefix .inputRow input {
+  padding-inline: 0 12px;
+}
+
+.sizeLarge {
+  .titleWrapper {
+    min-height: 48px;
+  }
+
+  .inputRow {
+    font: var(--font-14-regular);
+    padding: 0;
+
+    span {
+      padding-block: 14px;
+      padding-inline-start: 16px;
+    }
+
+    input {
+      padding-block: 14px;
+      padding-inline: 16px;
+    }
+  }
+
+  &.prefix .inputRow input {
+    padding-inline: 0 16px;
+  }
+
+  textarea {
+    font: var(--font-14-regular);
+    padding: 16px;
+  }
+
+  &.autoGrow::after {
+    padding: 16px 15px;
+  }
+}
+
+.autoGrow {
+  display: grid;
+
+  &::after {
+    border: 2px solid transparent;
+
+    /* Note the weird space! Needed to preventy jumpy behavior */
+    content: attr(data-textarea-value) ' ';
+    font: var(--font-14-regular);
+    margin-top: 1px;
+    max-height: inherit;
+    overflow-wrap: anywhere;
+    padding: 8px 11px;
+
+    /* Hidden from view, clicks, and screen readers */
+    visibility: hidden;
+
+    /* This is how textarea text behaves */
+    white-space: pre-wrap;
+  }
+
+  > textarea {
+    height: auto;
+
+    /* Firefox shows scrollbar on growth, you can hide like this. */
+    overflow: hidden;
+    overflow-wrap: anywhere;
+  }
+
+  > textarea,
+  &::after {
+
+    /* Place on top of each other */
+    grid-area: 1 / 1 / 2 / 2;
+    margin: 1px 0;
+    overflow-y: auto;
+  }
+}

@@ -1,0 +1,5 @@
+services:
+  test-runner:
+    depends_on:
+      neo4j_yago:
+        condition: service_healthy

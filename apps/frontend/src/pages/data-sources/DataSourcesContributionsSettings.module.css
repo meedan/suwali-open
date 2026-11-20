@@ -1,0 +1,131 @@
+.contributionsSettings {
+  align-items: start;
+  display: flex;
+  flex-flow: row wrap;
+  gap: 24px;
+
+  table {
+    flex: 6 0;
+    min-width: var(--width-sidecolumn-full);
+  }
+
+  .rightColumn {
+    align-items: start;
+    display: flex;
+    flex: 1 0 var(--width-interiorcolumn-small);
+    flex-direction: column;
+    min-width: var(--width-sidecolumn-full);
+    padding: 24px 0;
+    position: sticky;
+    top: 0;
+  }
+
+  .contributionsIntro {
+    align-self: center;
+    gap: 16px;
+    max-width: var(--width-dialog-large);
+
+    p {
+      font: var(--font-18-regular);
+      margin: 0;
+    }
+  }
+
+  .customizePanel {
+    gap: 12px;
+
+    p {
+      font: var(--font-12-regular);
+    }
+
+    table {
+      flex: 0 0 auto;
+      width: 100%;
+    }
+  }
+
+  .trustedEndUsersHeader {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 24px;
+    width: 100%;
+
+    h3 {
+      margin: 0;
+    }
+  }
+
+  .contributionCodeInput {
+    align-items: start;
+    background-color: var(--background-color-bg0);
+    border-radius: var(--border-radius-16);
+    display: flex;
+    gap: 8px;
+    padding: 16px;
+    width: 100%;
+
+    > div {
+      flex: 1;
+    }
+  }
+
+  .customizeActions {
+    display: flex;
+    gap: 16px;
+  }
+
+  .workflowColumn {
+    flex: 0 1 var(--width-sidecolumn-full);
+
+    h3 {
+      align-items: center;
+      display: flex;
+      gap: 8px;
+      margin: 0;
+
+      :global(.suwali-icon) {
+        color: var(--color-orange-59);
+        font-size: var(--icon-size-24);
+      }
+    }
+  }
+
+  .contributionCodeWrapper {
+    align-items: start;
+    background-color: var(--background-color-bg0);
+    border-radius: var(--border-radius-16);
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 16px;
+
+    p {
+      color: var(--text-color-primary);
+      font: var(--font-12-regular);
+      margin: 0;
+    }
+
+    a {
+      color: var(--text-color-primary);
+      display: block;
+      font: var(--font-12-semibold);
+      margin: 4px 0;
+    }
+
+    .contributionWorkflowHeader {
+      align-items: center;
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+    }
+  }
+}
+
+@media only screen and (width <= 850px) {
+  .contributionsSettings {
+    .workflowColumn {
+      flex: 1 1 var(--width-sidecolumn-full);
+    }
+  }
+}

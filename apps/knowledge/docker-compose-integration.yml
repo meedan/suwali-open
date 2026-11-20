@@ -1,0 +1,57 @@
+services:
+  redis:
+    volumes: !reset []
+    tmpfs:
+      - /data
+
+  neo4j:
+    volumes: !reset []
+    tmpfs:
+      - /data
+      - /logs
+    environment:
+      # Inherit NEO4J_PLUGINS and NEO4J_AUTH from development.yml
+      # https://neo4j.com/docs/operations-manual/current/docker/configuration/
+      NEO4J_server_memory_pagecache_size: "256M"
+      NEO4J_server_memory_heap_initial__size: "512M"
+      NEO4J_server_memory_heap_max__size: "512M"
+
+  neo4j_yago:
+    # we're not reseting the volumes
+    # -> reuse the volume defined in docker-compose-development.yml to be able to query the dataset
+    environment:
+      NEO4J_server_memory_pagecache_size: "256M"
+      NEO4J_server_memory_heap_initial__size: "512M"
+      NEO4J_server_memory_heap_max__size: "512M"
+
+  knowledge:
+    volumes: !reset []
+    env_file: .env.integration
+
+  rq_worker:
+    volumes: !reset []
+    env_file: .env.integration
+
+  test-runner:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    networks:
+      - dev
+    environment:
+      PYTHONDONTWRITEBYTECODE: 1
+      BASE_URL: http://knowledge:8000
+      RQ_BASE_URL: http://rq_worker:8001
+    env_file:
+      - .env
+      - .env.integration
+    command: sh -c "pytest -m '${PYTEST_MARKER:-integration and not benchmark}' -vvv --tb=short --color=yes --cache-clear"
+    depends_on:
+      knowledge:
+        condition: service_healthy
+      rq_worker:
+        condition: service_healthy
+    volumes:
+      - ./:/app
+    stdin_open: true
+    tty: true

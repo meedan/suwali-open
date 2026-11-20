@@ -1,0 +1,50 @@
+div.onboarding {
+  border: solid 1px var(--border-color-panel);
+  border-radius: var(--border-radius-12);
+  display: flex;
+  flex-flow: column nowrap;
+  gap: 8px;
+  padding: 8px;
+
+  hgroup h3 {
+    font: var(--font-12-semibold);
+  }
+
+  ul {
+    list-style: none;
+
+    li {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      margin: 0 0 4px;
+
+      small {
+        color: var(--text-color-secondary);
+        display: block;
+        font: var(--font-12-regular);
+        margin: 0 0 4px 24px;
+      }
+
+      &.completed {
+        color: var(--text-color-secondary);
+
+        a {
+          text-decoration: none;
+        }
+
+        span {
+          font-weight: var(--font-weight-regular);
+        }
+
+        small {
+          display: none;
+        }
+      }
+
+      &:last-of-type {
+        margin: 0;
+      }
+    }
+  }
+}

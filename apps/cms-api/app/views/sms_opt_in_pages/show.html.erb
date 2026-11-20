@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= @hub.name %> SMS Q&amp;A — Terms &amp; Opt-In</title>
+    <style>
+      body { margin: 0; padding: 40px 16px; background: #ffffff; color: #1E1E1E; font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; font-size: 16px; line-height: 1.6; }
+      main { max-width: 640px; margin: 0 auto; }
+      h1 { font-size: 28px; line-height: 1.25; margin: 0 0 8px; }
+      h2 { font-size: 20px; margin: 32px 0 8px; }
+      a { color: #7857FF; }
+      .operator { color: #555555; margin: 0 0 24px; }
+      footer { margin-top: 40px; padding-top: 16px; border-top: 1px solid #E9E9E9; font-size: 13px; color: #808080; }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1><%= @hub.name %> SMS Q&amp;A — Terms &amp; Opt-In</h1>
+      <p class="operator">An SMS service of <%= @brand_name %>.</p>
+      <p>You can send questions to <%= @hub.name %> by texting <strong><%= @integration.get_credential(:phone_number) %></strong>. By texting this number, you agree to receive SMS replies from <%= @brand_name %>.</p>
+      <ul>
+        <li>Message frequency varies: you receive replies to the messages you send and, when a conversation ends, one closing message.</li>
+        <li>Optional topic updates: when a conversation ends, you may be offered updates on the topics discussed. You are only subscribed if you reply to accept, and you receive at most one update per topic per day. Each update tells you how to unsubscribe from that topic.</li>
+        <li>Message and data rates may apply.</li>
+        <li>Reply HELP for help, or STOP to stop all messages at any time.</li>
+        <li>Consent to receive messages is not a condition of any purchase or service.</li>
+      </ul>
+      <h2>Resources</h2>
+      <p><%= @brand_name %> runs this service on Suwali, a platform by Meedan. Messages to and from this number are covered by Suwali’s Terms of Service and Privacy Policy.</p>
+      <ul>
+        <li>Privacy Policy: <a href="https://www.suwali.io/privacy-policy/">https://www.suwali.io/privacy-policy/</a></li>
+        <li>Terms of Service: <a href="https://www.suwali.io/terms-of-service/">https://www.suwali.io/terms-of-service/</a></li>
+      </ul>
+      <footer>Powered by Suwali · <a href="https://suwali.io/">suwali.io</a></footer>
+    </main>
+  </body>
+</html>

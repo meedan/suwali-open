@@ -1,0 +1,7 @@
+:global(.layout-left-column)
+:global(.layout-left-column-content)
+.notebookSidebarFooter {
+  display: flex;
+  justify-content: center;
+  padding: 16px;
+}

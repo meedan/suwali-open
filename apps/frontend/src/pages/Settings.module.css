@@ -1,0 +1,207 @@
+.settingsWrapper {
+  display: flex;
+  flex: 1;
+  flex-flow: row nowrap;
+  gap: 16px;
+  height: 100%;
+  padding: 0 0 24px;
+
+  .settingsMenu {
+    align-self: flex-start;
+    flex: 0 0 256px;
+    padding-block: 24px;
+    padding-inline: 24px 12px;
+    position: sticky;
+    top: 0;
+
+    /* Where the menu has an action beside it, as user settings does with Logout */
+    .settingsMenuItems {
+      width: 100%;
+    }
+
+    .settingLogout {
+      display: flex;
+      justify-content: center;
+      margin: 36px 0;
+      position: relative;
+
+      &::before {
+        background-color: var(--border-color-panel);
+        content: '';
+        display: block;
+        height: 1px;
+        margin: 8px 0;
+        position: absolute;
+        top: -24px;
+        width: 100%;
+      }
+    }
+
+    .pendingApprovalsIndicator {
+      background-color: var(--color-positive);
+      border-radius: var(--border-radius-circle);
+      display: inline-block;
+      height: 8px;
+      vertical-align: top;
+      width: 8px;
+    }
+  }
+
+  .settingContent {
+    flex: 1 1 auto;
+    padding-block: 24px 0;
+    padding-inline: 0 24px;
+
+    h2 {
+      align-items: center;
+      display: flex;
+      font: var(--font-18-semibold);
+      gap: 6px;
+      margin: 8px 0 16px;
+
+      svg {
+        font-size: var(--icon-size-24);
+      }
+    }
+
+    h3 {
+      font: var(--font-14-semibold);
+      margin: 8px 0 16px;
+    }
+
+    p {
+      font: var(--font-12-regular);
+
+      + p {
+        margin: 12px 0 0;
+      }
+    }
+
+    .detailsSection {
+      border-bottom: solid 1px var(--border-color-panel);
+      padding: 8px 0;
+
+      &:last-child {
+        border-bottom: none;
+      }
+
+      summary {
+        cursor: pointer;
+        font: var(--font-14-semibold);
+        list-style-position: outside;
+        margin-inline-start: 16px;
+        padding: 8px 4px;
+
+        &::marker {
+          color: var(--text-color-secondary);
+          content: "▶";
+          font-size: var(--font-size-14);
+        }
+
+        &:hover,
+        &:hover::marker {
+          color: var(--link-color);
+        }
+      }
+
+      &[open] {
+        border-bottom-color: transparent;
+
+        summary::marker {
+          content: "▼";
+        }
+      }
+
+      .buttonWrapper {
+        padding: 16px 0 0;
+      }
+    }
+
+    .detailsContent {
+      background-color: var(--background-color-bg1);
+      border-radius: var(--border-radius-8);
+      padding: 16px;
+    }
+
+    .activityList {
+      display: grid;
+      gap: 4px 16px;
+      grid-template-columns: auto 1fr;
+      margin-bottom: 16px;
+
+      dt {
+        color: var(--text-color-secondary);
+      }
+    }
+  }
+
+  [dir="rtl"] & {
+    .detailsSection summary::marker {
+      content: "◀";
+    }
+
+    .detailsSection[open] summary::marker {
+      content: "▼";
+    }
+  }
+
+  @media only screen and (width <= 700px) {
+    flex-flow: column nowrap;
+    gap: 8px;
+
+    .settingsMenu {
+      background-color: var(--background-color-bg0);
+      border-bottom: solid 1px var(--border-color-panel);
+      display: flex;
+      flex: 0;
+      flex-flow: row wrap;
+      justify-content: center;
+      padding: 8px;
+
+      button {
+        width: auto;
+      }
+
+      .settingsMenuItems {
+        flex-flow: row wrap;
+        justify-content: center;
+        width: auto;
+      }
+
+      .settingLogout {
+        display: inline;
+        margin: 8px;
+
+        &::before {
+          display: none;
+        }
+      }
+    }
+
+    .settingContent {
+      padding: 0 24px;
+    }
+  }
+}
+
+.updatePhoto {
+  .updatePhotoContent {
+    display: flex;
+    gap: 16px;
+  }
+
+  .profilePhoto {
+    border: solid 2px var(--border-color-panel);
+    border-radius: var(--border-radius-circle);
+    flex: 0 0 88px;
+    font: var(--font-12-regular);
+    height: 88px;
+    width: 88px;
+  }
+}
+
+.buttonWrapper {
+  display: flex;
+  gap: 16px;
+  padding: 16px 0;
+}

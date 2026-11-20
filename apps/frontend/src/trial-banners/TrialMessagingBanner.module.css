@@ -1,0 +1,20 @@
+.banner {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.description {
+  font: var(--font-14-regular);
+  margin: 0;
+  text-align: start;
+}
+
+.link {
+  font-weight: var(--font-weight-semibold);
+  text-decoration: underline;
+}
+
+.button {
+  display: inline-block;
+}

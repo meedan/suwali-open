@@ -1,0 +1,37 @@
+# erb/unsafe-url-in-mailer-href trusts `@..._url` ivars in an `href`; this earns that trust.
+rules:
+  - id: unsafe-url-ivar-in-mailer
+    message: |
+      Views trust `@..._url` in an `href`, so the scheme must be fixed here — a value carrying its
+      own can be `javascript:`. Use `ENV.fetch("FRONTEND_URL", ...)` or a `*_url` route helper.
+      If it never reaches an `href`: `# nosemgrep: unsafe-url-ivar-in-mailer -- <reason>`.
+    languages: [ruby]
+    severity: WARNING
+    metadata:
+      cwe:
+        - "CWE-79: Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')"
+      category: security
+      confidence: MEDIUM
+      references:
+        - https://semgrep.dev/r/ruby.rails.security.audit.xss.templates.var-in-href.var-in-href
+    patterns:
+      - pattern: $IVAR = $VAL
+      - pattern-inside: |
+          class $KLASS < $BASE
+            ...
+          end
+      # Leading `.*` is required: metavariable-regex anchors at the start.
+      - metavariable-regex:
+          metavariable: $KLASS
+          regex: '.*Mailer$'
+      - metavariable-regex:
+          metavariable: $IVAR
+          regex: '^@[a-z_]*url$'
+      # Allowed: a literal scheme, an `ENV.fetch` prefix, a `*_url` helper. Nested because a bare
+      # `pattern-not-regex` here would match nothing, silently.
+      - pattern-not:
+          patterns:
+            - pattern: $IVAR = $VAL
+            - metavariable-regex:
+                metavariable: $VAL
+                regex: '^(?:"(?:https?://|#\{ENV\.fetch\()|ENV\.fetch\(|[a-z_]+_url(?:\(|\z))'

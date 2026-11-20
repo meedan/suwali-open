@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Crestwood Marine Biology Center Discovery</title>
+<link rel="stylesheet" href="/css/main.css">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+.container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+.header-top { background: linear-gradient(135deg, #1a5276, #2980b9); color: white; padding: 12px 0; }
+.article-body { font-size: 18px; line-height: 1.8; color: #2c3e50; }
+.article-body p { margin-bottom: 1.2em; }
+.share-buttons { display: flex; gap: 8px; margin: 20px 0; }
+.share-buttons button { padding: 8px 16px; border: none; border-radius: 4px; cursor: pointer; }
+.btn-twitter { background: #1da1f2; color: white; }
+.btn-facebook { background: #4267B2; color: white; }
+.related-articles { background: #f8f9fa; padding: 20px; margin-top: 30px; }
+.comment-section { border-top: 2px solid #eee; padding-top: 20px; }
+#cookie-consent { position: fixed; bottom: 0; left: 0; right: 0; background: #2c3e50; color: white; padding: 15px; z-index: 9999; }
+</style>
+</head>
+<body>
+<div class="header-top">
+<div class="container">
+<span>Breaking News | Weather | Markets | Subscribe</span>
+</div>
+</div>
+
+<nav>
+<ul style="list-style: none; display: flex; gap: 20px; padding: 15px;">
+<li><a href="/">Home</a></li>
+<li><a href="/world">World</a></li>
+<li><a href="/science">Science</a></li>
+<li><a href="/health">Health</a></li>
+<li><a href="/opinion">Opinion</a></li>
+</ul>
+</nav>
+
+<div id="cookie-consent">
+<p>This website uses cookies and similar technologies to enhance your browsing experience and analyze site traffic.</p>
+<button onclick="document.getElementById('cookie-consent').style.display='none'">Accept All</button>
+<button onclick="manageCookies()">Manage Preferences</button>
+</div>
+
+<script>
+(function() {
+    var ga = document.createElement('script');
+    ga.src = 'https://analytics.example.com/tracker.js';
+    document.head.appendChild(ga);
+})();
+function manageCookies() { /* cookie preferences modal */ }
+window.dataLayer = window.dataLayer || [];
+</script>
+
+<article class="article-body">
+<h1>Crestwood Marine Biology Center Discovers New Deep-Sea Coral Species</h1>
+<p class="meta">Published today | By Dr. Amara Osei, Science Editor</p>
+
+<div class="share-buttons">
+<button class="btn-twitter">Share on Twitter</button>
+<button class="btn-facebook">Share on Facebook</button>
+</div>
+
+Researchers at the Crestwood Marine Biology Center have identified a previously unknown species of deep-sea coral living at depths of over 4,000 meters in the Valdez Trench. The discovery, led by marine biologist Dr. Lena Kowalski, was made during a three-month expedition using the remotely operated submersible Nautilus-7.
+
+The new coral species, tentatively named Corallium crestwoodensis, exhibits remarkable bioluminescent properties not seen in any known deep-sea coral. Dr. Kowalski described the organism as "one of the most significant marine biology discoveries of the decade."
+
+The research team found extensive colonies covering an area of approximately 12 square kilometers along the trench walls. Initial analysis suggests the coral may play a critical role in the deep-sea ecosystem by providing habitat for at least 15 other species of fish and invertebrates.
+
+Professor James Whitfield of the Oceanic Research Institute called the findings "extraordinary" and noted that the discovery could have implications for understanding how life adapts to extreme pressure environments.
+
+The Crestwood team plans to return to the Valdez Trench next year for further study.
+
+</article>
+
+<div class="related-articles">
+<h3>Related Stories</h3>
+<style>.related-card { border: 1px solid #ddd; padding: 12px; margin: 8px 0; }</style>
+<div class="related-card"><a href="/ocean-warming">Ocean temperatures reach record levels</a></div>
+<div class="related-card"><a href="/deep-sea-mining">Deep-sea mining debate intensifies</a></div>
+</div>
+
+<div class="comment-section">
+<h3>Comments (147)</h3>
+<style>.comment { border-bottom: 1px solid #eee; padding: 10px 0; }</style>
+<div class="comment">Loading comments...</div>
+</div>
+
+<footer style="background: #2c3e50; color: #bdc3c7; padding: 40px 20px; margin-top: 40px;">
+<div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px;">
+<div><h4>Company</h4><a href="/about">About Us</a><a href="/careers">Careers</a></div>
+<div><h4>Legal</h4><a href="/privacy">Privacy</a><a href="/terms">Terms</a></div>
+<div><h4>Connect</h4><a href="/newsletter">Newsletter</a><a href="/rss">RSS</a></div>
+</div>
+</footer>
+</body>
+</html>

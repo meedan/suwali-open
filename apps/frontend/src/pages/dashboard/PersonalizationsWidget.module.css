@@ -1,0 +1,21 @@
+.missingNameOrDescription {
+  color: var(--text-color-secondary);
+  display: block;
+  font: var(--font-14-regular);
+  font-style: italic;
+}
+
+.description {
+  -webkit-box-orient: vertical;
+  display: -webkit-box;
+  font: var(--font-12-regular);
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+}
+
+.hintBox {
+  a {
+    color: var(--link-color);
+    font: var(--font-12-semibold);
+  }
+}

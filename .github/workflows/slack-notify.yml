@@ -1,0 +1,112 @@
+name: Slack Notify
+
+on:
+  workflow_call:
+    inputs:
+      status:
+        description: "Job result: success, failure, cancelled, or skipped"
+        required: true
+        type: string
+      workflow-name:
+        description: "Display name of the calling workflow"
+        required: true
+        type: string
+      extra:
+        description: "Optional extra markdown for the Slack message"
+        required: false
+        type: string
+        default: ""
+    secrets:
+      SLACK_WEBHOOK_URL:
+        required: false
+
+jobs:
+  notify:
+    name: Post Slack message
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Post workflow result to Slack
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          STATUS: ${{ inputs.status }}
+          WORKFLOW_NAME: ${{ inputs.workflow-name }}
+          EXTRA: ${{ inputs.extra }}
+          REF_NAME: ${{ github.ref_name }}
+          SHA: ${{ github.sha }}
+          ACTOR: ${{ github.actor }}
+          EVENT_NAME: ${{ github.event_name }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          REPO: ${{ github.repository }}
+        run: |
+          if [ -z "$SLACK_WEBHOOK_URL" ]; then
+            echo "SLACK_WEBHOOK_URL is not set; skipping Slack notification"
+            exit 0
+          fi
+
+          case "$STATUS" in
+            success) COLOR="#2eb886"; LABEL="Success" ;;
+            failure) COLOR="#a30200"; LABEL="Failure" ;;
+            cancelled) COLOR="#daa038"; LABEL="Cancelled" ;;
+            skipped) COLOR="#808080"; LABEL="Skipped" ;;
+            *) COLOR="#439fe0"; LABEL="$STATUS" ;;
+          esac
+
+          SHORT_SHA="${SHA:0:7}"
+
+          EXTRA_BLOCK="[]"
+          if [ -n "$EXTRA" ]; then
+            EXTRA_BLOCK=$(jq -n --arg extra "$EXTRA" '[{type:"section",text:{type:"mrkdwn",text:$extra}}]')
+          fi
+
+          jq -n \
+            --arg text "${WORKFLOW_NAME}: ${LABEL}" \
+            --arg color "$COLOR" \
+            --arg workflow "$WORKFLOW_NAME" \
+            --arg label "$LABEL" \
+            --arg ref "$REF_NAME" \
+            --arg sha "$SHORT_SHA" \
+            --arg actor "$ACTOR" \
+            --arg event "$EVENT_NAME" \
+            --arg repo "$REPO" \
+            --arg url "$RUN_URL" \
+            --argjson extra "$EXTRA_BLOCK" \
+            '{
+              text: $text,
+              attachments: [
+                {
+                  color: $color,
+                  blocks: (
+                    [
+                      {
+                        type: "section",
+                        text: { type: "mrkdwn", text: ("*" + $workflow + "* — " + $label) }
+                      },
+                      {
+                        type: "section",
+                        fields: [
+                          { type: "mrkdwn", text: ("*Repo*\n" + $repo) },
+                          { type: "mrkdwn", text: ("*Ref*\n`" + $ref + "`") },
+                          { type: "mrkdwn", text: ("*Commit*\n`" + $sha + "`") },
+                          { type: "mrkdwn", text: ("*Actor*\n" + $actor) },
+                          { type: "mrkdwn", text: ("*Event*\n" + $event) }
+                        ]
+                      }
+                    ] + $extra + [
+                      {
+                        type: "actions",
+                        elements: [
+                          {
+                            type: "button",
+                            text: { type: "plain_text", text: "View run" },
+                            url: $url
+                          }
+                        ]
+                      }
+                    ]
+                  )
+                }
+              ]
+            }' | curl --fail-with-body -sS -X POST \
+              -H 'Content-type: application/json' \
+              --data @- \
+              "$SLACK_WEBHOOK_URL"

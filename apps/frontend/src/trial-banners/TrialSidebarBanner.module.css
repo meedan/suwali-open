@@ -1,0 +1,35 @@
+.banner {
+  background-color: var(--color-orange-10);
+  border-radius: var(--border-radius-12);
+  display: flex;
+  flex-flow: column nowrap;
+  gap: 8px;
+  padding: 12px;
+  text-decoration: none;
+  width: 100%;
+
+  progress {
+    border-radius: var(--border-radius-24);
+    width: 100%;
+  }
+
+/* Container styles for WebKit */
+  progress::-webkit-progress-bar {
+    border-radius: var(--border-radius-24);
+  }
+
+  /* Progress bar value styles for WebKit */
+  progress::-webkit-progress-value {
+    border-radius: var(--border-radius-24);
+  }
+
+  /* Progress bar value styles for Firefox */
+  progress::-moz-progress-bar {
+    border-radius: var(--border-radius-24);
+  }
+
+  p {
+    font: var(--font-12-regular);
+    margin: 0;
+  }
+}

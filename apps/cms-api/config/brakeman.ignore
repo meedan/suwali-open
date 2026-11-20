@@ -1,0 +1,346 @@
+{
+  "ignored_warnings": [
+    {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
+      "fingerprint": "05b5523a7952afe9d4e7bf5b467d89d26aa464060447f5019c681d2bff70c9b6",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/controllers/api/admin_controller.rb",
+      "line": 239,
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "code": "Arel.sql(\"MAX(updated_at) FILTER (WHERE platform != #{Conversation.platforms[:internal]})\")",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "Api::AdminController",
+        "method": "hub_aggregates"
+      },
+      "user_input": "Conversation.platforms[:internal]",
+      "confidence": "High",
+      "cwe_id": [
+        89
+      ],
+      "note": "Enum integer constant, not user input"
+    },
+    {
+      "warning_type": "Mass Assignment",
+      "warning_code": 105,
+      "fingerprint": "1a684de104c45ed3a13bf16e72ca1c9fd3d53fbd1dbd99c8edb1c0ae364b3af6",
+      "check_name": "PermitAttributes",
+      "message": "Potentially dangerous key allowed for mass assignment",
+      "file": "app/controllers/api/hub_memberships_controller.rb",
+      "line": 70,
+      "link": "https://brakemanscanner.org/docs/warning_types/mass_assignment/",
+      "code": "params.require(:hub_membership).permit(:role, :approved)",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "Api::HubMembershipsController",
+        "method": "membership_params"
+      },
+      "user_input": ":role",
+      "confidence": "Medium",
+      "cwe_id": [
+        915
+      ],
+      "note": "Admin-only endpoint; :approved is intentionally settable by admins"
+    },
+    {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
+      "fingerprint": "1e9522e6ab80b2b5485aaea7d5de9aa3bad3eef5b813c298fab844b5f04e59b6",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/controllers/api/admin_controller.rb",
+      "line": 194,
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "code": "Arel.sql(\"COUNT(*) FILTER (WHERE documents.sync_status = #{Document.sync_statuses[:error]})\")",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "Api::AdminController",
+        "method": "single_hub_aggregates"
+      },
+      "user_input": "Document.sync_statuses[:error]",
+      "confidence": "High",
+      "cwe_id": [
+        89
+      ],
+      "note": "Enum integer constant, not user input"
+    },
+    {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
+      "fingerprint": "41558851b3e0bcfeef21b636b5699a71c2d6883ff0b5b6814156d4ce3ebbc635",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/controllers/api/admin_controller.rb",
+      "line": 200,
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "code": "Arel.sql(\"MAX(updated_at) FILTER (WHERE platform = #{Conversation.platforms[:internal]})\")",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "Api::AdminController",
+        "method": "single_hub_aggregates"
+      },
+      "user_input": "Conversation.platforms[:internal]",
+      "confidence": "High",
+      "cwe_id": [
+        89
+      ],
+      "note": "Enum integer constant, not user input"
+    },
+    {
+      "warning_type": "File Access",
+      "warning_code": 16,
+      "fingerprint": "491a8206b30ac994d3c15b9ba635fff0f791b364de05c4c079ca562ffb559822",
+      "check_name": "FileAccess",
+      "message": "Model attribute used in file name",
+      "file": "app/workers/source_ingestion_worker.rb",
+      "line": 67,
+      "link": "https://brakemanscanner.org/docs/warning_types/file_access/",
+      "code": "File.open(Source.find_by(:id => source_id).handler.as_file(doc_data))",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "SourceIngestionWorker",
+        "method": "perform"
+      },
+      "user_input": "Source.find_by(:id => source_id).handler.as_file(doc_data)",
+      "confidence": "Medium",
+      "cwe_id": [
+        22
+      ],
+      "note": "File path produced by internal source handler, not user input"
+    },
+    {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
+      "fingerprint": "6c7799f70335bfc6253c8d718f6a1ec7ffe8ab76f386800d82a5cf0cc8eb0aa6",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/controllers/api/admin_controller.rb",
+      "line": 225,
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "code": "Arel.sql(\"COUNT(*) FILTER (WHERE documents.sync_status = #{Document.sync_statuses[:error]})\")",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "Api::AdminController",
+        "method": "hub_aggregates"
+      },
+      "user_input": "Document.sync_statuses[:error]",
+      "confidence": "High",
+      "cwe_id": [
+        89
+      ],
+      "note": "Enum integer constant, not user input"
+    },
+    {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
+      "fingerprint": "760c7f5c58fecaf7aec1a5aca594054ed90da60466a95f0c0e5cd18811cf2b0c",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/services/statistics_service.rb",
+      "line": 82,
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "code": "query.where(field => (((from or Time.now.ago(3.months).beginning_of_day)..(to or Time.now.end_of_day)))).group(\"DATE_TRUNC('#{(:BRAKEMAN_SAFE_LITERAL or \"day\")}', #{field})\")",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "StatisticsService",
+        "method": "by_bucket"
+      },
+      "user_input": "field",
+      "confidence": "Weak",
+      "cwe_id": [
+        89
+      ],
+      "note": "field is a string literal passed internally, never from user input; group_by is validated against VALID_GROUP_BY"
+    },
+    {
+      "warning_type": "File Access",
+      "warning_code": 16,
+      "fingerprint": "88e162dba5761e233c5c851b766831e2a0eadb62d636202bf27d2299d219c4c7",
+      "check_name": "FileAccess",
+      "message": "Model attribute used in file name",
+      "file": "app/workers/source_ingestion_worker.rb",
+      "line": 72,
+      "link": "https://brakemanscanner.org/docs/warning_types/file_access/",
+      "code": "Pathname.new(Source.find_by(:id => source_id).handler.as_file(doc_data))",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "SourceIngestionWorker",
+        "method": "perform"
+      },
+      "user_input": "Source.find_by(:id => source_id).handler.as_file(doc_data)",
+      "confidence": "Medium",
+      "cwe_id": [
+        22
+      ],
+      "note": "File path produced by internal source handler, not user input"
+    },
+    {
+      "warning_type": "File Access",
+      "warning_code": 16,
+      "fingerprint": "91342fcdabb80e1ffbcb8082adcf2e2e6768a7a791d7718e8b87bf814cdd16d3",
+      "check_name": "FileAccess",
+      "message": "Model attribute used in file name",
+      "file": "app/workers/source_ingestion_worker.rb",
+      "line": 75,
+      "link": "https://brakemanscanner.org/docs/warning_types/file_access/",
+      "code": "File.delete(Source.find_by(:id => source_id).handler.as_file(doc_data))",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "SourceIngestionWorker",
+        "method": "perform"
+      },
+      "user_input": "Source.find_by(:id => source_id).handler.as_file(doc_data)",
+      "confidence": "Medium",
+      "cwe_id": [
+        22
+      ],
+      "note": "File path produced by internal source handler, not user input"
+    },
+    {
+      "warning_type": "Mass Assignment",
+      "warning_code": 70,
+      "fingerprint": "9c9d17281540bf485d7b66bf29dedb66804e4e89699ffe4e69f544e23de5df43",
+      "check_name": "MassAssignment",
+      "message": "Specify exact keys allowed for mass assignment instead of using `permit!` which allows any keys",
+      "file": "app/controllers/api/webhooks_controller.rb",
+      "line": 57,
+      "link": "https://brakemanscanner.org/docs/warning_types/mass_assignment/",
+      "code": "params.permit!",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "Api::WebhooksController",
+        "method": "webhook_params"
+      },
+      "user_input": null,
+      "confidence": "Medium",
+      "cwe_id": [
+        915
+      ],
+      "note": "Webhook payload passed to service objects only, not used for mass assignment"
+    },
+    {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
+      "fingerprint": "aac696684ad9d4f90f71ed9fd8f3f9affe8dbc9c3d87a58ff5d8bc5063f74248",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/controllers/api/admin_controller.rb",
+      "line": 238,
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "code": "Arel.sql(\"MAX(updated_at) FILTER (WHERE platform = #{Conversation.platforms[:internal]})\")",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "Api::AdminController",
+        "method": "hub_aggregates"
+      },
+      "user_input": "Conversation.platforms[:internal]",
+      "confidence": "High",
+      "cwe_id": [
+        89
+      ],
+      "note": "Enum integer constant, not user input"
+    },
+    {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
+      "fingerprint": "9b2ebde42fd89ea4e02c3aa1956eb2c093d92e2eb2e7fb9bcf18d33329cce0e3",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/controllers/concerns/smart_pagination.rb",
+      "line": 134,
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "code": "collection.where(\"(#{sort_by}, #{\"#{collection.table_name}.id\"}) #{(\">\" or \"<\")} (?, ?)\", (target_record.send(sort_by.split(\".\").last) or target_record.send(\"#{sort_by.split(\".\").last}_before_type_cast\")), target_record.id)",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "SmartPagination",
+        "method": "find_items_around_target"
+      },
+      "user_input": "sort_by",
+      "confidence": "Weak",
+      "cwe_id": [
+        89
+      ],
+      "note": "sort_by is validated against an allowlist in sanitize_sort_by before use"
+    },
+    {
+      "warning_type": "Unmaintained Dependency",
+      "warning_code": 120,
+      "fingerprint": "d84924377155b41e094acae7404ec2e521629d86f97b0ff628e3d1b263f8101c",
+      "check_name": "EOLRails",
+      "message": "Support for Rails 7.1.5.2 ended on 2025-10-01",
+      "file": "Gemfile.lock",
+      "line": 324,
+      "link": "https://brakemanscanner.org/docs/warning_types/unmaintained_dependency/",
+      "code": null,
+      "render_path": null,
+      "location": null,
+      "user_input": null,
+      "confidence": "High",
+      "cwe_id": [
+        1104
+      ],
+      "note": "Rails upgrade tracked separately; not a code-level fix"
+    },
+    {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
+      "fingerprint": "db62a10cb81b6e03fa2528c105ee3a27db84149aa2817f13c68a96aa9f97d106",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/controllers/api/admin_controller.rb",
+      "line": 201,
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "code": "Arel.sql(\"MAX(updated_at) FILTER (WHERE platform != #{Conversation.platforms[:internal]})\")",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "Api::AdminController",
+        "method": "single_hub_aggregates"
+      },
+      "user_input": "Conversation.platforms[:internal]",
+      "confidence": "High",
+      "cwe_id": [
+        89
+      ],
+      "note": "Enum integer constant, not user input"
+    },
+    {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
+      "fingerprint": "a4a4640b7c66b4058ca3d99dcd3afdc0170b530f78776dc0c94ea17ad7403493",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/controllers/concerns/smart_pagination.rb",
+      "line": 146,
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "code": "collection.where(\"(#{sort_by}, #{\"#{collection.table_name}.id\"}) #{(\"<\" or \">\")} (?, ?)\", (target_record.send(sort_by.split(\".\").last) or target_record.send(\"#{sort_by.split(\".\").last}_before_type_cast\")), target_record.id)",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "SmartPagination",
+        "method": "find_items_around_target"
+      },
+      "user_input": "sort_by",
+      "confidence": "Weak",
+      "cwe_id": [
+        89
+      ],
+      "note": "sort_by is validated against an allowlist in sanitize_sort_by before use"
+    }
+  ],
+  "brakeman_version": "8.0.4"
+}

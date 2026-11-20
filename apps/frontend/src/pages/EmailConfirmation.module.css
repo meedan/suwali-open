@@ -1,0 +1,25 @@
+.emailConfirmationWrapper {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 48px 24px;
+  width: 100%;
+
+  hgroup {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+
+    p {
+      color: var(--text-color-primary);
+      font: var(--font-16-regular);
+      margin: 20px 0 0;
+    }
+  }
+}
+
+.emailConfirmationFormWrapper {
+  max-width: 450px;
+  width: 100%;
+}

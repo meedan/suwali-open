@@ -1,0 +1,50 @@
+.hub {
+  align-items: center;
+  display: flex;
+  gap: 8px;
+
+  .hubAvatar {
+    background-color: var(--background-color-bg1);
+    border-radius: var(--border-radius-8);
+    flex: 0 0 var(--icon-size-36);
+    font: var(--font-12-regular);
+    height: var(--icon-size-36);
+    transition: var(--hover-transition);
+    white-space: nowrap;
+    width: var(--icon-size-36);
+
+    a:hover & {
+      background-color: var(--list-item-active-background-color);
+    }
+  }
+
+  .hubName {
+    color: var(--text-color-primary);
+    display: flex;
+    flex-flow: column nowrap;
+    font: var(--font-14-semibold);
+    gap: 0;
+    line-height: 1rem;
+
+    small,
+    span {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    small {
+      color: var(--text-color-secondary);
+      display: block;
+      text-decoration: none;
+    }
+  }
+}
+
+.hubAvatarLoading,
+.hub .hubAvatar {
+  background-color: var(--background-color-bg1);
+  border-radius: var(--border-radius-8);
+  height: var(--icon-size-36);
+  width: var(--icon-size-36);
+}

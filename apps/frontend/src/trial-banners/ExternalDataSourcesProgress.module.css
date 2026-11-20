@@ -1,0 +1,72 @@
+.container {
+  hgroup {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    width: 100%;
+
+    h3 {
+      justify-self: center;
+    }
+  }
+}
+
+.limits {
+  display: flex;
+  gap: 16px;
+  margin-block-start: 6px;
+  width: 100%;
+}
+
+.meter {
+  display: flex;
+  flex: 1 1 0;
+  flex-flow: column;
+  gap: 4px;
+  min-width: 0;
+  text-align: start;
+}
+
+.name {
+  color: var(--text-color-primary);
+  font: var(--font-12-semibold);
+}
+
+.count {
+  color: var(--text-color-secondary);
+  font: var(--font-12-regular);
+}
+
+.bar {
+  appearance: none;
+  background-color: var(--color-orange-10);
+  border: none;
+  height: 5px;
+  width: 100%;
+
+  &::-webkit-progress-bar {
+    background-color: var(--color-orange-10);
+  }
+
+  &::-webkit-progress-value {
+    background-color: var(--color-orange-59);
+  }
+
+  &::-moz-progress-bar {
+    background-color: var(--color-orange-59);
+  }
+}
+
+.slots {
+  display: flex;
+  gap: 2px;
+}
+
+.slot {
+  background-color: var(--color-orange-10);
+  flex: 1;
+  height: 5px;
+}
+
+.slotFilled {
+  background-color: var(--color-orange-59);
+}

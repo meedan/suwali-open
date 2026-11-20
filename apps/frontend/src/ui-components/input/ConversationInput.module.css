@@ -1,0 +1,36 @@
+footer.wrapper {
+  max-height: 60%;
+  padding: 16px 8px;
+
+  .inner {
+    background: var(--background-color-bg1);
+    border-radius: var(--border-radius-12);
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    height: 100%;
+    padding: 8px;
+
+    .textareaWrapper {
+      overflow: hidden;
+      padding: 1px;
+    }
+
+    .actions {
+      align-items: center;
+      display: flex;
+      flex-flow: row nowrap;
+      justify-content: end;
+
+      button {
+        flex: 0;
+      }
+
+      .mainAction {
+        display: flex;
+        flex: 1 1 auto;
+        justify-content: end;
+      }
+    }
+  }
+}

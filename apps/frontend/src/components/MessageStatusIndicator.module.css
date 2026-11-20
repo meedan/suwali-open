@@ -1,0 +1,8 @@
+.statusIcon {
+  font-family: sans-serif; /* necessary for bug in setting color for html entity character heavy check mark */
+  font-size: var(--font-size-14);
+
+  &.failed {
+    color: var(--color-negative);
+  }
+}

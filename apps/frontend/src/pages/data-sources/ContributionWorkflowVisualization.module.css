@@ -1,0 +1,77 @@
+.steps {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.step {
+  align-items: start;
+  background-color: var(--background-color-bg1);
+  border-radius: var(--border-radius-8);
+  display: flex;
+  gap: 12px;
+  padding: 8px;
+
+  position: relative;
+
+  &:not(:last-child) {
+    margin-bottom: 1px;
+  }
+
+  &:not(:last-child)::after {
+    bottom: -24px;
+    content: '↓';
+    display: block;
+    font-size: var(--font-size-24);
+    height: 24px;
+    margin-inline-start: 8px;
+    position: absolute;
+  }
+}
+
+.stepContent {
+  align-items: start;
+  display: flex;
+  flex-direction: column;
+  padding: 6px 0 0;
+}
+
+.stepTitle {
+  font: var(--font-14-semibold);
+  margin: 0 0 8px;
+}
+
+.stepText {
+  font: var(--font-14-regular);
+
+  + button {
+    margin: 8px 0 0;
+  }
+}
+
+.lastStepDirect {
+  background-color: var(--color-green-10);
+}
+
+.lastStepButtonDirect {
+  background-color: var(--color-green-40);
+  color: var(--color-positive);
+}
+
+.lastStepReview {
+  background-color: var(--color-orange-10);
+}
+
+.lastStepButtonReview {
+  background-color: var(--color-orange-40);
+  color: var(--color-orange-59);
+}
+
+.errorStep {
+  background-color: var(--color-pink-10);
+}
+
+.errorStepButton {
+  background-color: var(--color-pink-40);
+  color: var(--color-negative);
+}

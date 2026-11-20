@@ -1,0 +1,21 @@
+.chat {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 24px;
+}
+
+.navigation {
+  align-items: center;
+  display: flex;
+  gap: 8px;
+}
+
+.footer {
+  align-items: center;
+  display: flex;
+  flex: 1;
+  flex-wrap: wrap;
+  gap: 16px;
+  justify-content: space-between;
+}

@@ -1,0 +1,6 @@
+# makes sure sidekiq starts only after knowledge is healthy
+services:
+  sidekiq:
+    depends_on:
+      knowledge:
+        condition: service_healthy

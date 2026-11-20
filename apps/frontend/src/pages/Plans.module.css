@@ -1,0 +1,290 @@
+.plansWrapper {
+  background-color: var(--background-color-bg0);
+  display: flex;
+  flex-flow: column nowrap;
+  height: 100%;
+  overflow: auto;
+
+  header {
+    display: flex;
+    flex-flow: row wrap;
+    height: 92px;
+    padding: 24px;
+
+    > div {
+      align-items: center;
+      display: flex;
+      flex: 1;
+      flex-flow: row nowrap;
+      gap: 16px;
+    }
+  }
+
+  .plansContainer {
+    display: flex;
+    flex-flow: column nowrap;
+    gap: 16px;
+    margin: 0 auto;
+    max-width: 1250px;
+    padding: 24px;
+    width: 100%;
+
+    .plansIntro {
+      align-items: end;
+      display: flex;
+      flex-flow: row wrap;
+      gap: 8px;
+      padding: 0 16px;
+
+      hgroup {
+        display: flex;
+        flex: 1;
+        flex-flow: column nowrap;
+        gap: 8px;
+      }
+
+      svg {
+        font-size: var(--icon-size-128);
+        height: var(--icon-size-32);
+      }
+
+      h2 {
+        font: var(--font-18-semibold);
+      }
+    }
+
+    .freeTrial {
+      display: flex;
+      margin: 0 16px 16px;
+      padding: 0;
+      position: relative;
+      z-index: var(--z-index-1);
+
+      &::before {
+        animation: animatedgradient 3s ease alternate infinite;
+        background: linear-gradient(to bottom right, var(--color-purple-67) 0%, var(--color-orange-59) 25%, var(--color-green-68)50%, var(--color-yellow-69) 75%, var(--color-pink-80) 100%);
+        background-size: 200% 200%;
+        border-radius: var(--border-radius-16);
+        box-shadow: var(--drop-shadow-menu);
+        content: "";
+        inset-block: 0;
+        inset-inline: 0;
+        position: absolute;
+        z-index: var(--z-index-1);
+
+        @media (prefers-reduced-motion: reduce) {
+          animation: none;
+        }
+      }
+
+      h3 {
+        font: var(--font-18-semibold);
+      }
+
+      p {
+        font: var(--font-14-regular);
+        margin: 0 0 16px;
+      }
+
+      .freeTrialContent {
+        background-color: var(--background-color-bg0);
+        border-radius: var(--border-radius-12);
+        margin: 4px;
+        padding: 16px;
+        width: 100%;
+        z-index: var(--z-index-1);
+      }
+    }
+
+    .plansBillingCycle {
+      display: flex;
+      justify-content: center;
+    }
+
+    .tiersContainer {
+      border: solid 1px var(--border-color-panel);
+      border-radius: var(--border-radius-16);
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      overflow: hidden;
+
+      .tierWrapper {
+        display: flex;
+        flex-flow: column nowrap;
+        gap: 16px;
+        padding: 16px;
+        position: relative;
+
+        &::before,
+        &::after {
+          background-color: var(--border-color-panel);
+          content: '';
+          position: absolute;
+        }
+
+        &::before {
+          bottom: -1px;
+          height: 1px;
+          inset-inline: 0;
+        }
+
+        &::after {
+          inset-inline-end: -1px;
+          bottom: 0;
+          top: 0;
+          width: 1px;
+        }
+
+        .tierHeader {
+          min-height: 96px;
+        }
+
+        .tierHeader h3 {
+          font: var(--font-18-semibold);
+        }
+
+        .tierHeader p {
+          font: var(--font-12-regular);
+        }
+
+        .tierHeader > .subsidizedTierDescription {
+          display: flex;
+          height: 90px;
+          margin: 16px 0;
+        }
+
+        .subsidizedTierDescription p {
+          align-content: center;
+        }
+
+        button {
+          width: 100%;
+        }
+      }
+
+      .tierPrice {
+        align-items: end;
+        color: var(--link-color);
+        display: flex;
+        flex-flow: row wrap;
+        font: var(--font-48-semibold);
+        gap: 4px;
+        margin: 16px 0;
+        word-break: break-all;
+
+        span {
+          color: var(--text-color-primary);
+          font: var(--font-18-semibold);
+          padding: 0 0 .5rem;
+        }
+      }
+
+      dl {
+        align-content: start;
+        display: grid;
+        flex: 1;
+        font: var(--font-14-regular);
+        grid-template-columns: 1fr max-content;
+        margin: 36px 0 0;
+      }
+
+      dt,
+      dd {
+        border-top: solid 1px var(--border-color-panel);
+        padding: 12px 0;
+      }
+
+      dd {
+        align-items: start;
+        display: flex;
+        font: var(--font-14-semibold);
+        gap: 3px;
+        grid-column-start: 2;
+        justify-content: end;
+        margin: 0;
+
+        svg {
+          color: var(--color-positive);
+          font-size: var(--icon-size-20);
+        }
+
+        .tierPrice {
+          color: var(--color-neutral);
+          font: inherit;
+          gap: 3px;
+          margin: 0;
+        }
+
+        .tierPrice span {
+          font: inherit;
+          padding: 0;
+        }
+
+        &.tierPlatform {
+          border-top: 0;
+          padding: 0 0 12px;
+        }
+      }
+
+      p {
+        font: var(--font-12-regular);
+      }
+    }
+
+    .currentPlanAction {
+      align-items: center;
+      background-color: var(--button-background-color);
+      border-radius: var(--border-radius-12);
+      color: var(--button-text-color);
+      cursor: not-allowed;
+      display: flex;
+      flex-flow: row nowrap;
+      font: var(--font-14-semibold);
+      gap: 8px;
+      justify-content: center;
+      min-width: auto;
+      opacity: .4;
+      padding: 12px;
+      pointer-events: none;
+      text-decoration: none;
+    }
+  }
+}
+
+.trialDetailsList {
+  display: grid;
+  font: var(--font-14-regular);
+  grid-template-columns: 1fr max-content;
+  margin: 16px;
+  width: 100%;
+
+  dt,
+  dd {
+    border-top: solid 1px var(--border-color-panel);
+    padding: 12px 0;
+
+    &:first-of-type {
+      border-top: 0;
+    }
+  }
+
+  dd {
+    align-items: start;
+    display: flex;
+    font: var(--font-14-semibold);
+    gap: 3px;
+    grid-column-start: 2;
+    justify-content: end;
+    margin: 0;
+
+    svg {
+      color: var(--color-green-68);
+      font-size: var(--icon-size-20);
+    }
+
+    &.tierPlatform {
+      border-top: 0;
+      padding: 0 0 12px;
+    }
+  }
+}

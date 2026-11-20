@@ -1,0 +1,12 @@
+.retry {
+  align-items: center;
+  display: flex;
+  gap: 8px;
+}
+
+.countdown {
+  color: var(--text-color-secondary);
+  font: var(--font-12-regular);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}

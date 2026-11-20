@@ -1,0 +1,150 @@
+.topNavMenuWrapper {
+  display: flex;
+  flex: 1 1 auto;
+  height: 100%;
+  justify-content: flex-start;
+  z-index: var(--z-index-1);
+
+  > div:not(.viewportPosition) {
+    width: 100%;
+  }
+
+  .menuList {
+    height: 100%;
+    list-style: none;
+
+    li {
+      height: 100%;
+    }
+
+    .trigger {
+      align-items: center;
+      display: flex;
+      font: var(--font-14-semibold);
+      gap: 4px;
+      height: 100%;
+      width: 100%;
+
+      a {
+        align-items: center;
+        color: var(--text-color-primary);
+        display: none;
+        gap: 4px;
+        pointer-events: none;
+        text-decoration: none;
+        touch-action: none;
+
+        span {
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
+
+        .sectionIcon {
+          font-size: var(--icon-size-18);
+        }
+
+        &:global(.active) {
+          display: flex;
+        }
+      }
+
+      .triggerIndicator {
+        font-size: var(--icon-size-16);
+
+        [data-state="open"] > & {
+          transform: rotate(-180deg);
+        }
+      }
+
+      @media only screen and (width <= 850px) {
+        a {
+          .sectionIcon {
+            display: none;
+          }
+        }
+      }
+    }
+  }
+
+  .topNavMenu {
+    animation-duration: 250ms;
+    animation-timing-function: var(--easing-function);
+    inset-inline-start: 0;
+    padding: 0 16px 8px;
+    position: absolute;
+    top: 0;
+    width: 100%;
+
+    &[data-motion="from-start"] {
+      animation-name: enterFromLeft;
+    }
+
+    &[data-motion="from-end"] {
+      animation-name: enterFromRight;
+    }
+
+    &[data-motion="to-start"] {
+      animation-name: exitToLeft;
+    }
+
+    &[data-motion="to-end"] {
+      animation-name: exitToRight;
+    }
+  }
+
+  .viewportPosition {
+    display: flex;
+    inset-inline-start: 0;
+    justify-content: start;
+    perspective: 2000px;
+    position: absolute;
+    top: 100%;
+    width: 100%;
+  }
+}
+
+.topNavMenuViewport {
+  background-color: var(--background-color-bg0);
+  border-bottom: solid 1px var(--border-color-menu);
+  border-radius: var(--border-radius-0) var(--border-radius-0) var(--border-radius-24) var(--border-radius-24);
+  box-shadow: var(--drop-shadow-menu);
+  height: var(--radix-navigation-menu-viewport-height);
+  overflow: hidden;
+  position: relative;
+  transform-origin: top center;
+  transition: width, height, 300ms ease;
+  width: 100%;
+
+  &[data-state="open"] {
+    animation: nav-menu-scale-in 0ms ease;
+  }
+
+  &[data-state="closed"] {
+    animation: nav-menu-scale-out 0ms ease;
+  }
+}
+
+@keyframes nav-menu-scale-in {
+  from {
+    opacity: 0;
+    transform: rotateX(-30deg) scale(0.9);
+  }
+
+  to {
+    opacity: 1;
+    transform: rotateX(0deg) scale(1);
+  }
+}
+
+@keyframes nav-menu-scale-out {
+  from {
+    opacity: 1;
+    transform: rotateX(0deg) scale(1);
+  }
+
+  to {
+    opacity: 0;
+    transform: rotateX(-10deg) scale(0.95);
+  }
+}

@@ -1,0 +1,85 @@
+.menuContent {
+  animation-duration: 300ms;
+  animation-timing-function: var(--easing-function);
+  background-color: var(--background-color-popup);
+  border: solid 2px var(--border-color-menu);
+  border-radius: var(--border-radius-16);
+  box-shadow: var(--drop-shadow);
+  display: flex;
+  flex-flow: column nowrap;
+  gap: 4px;
+  min-width: 220px;
+  padding: 16px;
+  will-change: transform, opacity;
+  z-index: var(--z-index-max);
+
+  .separator {
+    background-color: var(--border-color-dialog);
+    height: 1px;
+    margin: 4px;
+  }
+
+  &[data-side="top"] {
+    animation-name: slide-down-and-fade;
+  }
+
+  &[data-side="right"] {
+    animation-name: slide-left-and-fade;
+  }
+
+  &[data-side="bottom"] {
+    animation-name: slide-up-and-fade;
+  }
+
+  &[data-side="left"] {
+    animation-name: slide-right-and-fade;
+  }
+}
+
+@keyframes slide-up-and-fade {
+  from {
+    opacity: 0;
+    transform: translateY(2px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slide-right-and-fade {
+  from {
+    opacity: 0;
+    transform: translateX(-2px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slide-down-and-fade {
+  from {
+    opacity: 0;
+    transform: translateY(-2px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slide-left-and-fade {
+  from {
+    opacity: 0;
+    transform: translateX(2px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}

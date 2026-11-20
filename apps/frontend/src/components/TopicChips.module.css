@@ -1,0 +1,19 @@
+.topicChips {
+  display: flex;
+  flex-wrap: wrap;
+  font-style: normal;
+  gap: 6px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  .topicChip {
+    padding-block-end: 2px;
+    padding-inline-end: 6px;
+  }
+
+  .activeTopicChip {
+    background-color: var(--list-item-active-background-color);
+    color: var(--link-color);
+  }
+}

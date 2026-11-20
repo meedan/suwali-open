@@ -1,0 +1,36 @@
+{
+  "envelope": {
+    "source": "22222222-2222-4222-8222-222222222222",
+    "sourceNumber": null,
+    "sourceUuid": "22222222-2222-4222-8222-222222222222",
+    "sourceName": "Test User",
+    "sourceDevice": 1,
+    "timestamp": 1791467083606,
+    "serverReceivedTimestamp": 1791467085424,
+    "serverDeliveredTimestamp": 1791467085435,
+    "dataMessage": {
+      "timestamp": 1791467083606,
+      "message": null,
+      "expiresInSeconds": 0,
+      "isExpirationUpdate": false,
+      "viewOnce": false,
+      "isEndSession": false,
+      "isProfileKeyUpdate": false,
+      "hasProfileKey": true,
+      "attachments": [
+        {
+          "contentType": "image/jpeg",
+          "filename": null,
+          "id": "AAAAAAAAAAAAAAAAAAAA.jpg",
+          "size": 108675,
+          "width": 1024,
+          "height": 1144,
+          "caption": null,
+          "uploadTimestamp": 1791467084026,
+          "isVoiceNote": false
+        }
+      ]
+    }
+  },
+  "account": "+15555550100"
+}

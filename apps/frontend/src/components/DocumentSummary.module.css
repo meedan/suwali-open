@@ -1,0 +1,80 @@
+.text {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.empty {
+  color: var(--text-color-secondary);
+  margin-block-start: 16px;
+}
+
+/* The editor fills the details while editing, scrolling inside itself and flush with the edges, so the footer below it stays in view */
+:global([data-editing]) .editor:global(.mdxeditor) {
+  border-inline: 0;
+  border-radius: var(--border-radius-0);
+  flex: 1 1 auto;
+  min-height: 0;
+}
+
+.footer {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 0 16px 16px;
+}
+
+/* The toolbar is laid out for the full-width notebook editor, so in the narrow details column it wraps instead of scrolling */
+.editor:global(.mdxeditor) :global(.markdown-editor__toolbar) {
+  flex-wrap: wrap;
+  gap: 4px;
+  overflow-x: visible;
+  padding: 6px 8px;
+
+  :global(.mdx-toolbar-group-wrapper) {
+    gap: 4px;
+  }
+
+  [role="separator"] {
+    display: none;
+  }
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+}
+
+/* Sits in the narrow details column among plain fields, so it drops the inset and large spacing the full-width editor has */
+.text .markdown {
+  background: transparent;
+
+  :global(.markdown-editor__content-editable) {
+    padding: 0;
+
+    [role="textbox"] {
+      padding: 0;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4 {
+      font: var(--font-14-semibold);
+      margin: 16px 0 4px;
+    }
+
+    h1:first-child {
+      margin-top: 0;
+    }
+
+    p {
+      margin: 8px 0;
+    }
+
+    ul {
+      padding-inline-start: 16px;
+    }
+  }
+}

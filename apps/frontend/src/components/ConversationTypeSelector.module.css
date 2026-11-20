@@ -1,0 +1,39 @@
+.conversationTypeSelectorWrapper {
+  padding: 8px;
+  width: 100%;
+
+  .toggleGroup {
+    border-radius: var(--border-radius-12);
+    flex-wrap: wrap;
+    padding: 4px;
+    width: 100%;
+  }
+
+  .toggleGroupItem {
+    border-radius: var(--border-radius-8);
+    flex: 1;
+    gap: 8px;
+    height: 40px;
+    padding: 8px 12px;
+    transition: var(--hover-transition);
+
+    .icon {
+      background-color: var(--background-color-bg0);
+      border: solid 1px var(--border-color-panel);
+      border-radius: var(--border-radius-circle);
+      font-size: var(--icon-size-16);
+      padding: 4px;
+    }
+
+    label {
+      cursor: pointer;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    &:not([data-state="on"]):hover {
+      opacity: .75;
+    }
+  }
+}

@@ -1,0 +1,88 @@
+.tooltipContent {
+  animation-duration: 100ms;
+  animation-timing-function: var(--easing-function);
+  background-color: var(--color-black-21);
+  border-radius: var(--border-radius-8);
+  box-shadow: var(--drop-shadow);
+  color: var(--color-white-100);
+  font: var(--font-12-regular);
+  max-height: var(--radix-tooltip-content-available-height);
+  max-width: 350px;
+  padding: 8px;
+  user-select: none;
+  will-change: transform, opacity;
+  z-index: var(--z-index-max);
+
+  time {
+    display: block;
+    margin: 12px 0 0;
+  }
+}
+
+.tooltipContent[data-state="delayed-open"][data-side="top"] {
+  animation-name: slide-down-and-fade;
+}
+
+.tooltipContent[data-state="delayed-open"][data-side="right"] {
+  animation-name: slide-left-and-fade;
+}
+
+.tooltipContent[data-state="delayed-open"][data-side="bottom"] {
+  animation-name: slide-up-and-fade;
+}
+
+.tooltipContent[data-state="delayed-open"][data-side="left"] {
+  animation-name: slide-right-and-fade;
+}
+
+@keyframes slide-up-and-fade {
+  from {
+    opacity: 0;
+    transform: translateY(2px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slide-right-and-fade {
+  from {
+    opacity: 0;
+    transform: translateX(-2px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slide-down-and-fade {
+  from {
+    opacity: 0;
+    transform: translateY(-2px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slide-left-and-fade {
+  from {
+    opacity: 0;
+    transform: translateX(2px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.disabledTrigger {
+  display: inline-flex;
+}

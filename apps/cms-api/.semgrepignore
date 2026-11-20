@@ -1,0 +1,5 @@
+# Paths semgrep skips in this app. Gitignore-style, relative to this file.
+# Additive to semgrep's built-in ignores (node_modules/, vendor/, test/, tests/, …), because it sits in a subdirectory 
+# A .semgrepignore at the repo root replaces those defaults.
+spec/
+/docker-compose-test.yml

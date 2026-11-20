@@ -1,0 +1,23 @@
+{
+  "envelope": {
+    "source": "22222222-2222-4222-8222-222222222222",
+    "sourceNumber": null,
+    "sourceUuid": "22222222-2222-4222-8222-222222222222",
+    "sourceName": "Test User",
+    "sourceDevice": 1,
+    "timestamp": 1791467111082,
+    "serverReceivedTimestamp": 1791467110672,
+    "serverDeliveredTimestamp": 1791467110739,
+    "dataMessage": {
+      "timestamp": 1791467111082,
+      "message": null,
+      "expiresInSeconds": 30,
+      "isExpirationUpdate": true,
+      "viewOnce": false,
+      "isEndSession": false,
+      "isProfileKeyUpdate": false,
+      "hasProfileKey": true
+    }
+  },
+  "account": "+15555550100"
+}

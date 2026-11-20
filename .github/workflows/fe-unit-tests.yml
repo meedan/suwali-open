@@ -1,0 +1,79 @@
+name: Frontend Run Unit Tests
+
+on:
+  push:
+    paths:
+      - 'apps/frontend/**'
+      - '.github/workflows/fe**'
+      - '!**.md'
+    branches-ignore:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  semgrep-scan:
+    uses: ./.github/workflows/semgrep-scan.yml
+    with:
+      app-name: frontend
+      path: apps/frontend
+
+  build-and-run-unit-tests:
+    runs-on: ubuntu-24.04-arm
+
+    services:
+      registry:
+        image: registry:2
+        ports:
+          - 5000:5000
+    steps:
+    - name: Checkout repository
+      id: checkout
+      uses: actions/checkout@v4
+
+    - name: Generate tag list
+      id: meta-tags
+      uses: docker/metadata-action@v5
+      with:
+        images: |
+          #frontend
+          localhost:5000/suwali-fe
+        tags: |
+          type=ref,event=branch
+          type=raw,value=${{ github.sha }}
+
+    - name: Set up Docker Buildx
+      id: set-up-build
+      uses: docker/setup-buildx-action@v3
+      with:
+        driver-opts: network=host
+
+    - name: Build
+      id: build-image
+      uses: docker/build-push-action@v6
+      env:
+        IMAGE_TAG: ${{ github.sha }}
+      with:
+        push: true
+        context: ./apps/frontend/
+        cache-from: type=gha
+        cache-to: type=gha
+        tags: ${{ steps.meta-tags.outputs.tags }}
+        labels: ${{ steps.meta-tags.outputs.labels }}
+
+    - name: Run unit tests
+      id: unit-tests
+      env:
+        IMAGE_TAG: ${{ github.sha }}
+      run: |
+        docker run -e RAILS_ENV=test -e GITHUB_ACTIONS=true localhost:5000/suwali-fe:$IMAGE_TAG bin/run-linter-and-unit-tests.sh
+
+  notify-slack:
+    needs: build-and-run-unit-tests
+    if: failure()
+    uses: ./.github/workflows/slack-notify.yml
+    with:
+      status: failure
+      workflow-name: ${{ github.workflow }}
+    secrets: inherit

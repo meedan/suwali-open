@@ -1,0 +1,17 @@
+.row {
+  align-items: flex-start;
+  display: flex;
+  gap: 8px;
+}
+
+.country {
+  flex: 0 0 auto;
+
+  /* The flag, then "+" and the longest dial code (+1684), then the select's own padding (16px each side), border, gap and chevron */
+  width: calc(1.5em + 5ch + 32px + 4px + 5px + var(--icon-size-16));
+}
+
+.number {
+  flex: 1 1 auto;
+  min-width: 0;
+}

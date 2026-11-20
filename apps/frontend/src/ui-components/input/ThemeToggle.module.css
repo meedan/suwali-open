@@ -1,0 +1,46 @@
+.themeToggle.fullMode {
+  background-color: unset;
+  flex-flow: row wrap;
+  gap: 16px;
+  padding: 8px;
+
+  .option {
+    border-radius: var(--border-radius-16);
+    flex-flow: column nowrap;
+    gap: 8px;
+    padding: 8px 16px;
+
+    &.optionSystem {
+      background-color: var(--background-color-bg0);
+      color: var(--text-color-primary);
+      outline: solid 3px var(--border-color-panel);
+    }
+
+    &.optionLight {
+      background-color: var(--color-white-100);
+      color: var(--color-black-12);
+      outline: solid 3px var(--color-gray-91);
+    }
+
+    &.optionDark {
+      background-color: var(--color-black-12);
+      color: var(--color-white-100);
+      outline: solid 3px var(--color-black-21);
+    }
+
+    &[data-state="on"] {
+      background-color: inherit;
+      outline: solid 3px var(--color-green-33);
+    }
+  }
+
+  .preview {
+    color: transparent;
+    font-size: var(--icon-size-96);
+    height: 54px;
+  }
+
+  .label {
+    font: var(--font-14-regular);
+  }
+}

@@ -1,0 +1,88 @@
+# Replaces ruby.rails.security.brakeman.check-unscoped-find (excluded in .semgrep-exclude-rules),
+# which flagged every find-then-authorize call site.
+rules:
+  - id: unscoped-find-without-hub-authorization
+    message: |
+      `$MODEL.find(...)` looks up a record by a user-supplied id and this method contains no hub
+      authorization guard. Suwali is multi-tenant: an unscoped lookup is a cross-hub data leak.
+      Reach the record through its hub (`hub.sources.find`), use `.accessible_by(current_user)`,
+      or add `return unless require_member!(record.hub)` immediately after the lookup.
+      If the lookup is deliberately unguarded, annotate the line with
+      `# nosemgrep: unscoped-find-without-hub-authorization -- <reason>`.
+    languages: [ruby]
+    severity: WARNING
+    metadata:
+      cwe:
+        - "CWE-639: Authorization Bypass Through User-Controlled Key"
+      category: security
+      confidence: MEDIUM
+    patterns:
+      - pattern: $MODEL.find($ID)
+      - pattern-inside: |
+          def $METHOD
+            ...
+          end
+      - pattern-not: $X.accessible_by(...).find(...)
+      # `@hub.external_users.find` is already scoped; `Conversation.not_deleted.find` is not.
+      - metavariable-pattern:
+          metavariable: $MODEL
+          patterns:
+            - pattern-not-regex: ^[@a-z_][A-Za-z0-9_]*\.[a-z_]
+      # `<... ...>` is required: the guard sits inside `return unless ...`, not a bare statement.
+      - pattern-not-inside: |
+          def $METHOD
+            ...
+            <... require_member!(...) ...>
+            ...
+          end
+      - pattern-not-inside: |
+          def $METHOD
+            ...
+            <... require_admin!(...) ...>
+            ...
+          end
+      - pattern-not-inside: |
+          def $METHOD
+            ...
+            <... $USER.can_access_hub?(...) ...>
+            ...
+          end
+      # Same again: a def-level rescue is a different AST shape.
+      - pattern-not-inside: |
+          def $METHOD
+            ...
+            <... require_member!(...) ...>
+            ...
+          rescue $E => $V
+            ...
+          end
+      - pattern-not-inside: |
+          def $METHOD
+            ...
+            <... require_admin!(...) ...>
+            ...
+          rescue $E => $V
+            ...
+          end
+      - pattern-not-inside: |
+          def $METHOD
+            ...
+            <... require_member!(...) ...>
+            ...
+          rescue => $V
+            ...
+          end
+      - pattern-not-inside: |
+          def $METHOD
+            ...
+            <... require_admin!(...) ...>
+            ...
+          rescue => $V
+            ...
+          end
+      - pattern-not-inside: |
+          class $C
+            ...
+            before_action :require_super_admin!
+            ...
+          end

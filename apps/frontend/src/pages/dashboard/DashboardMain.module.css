@@ -1,0 +1,77 @@
+.dashboardWrapper {
+  align-items: center;
+  display: flex;
+  flex-flow: column nowrap;
+  gap: 24px;
+  width: 100%;
+
+  .expandedWrapper,
+  .widgetsColumns {
+    max-width: 1250px;
+    width: 100%;
+  }
+
+  .expandedWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    min-width: 650px;
+  }
+
+  .widgetsSection {
+    display: flex;
+    flex-flow: column nowrap;
+    gap: 24px;
+
+    h2 {
+      font: var(--font-18-semibold);
+      width: 100%;
+    }
+
+    .widgetsSectionHeader {
+      align-items: center;
+      display: flex;
+      flex-flow: row wrap;
+
+      h2 {
+        width: auto;
+      }
+
+      button {
+        &::before {
+          content: '\0000B7';
+          display: inline-block;
+          font: var(--font-24-semibold);
+          margin: -.25rem 0 0;
+          text-decoration: none;
+        }
+      }
+    }
+  }
+
+  .widgetsWrapper {
+    display: flex;
+    flex-flow: column nowrap;
+    gap: 24px;
+    max-width: 1250px;
+    width: 100%;
+  }
+
+  .widgetsColumns {
+    column-gap: 24px;
+    column-width: 300px;
+  }
+
+  .expandedWidgetLoadingIndicator {
+    background-color: var(--background-color-bg0);
+    border-radius: var(--border-radius-24);
+    min-height: 385px;
+    top: -16px;
+  }
+
+  @media only screen and (width <= 1250px) {
+    .expandedWrapper {
+      align-self: start;
+    }
+  }
+}

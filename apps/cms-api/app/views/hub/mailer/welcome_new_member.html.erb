@@ -1,0 +1,5 @@
+<p><strong><%= t('mailer_hub_welcome_new_member_greeting') %></strong></p>
+
+<p><%= t('mailer_hub_welcome_new_member_body', hub_name: content_tag(:strong, @hub_name)).html_safe %></p>
+
+<p><a href="<%= @frontend_url %>" target="_blank" rel="noopener noreferrer"><%= t('mailer_hub_welcome_new_member_action') %></a></p>

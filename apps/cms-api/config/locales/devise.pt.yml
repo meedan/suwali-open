@@ -1,0 +1,82 @@
+# Additional translations at https://github.com/heartcombo/devise/wiki/I18n
+pt:
+  activerecord:
+    attributes:
+      user:
+        current_password: "Senha atual"
+        password: "Palavra-passe"
+        password_confirmation: "Confirmação de palavra-passe"
+  devise:
+    confirmations:
+      confirmed: "Seu endereço de email foi confirmado com sucesso."
+      send_instructions: "Dentro de minutos, você receberá um email com instruções sobre como confirmar seu endereço de email."
+      send_paranoid_instructions: "Se o seu email existir em nosso banco de dados, você receberá um email com instruções sobre como confirmar seu endereço de email em alguns minutos."
+    failure:
+      already_authenticated: "Você já está logado."
+      inactive: "Sua conta ainda não está ativada."
+      invalid: "%{authentication_keys} inválido ou senha."
+      locked: "Sua conta está bloqueada. Ela desbloqueará automaticamente em 10 minutos, ou verifique seu e-mail para um link de desbloqueio."
+      not_found_in_database: "%{authentication_keys} inválido ou senha."
+      timeout: "Sua sessão expirou. Efetue o login novamente para continuar."
+      unauthenticated: "Você precisa fazer login ou se cadastrar antes de continuar."
+      unconfirmed: "Você precisa confirmar seu endereço de email antes de continuar."
+    mailer:
+      confirmation_instructions:
+        subject: "Instruções de confirmação"
+        greeting: "Bem-vindo %{email}!"
+        instruction: "Você pode confirmar o email da sua conta através do link abaixo:"
+        action: "Confirmar minha conta"
+      reset_password_instructions:
+        subject: "Resetar instruções de senha"
+        greeting: "Olá %{email}!"
+        instruction: "Alguém solicitou um link para alterar sua senha. Você pode fazer isso através do link abaixo."
+        action: "Alterar a minha senha"
+        ignore_note: "Se você não solicitou isso, por favor, ignore este email."
+        unchanged_note: "Sua senha não será alterada até que você acesse o link acima e crie uma nova."
+      unlock_instructions:
+        subject: "Instruções de desbloqueio"
+        greeting: "Olá %{email},"
+        instruction: "Sua conta foi bloqueada devido a várias tentativas de login sem sucesso."
+        time_note: "Desbloqueará automaticamente em %{unlock_in}, ou clique no link abaixo para desbloquear imediatamente."
+        action: "Desbloquear minha conta"
+      email_changed:
+        subject: "Email Alterado"
+      password_change:
+        subject: "Senha alterada"
+    omniauth_callbacks:
+      failure: "Não foi possível autenticá-lo a partir do %{kind} porque \"%{reason}\"."
+      success: "Autenticado com sucesso pela conta %{kind}."
+    passwords:
+      no_token: "Você não pode acessar esta página sem precisar de um email de redefinição de senha. Se você veio de um email de redefinição de senha, verifique se você usou a URL completa fornecida."
+      send_instructions: "Você receberá um email com instruções sobre como redefinir sua senha em alguns minutos."
+      send_paranoid_instructions: "Se o seu endereço de email existir em nosso banco de dados, você receberá um link de recuperação de senha em seu endereço de email em alguns minutos."
+      updated: "Sua senha foi alterada com sucesso. Você agora está conectado."
+      updated_not_active: "Sua senha foi alterada com sucesso."
+    registrations:
+      destroyed: "Tchau! Sua conta foi cancelada com sucesso. Esperamos vê-lo novamente em breve."
+      signed_up: "Bem-vindo! Você se registrou com sucesso."
+      signed_up_but_inactive: "Você se inscreveu com sucesso. No entanto, não foi possível fazer login porque sua conta ainda não foi ativada."
+      signed_up_but_locked: "Você se registrou com sucesso. No entanto, não foi possível fazer login porque sua conta está bloqueada."
+      signed_up_but_unconfirmed: "Uma mensagem com um link de confirmação foi enviada para o seu endereço de email. Por favor, siga o link para ativar sua conta."
+      update_needs_confirmation: "Você atualizou sua conta com sucesso, mas precisamos verificar seu novo endereço de email. Por favor, verifique seu email e siga o link de confirmação para confirmar seu novo endereço de email."
+      updated: "Sua conta foi atualizada com sucesso."
+      updated_but_not_signed_in: "Sua conta foi atualizada com sucesso, mas, como sua senha foi alterada, você precisa fazer o login novamente."
+    sessions:
+      signed_in: "Login efetuado com sucesso."
+      signed_out: "Sessão encerrada com sucesso."
+      already_signed_out: "Sessão encerrada com sucesso."
+    unlocks:
+      send_instructions: "Dentro de minutos, você receberá um email com instruções sobre como desbloquear sua conta."
+      send_paranoid_instructions: "Se sua conta existir, você receberá um email com instruções sobre como desbloqueá-la em alguns minutos."
+      unlocked: "Sua conta foi desbloqueada com sucesso. Por favor, entre para continuar."
+  errors:
+    messages:
+      already_confirmed: "já foi confirmado, tente efetuar o login"
+      confirmation_period_expired: "precisa ser confirmado dentro de %{period}, por favor, solicite um novo"
+      expired: "expirou, por favor, solicite uma nova"
+      not_found: "não encontrado"
+      not_locked: "não estava bloqueado"
+      not_saved:
+        one: "1 erro impediu este %{resource} de ser salvo:"
+        other: "Erros %{count} impediram este %{resource} de ser salvo:"
+  message_unlock_sent: "Se sua conta existe e está bloqueada, você receberá um e-mail com instruções de desbloqueio."

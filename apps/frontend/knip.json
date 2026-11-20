@@ -1,0 +1,7 @@
+{
+  "$schema": "https://unpkg.com/knip@6/schema.json",
+  "entry": ["lang/scripts/*.js"],
+  "ignore": ["dist/**"],
+  "ignoreExportsUsedInFile": true,
+  "ignoreDependencies": ["@playwright/test"]
+}

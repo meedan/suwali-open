@@ -1,0 +1,55 @@
+.updatePhoto {
+  h3 {
+    font: var(--font-12-semibold);
+    margin: 8px 0 16px;
+  }
+
+  .updatePhotoContent {
+    align-items: flex-start;
+    display: flex;
+    gap: 16px;
+  }
+
+  .profilePhoto {
+    border: solid 2px var(--border-color-panel);
+    border-radius: var(--border-radius-circle);
+    flex: 0 0 88px;
+    font: var(--font-12-regular);
+    height: 88px;
+    width: 88px;
+  }
+
+  .updatePhotoContentDetails {
+    align-items: start;
+    display: flex;
+    flex-flow: column nowrap;
+    gap: 16px;
+  }
+
+  &.compact {
+    background-color: var(--background-color-bg1);
+    border-radius: var(--border-radius-8);
+    padding: 12px;
+    position: relative;
+
+    .updatePhotoContentDetails {
+      inset-block: 0;
+      inset-inline: 0;
+      position: absolute;
+
+      button {
+        background-color: var(--background-color-bg0);
+        border: solid 2px var(--border-color-panel);
+        border-radius: var(--border-radius-circle);
+        inset-block: 12px;
+        inset-inline: 12px;
+        opacity: 0;
+        position: absolute;
+
+        &:hover {
+          opacity: 1;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,65 @@
+<html>
+<head>
+<style>
+.article-header { font-size: 24px; color: #333; margin-bottom: 16px; }
+.byline { font-style: italic; color: #666; }
+.nav-menu { display: flex; gap: 12px; background: #f0f0f0; padding: 8px; }
+.nav-menu a { text-decoration: none; color: #0066cc; }
+.cookie-banner { position: fixed; bottom: 0; background: rgba(0,0,0,0.8); color: white; padding: 20px; }
+.sidebar { width: 300px; float: right; }
+.ad-block { border: 1px solid #ccc; padding: 10px; text-align: center; }
+@media (max-width: 768px) { .sidebar { display: none; } }
+body { font-family: Arial, sans-serif; line-height: 1.6; }
+</style>
+</head>
+<body>
+<nav class="nav-menu">
+<a href="/">Home</a>
+<a href="/politics">Politics</a>
+<a href="/science">Science</a>
+<a href="/sports">Sports</a>
+</nav>
+
+<div class="cookie-banner">
+We use cookies to improve your experience. By continuing to browse, you accept our cookie policy.
+<button onclick="acceptCookies()">Accept</button>
+<button onclick="rejectCookies()">Reject</button>
+</div>
+
+<script>
+function acceptCookies() { document.cookie = "consent=true"; }
+function rejectCookies() { document.cookie = "consent=false"; }
+var analytics = { track: function(e) { console.log(e); } };
+</script>
+
+<div class="article-header">
+Greenfield Solar Initiative Launches in Montara Valley
+</div>
+<div class="byline">By Clara Reinholt, Environmental Correspondent</div>
+
+The government of Montara Valley announced today the launch of the Greenfield Solar Initiative, a landmark renewable energy project expected to generate 500 megawatts of clean electricity by 2028. The project will deploy over 1.2 million solar panels across three sites in the eastern highlands.
+
+Minister of Energy Tobias Wendt said the initiative represents the largest single investment in renewable energy in the region's history, with an estimated budget of 3.4 billion euros. "This is a turning point for our energy independence," Wendt stated at the press conference.
+
+The Greenfield Solar Initiative is expected to create approximately 8,000 construction jobs and 1,200 permanent maintenance positions. Environmental groups have praised the project, though some local farmers have expressed concerns about land use changes.
+
+<div class="sidebar">
+<div class="ad-block">ADVERTISEMENT: Subscribe to Premium for ad-free reading</div>
+<h3>Trending Stories</h3>
+<ul>
+<li><a href="/story1">Celebrity chef opens new restaurant</a></li>
+<li><a href="/story2">Stock market hits record high</a></li>
+</ul>
+</div>
+
+<footer>
+<style>.footer-links { display: flex; gap: 8px; } .footer-links a { color: #999; }</style>
+&copy; 2026 Montara News Network. All rights reserved.
+<div class="footer-links">
+<a href="/privacy">Privacy Policy</a>
+<a href="/terms">Terms of Service</a>
+<a href="/contact">Contact Us</a>
+</div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,92 @@
+.wizardStepper {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-width: var(--width-interiorcolumn-small);
+  padding: 16px 0;
+
+  h2 {
+    font: var(--font-18-semibold);
+  }
+
+  .heading {
+    align-items: start;
+    display: flex;
+    gap: 4px;
+
+    svg {
+      font-size: var(--icon-size-24);
+      margin-block: 3px 0;
+    }
+  }
+
+  .timeline {
+    list-style: none;
+    padding-inline-start: 36px;
+    position: relative;
+
+    li {
+      font: var(--font-12-regular);
+      line-height: var(--line-height-20);
+      padding: 0 0 24px;
+      position: relative;
+
+      .stepIndicator {
+        align-items: center;
+        border-radius: var(--border-radius-circle);
+        color: var(--color-white-100);
+        display: flex;
+        font: var(--font-14-semibold);
+        height: 24px;
+        inset-inline-start: -35px;
+        justify-content: center;
+        position: absolute;
+        top: 4px;
+        width: 24px;
+
+        .checkIcon {
+          visibility: hidden;
+        }
+      }
+
+      strong {
+        display: block;
+        font-size: var(--font-size-14);
+        padding: 5px 0 0;
+      }
+    }
+
+    li.active .stepIndicator {
+      background-color: var(--list-item-active-background-color);
+      border: 2px solid var(--list-item-active-border-color);
+    }
+
+    li.passed .stepIndicator {
+      background-color: var(--list-item-active-border-color);
+      border: 2px solid var(--list-item-active-border-color);
+
+      .checkIcon {
+        visibility: visible;
+      }
+    }
+
+    li.future .stepIndicator {
+      background: transparent;
+      border: 2px solid var(--border-color-chart);
+    }
+
+    li::before {
+      background: var(--border-color-chart);
+      bottom: -4px;
+      content: "";
+      inset-inline-start: -24px;
+      position: absolute;
+      top: 28px;
+      width: 2px;
+    }
+
+    li:last-child::before {
+      display: none;
+    }
+  }
+}

@@ -1,0 +1,5 @@
+<p><%= t('mailer_hub_join_request_body', hub_name: content_tag(:strong, @hub_name)).html_safe %></p>
+
+<p><%= t('mailer_hub_join_request_user_email', user_email: content_tag(:strong, @user_email)).html_safe %></p>
+
+<p><a href="<%= @review_editors_url %>" target="_blank" rel="noopener noreferrer"><%= t('mailer_hub_join_request_action') %></a></p>

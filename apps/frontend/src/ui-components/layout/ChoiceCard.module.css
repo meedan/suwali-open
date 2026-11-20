@@ -1,0 +1,101 @@
+.choiceCard {
+  background: var(--background-color-input-enabled);
+  border: 1px solid var(--border-color-input-enabled);
+  border-radius: var(--border-radius-8);
+  display: flex;
+  flex-flow: row wrap;
+  gap: 12px;
+  padding: 8px 12px;
+  position: relative;
+  width: 100%;
+
+  .choiceCardInput {
+    flex: 1 1 auto;
+
+    input[type="checkbox"],
+    input[type="radio"] {
+      margin: 3px 0 0;
+    }
+
+    /* Stretches the label over the whole card, so clicking anywhere on it changes the checkbox or radio */
+    label {
+      cursor: pointer;
+
+      &::after {
+        content: "";
+        inset-block: 0;
+        inset-inline: 0;
+        position: absolute;
+      }
+
+      /* Both the title and the description are direct children of the label, so both sit above the stretched label and their text can be selected. They are only as wide as the text so a button over the empty part of the card is not covered. A click on them still changes the input, as they are inside the label */
+      > div {
+        max-width: 100%;
+        position: relative;
+        width: fit-content;
+        z-index: var(--z-index-1);
+
+        &:global(.base-help-container) {
+          padding: 8px 4px 0 0;
+        }
+      }
+    }
+
+    /* The description is text to read and copy, so over the words themselves the cursor is the text one */
+    &:not(:global(.disabled)) label :global(.base-help-container) span {
+      cursor: auto;
+    }
+
+    &:global(.disabled) label {
+      cursor: not-allowed;
+    }
+  }
+
+  &:has(input:focus-visible) {
+    outline: 2px solid var(--color-purple-67);
+  }
+
+  .icon {
+    align-items: center;
+    align-self: start;
+    background-color: var(--button-background-color);
+    border-radius: var(--border-radius-8);
+    color: var(--button-text-color);
+    display: flex;
+    flex-flow: row nowrap;
+    font-size: var(--icon-size-18);
+    gap: 4px;
+    justify-content: center;
+    min-width: auto;
+    padding: 8px;
+  }
+
+  &.noTitle {
+    gap: 0;
+
+    .choiceCardInput {
+      flex: 0 1 auto;
+    }
+  }
+
+  &.selected {
+    border-color: var(--color-purple-67);
+    outline: solid 1px var(--color-purple-67);
+  }
+
+  .choiceCardContent {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    position: relative;
+    z-index: var(--z-index-1);
+  }
+
+  &.sizeLarge {
+   padding: 16px;
+
+    .icon {
+      font-size: var(--icon-size-30);
+    }
+  }
+}

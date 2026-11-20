@@ -1,0 +1,21 @@
+.titleRow {
+  align-items: center;
+  display: flex;
+  flex-flow: row wrap;
+  gap: 16px;
+
+  h1 {
+    font-size: var(--font-size-20);
+    font-weight: var(--font-weight-semibold);
+  }
+
+  .backButton {
+    color: var(--button-text-color);
+  }
+}
+
+.buttonWrapper {
+  display: flex;
+  gap: 16px;
+  padding: 16px 0 0;
+}

@@ -1,0 +1,62 @@
+.chartsGrid {
+  align-items: start;
+  display: flex;
+  flex-flow: row wrap;
+  gap: 24px;
+  margin-top: 8px;
+}
+
+.chartsGrid > * {
+  flex: 1 1 435px;
+  min-width: 0;
+}
+
+.avgTimeCard {
+  align-items: center;
+  flex-direction: row;
+  gap: 16px;
+}
+
+.avgTimeDeltas {
+  display: flex;
+  flex-direction: column;
+  font: var(--font-12-regular);
+  gap: 4px;
+  margin: 8px 0 0;
+}
+
+.deltaFaster strong {
+  color: var(--color-green-33);
+}
+
+.deltaSlower strong {
+  color: var(--text-color-error);
+}
+
+.chartPanel {
+  background-color: var(--background-color-bg1);
+  border-radius: var(--border-radius-8);
+  min-width: 0;
+  padding: 8px;
+
+  h3 {
+    font-size: var(--font-size-14);
+    font-weight: var(--font-weight-semibold);
+    margin: 8px 0 24px 16px;
+  }
+
+  /* Remove the grey rectangle recharts renders behind the active bar on hover */
+  :global(.recharts-rectangle.recharts-bar-bg) {
+    fill: transparent;
+  }
+}
+
+/* Caps the legend at a fixed height so all three chart panels stay the same size regardless of
+   how many legend entries a chart has — a longer legend (e.g. Messages) scrolls instead of
+   growing the panel. */
+
+.chartLegend {
+  max-height: 48px;
+  overflow-y: auto;
+  padding-inline-end: 4px;
+}

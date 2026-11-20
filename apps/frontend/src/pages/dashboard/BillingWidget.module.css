@@ -1,0 +1,128 @@
+.subHeader {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+
+  span {
+    align-items: center;
+    color: var(--text-color-primary);
+    display: flex;
+    flex-flow: row nowrap;
+    gap: 4px;
+    text-decoration: underline dashed;
+    text-decoration-thickness: 1px;
+    text-underline-position: under;
+
+    svg {
+      color: var(--text-color-secondary);
+      font-size: var(--icon-size-16);
+    }
+  }
+}
+
+.usageRows {
+  background-color: var(--background-color-bg1);
+  border-radius: var(--border-radius-12);
+  display: flex;
+  flex-flow: column;
+  gap: 8px;
+  padding: 8px;
+}
+
+.usageRow {
+  display: flex;
+  flex-flow: column;
+  gap: 8px;
+}
+
+/* The percentage or check keeps centered against the label, bar and limit only, never the reset line */
+.usageMain {
+  align-items: center;
+  color: var(--text-color-primary);
+  display: flex;
+  flex-flow: row;
+  gap: 8px;
+}
+
+/* Button styling only, so it must not react to the pointer */
+.usagePercent {
+  pointer-events: none;
+
+  span {
+    text-align: center;
+    width: 40px;
+  }
+}
+
+.usageDetails {
+  display: flex;
+  flex: 1;
+  flex-flow: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.usageLabel {
+  display: flex;
+  font: var(--font-12-semibold);
+  gap: 4px;
+  justify-content: space-between;
+}
+
+.usageWarningIcon {
+  color: var(--text-color-error);
+  font-size: var(--icon-size-16);
+}
+
+.usageProgressBar {
+  min-width: 0;
+}
+
+.usageCounts {
+  display: flex;
+  font: var(--font-12-regular);
+  gap: 4px;
+  justify-content: space-between;
+}
+
+.usageCurrent {
+  font: var(--font-12-semibold);
+}
+
+.usageRowWarning {
+
+  /* Extra specificity so it wins over the button's own theme colors */
+  &.usageRow {
+    background-color: var(--color-pink-10);
+  }
+
+  .usagePercent {
+    color: var(--text-color-error);
+  }
+
+  progress {
+    background-color: var(--color-pink-10);
+
+    &::-webkit-progress-bar {
+      background-color: var(--color-pink-10);
+    }
+
+    &::-webkit-progress-value {
+      background-color: var(--color-pink-53);
+    }
+
+    &::-moz-progress-bar {
+      background-color: var(--color-pink-53);
+    }
+  }
+}
+
+.tooltip {
+  line-height: 18px;
+  max-width: 320px;
+
+  ul {
+    list-style: disc;
+    padding-inline-start: 16px;
+  }
+}

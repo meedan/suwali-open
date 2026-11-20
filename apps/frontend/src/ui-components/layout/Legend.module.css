@@ -1,0 +1,19 @@
+.legend {
+  display: flex;
+  flex-flow: row wrap;
+  gap: 16px;
+}
+
+.legendItem {
+  align-items: center;
+  color: var(--text-color-primary);
+  display: flex;
+  font: var(--font-12-semibold);
+  gap: 6px;
+}
+
+.legendDot {
+  border-radius: var(--border-radius-circle);
+  height: 8px;
+  width: 8px;
+}

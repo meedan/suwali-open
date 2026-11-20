@@ -1,0 +1,9 @@
+.questionsChart tr {
+  .rowPreview {
+    cursor: pointer;
+  }
+
+  &:hover {
+    background-color: var(--button-background-color);
+  }
+}

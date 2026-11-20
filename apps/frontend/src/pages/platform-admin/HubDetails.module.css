@@ -1,0 +1,224 @@
+main.adminHubDetailContainer {
+  display: flex;
+  flex-flow: column;
+  gap: 24px;
+  overflow: auto;
+  padding: 24px;
+  width: 100%;
+
+  header {
+    align-items: center;
+    display: flex;
+    flex-flow: row wrap;
+    gap: 16px;
+
+    .hubInfo {
+      align-items: center;
+      display: flex;
+      flex: 1 1 auto;
+      flex-flow: row wrap;
+      gap: 16px;
+
+      .hubInfoNavButton {
+        color: var(--color-white-100);
+      }
+    }
+
+    h1 {
+      font-size: var(--font-size-20);
+      font-weight: var(--font-weight-semibold);
+    }
+
+    small {
+      color: var(--text-color-secondary);
+      font-size: var(--font-size-14);
+    }
+
+    .legend {
+      flex: 0 0 auto;
+      justify-content: end;
+    }
+
+    .deletionScheduled {
+      align-items: center;
+      color: var(--color-negative);
+      display: flex;
+      font-size: var(--font-size-12);
+      gap: 3px;
+
+      svg {
+        font-size: var(--icon-size-16);
+      }
+    }
+  }
+
+  section {
+    background-color: var(--background-color-bg0);
+    border-radius: var(--border-radius-16);
+    min-width: 0;
+    padding: 16px;
+
+    h2 {
+      font-size: var(--font-size-20);
+      margin-bottom: 12px;
+    }
+
+    a {
+      color: var(--link-color);
+    }
+  }
+
+  .sections {
+    align-items: start;
+    display: flex;
+    flex-flow: row wrap;
+    gap: 16px;
+    min-width: 0;
+
+    section {
+      flex: 1 1 0;
+      min-width: var(--width-sidecolumn-medium);
+    }
+  }
+
+  dl {
+    font: var(--font-14-regular);
+    padding: 0;
+
+    > div {
+      align-items: center;
+      border-bottom: 1px solid var(--border-color-panel);
+      display: flex;
+      flex-flow: row wrap;
+      gap: 4px;
+      padding: 12px 0;
+
+      &:last-of-type {
+        border-bottom: 0;
+      }
+    }
+
+    dt {
+      font: var(--font-14-semibold);
+
+      &::after {
+        content: ':';
+      }
+    }
+
+    dd {
+      align-items: center;
+      display: flex;
+      flex-flow: row nowrap;
+      gap: 3px;
+
+      svg {
+        font-size: var(--icon-size-20);
+      }
+    }
+  }
+
+  .editorCell {
+    align-items: center;
+    display: flex;
+    gap: 10px;
+  }
+
+  .editorAvatar {
+    border: solid 2px var(--border-color-panel);
+    border-radius: var(--border-radius-circle);
+    flex: 0 0 36px;
+    font-size: var(--font-size-12);
+    height: 36px;
+    width: 36px;
+  }
+
+  .editorName {
+    display: block;
+    font-weight: var(--font-weight-semibold);
+  }
+
+  .editorStatus {
+    align-items: center;
+    color: var(--color-neutral);
+    display: flex;
+    font-size: var(--font-size-12);
+    gap: 3px;
+
+    svg {
+      font-size: var(--icon-size-16);
+    }
+  }
+
+  .editorStatusConfirmed {
+    color: var(--color-positive);
+  }
+
+  .editorStatusPending {
+    color: var(--color-neutral);
+  }
+
+  .milestoneProgress {
+    padding: 8px;
+
+    ul {
+      display: flex;
+      flex-flow: row wrap;
+      gap: 20px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+
+      li {
+        align-items: center;
+        display: flex;
+
+        &:not(:first-child)::before {
+          color: var(--text-color-secondary);
+          content: '\2192';
+          margin-inline-end: 12px;
+        }
+      }
+
+      svg {
+        font-size: var(--icon-size-20);
+      }
+    }
+
+    .milestoneLabel {
+      display: flex;
+      flex-flow: column nowrap;
+      font: var(--font-14-regular);
+      gap: 4px;
+      padding-block-end: 4px;
+      padding-inline: 4px 0;
+    }
+
+    .milestoneDate,
+    time {
+      color: var(--text-color-secondary);
+      font: var(--font-12-regular);
+    }
+  }
+
+}
+
+.editorActions {
+  display: flex;
+  gap: 8px;
+}
+
+.modalBody {
+  padding: 16px 24px;
+  width: 100%;
+
+  p {
+    font-size: var(--font-size-14);
+    line-height: 1.5;
+    margin: 0;
+
+    + p {
+      margin: 12px 0 0;
+    }
+  }
+}

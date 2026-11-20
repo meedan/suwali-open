@@ -1,0 +1,4348 @@
+---
+openapi: 3.0.1
+info:
+  title: SUWALI CMS API
+  version: v1
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+security:
+- bearerAuth: []
+paths:
+  "/api/about":
+    get:
+      summary: Gets information about the application
+      tags:
+      - About
+      security:
+      - bearerAuth: []
+      responses:
+        '200':
+          description: Information returned
+        '401':
+          description: Unauthorized
+  "/api/admin/hubs":
+    get:
+      summary: List all hubs with plan and usage data
+      tags:
+      - Admin
+      security:
+      - bearerAuth: []
+      description: Super admin only endpoint to retrieve all hubs with their plan
+        limits and current usage counts.
+      responses:
+        '200':
+          description: Hubs returned successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    name:
+                      type: string
+                    organization_name:
+                      type: string
+                      nullable: true
+                    plan:
+                      type: string
+                    trial_active:
+                      type: boolean
+                    trial_expired:
+                      type: boolean
+                    trial_ends_at:
+                      type: string
+                      nullable: true
+                      format: date-time
+                    invite_code:
+                      type: string
+                      nullable: true
+                    created_at:
+                      type: string
+                      format: date-time
+                    users_count:
+                      type: integer
+                    active_external_users_count:
+                      type: integer
+                    max_messages:
+                      type: integer
+                      nullable: true
+                    sources_count:
+                      type: integer
+                    max_sources:
+                      type: integer
+                      nullable: true
+                    documents_count:
+                      type: integer
+                    max_documents:
+                      type: integer
+                      nullable: true
+                  required:
+                  - id
+                  - name
+                  - plan
+                  - trial_active
+                  - trial_expired
+                  - created_at
+                  - users_count
+                  - active_external_users_count
+                  - sources_count
+                  - documents_count
+        '403':
+          description: Forbidden - Not a super admin
+        '401':
+          description: Unauthorized
+  "/api/admin/hubs/{id}":
+    get:
+      summary: Get a single hub with full detail and conversation activity
+      tags:
+      - Admin
+      security:
+      - bearerAuth: []
+      description: Super admin only endpoint to retrieve a single hub with all plan/usage
+        data and conversation activity timestamps.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: Hub ID
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Hub returned successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  name:
+                    type: string
+                  organization_name:
+                    type: string
+                    nullable: true
+                  plan:
+                    type: string
+                  trial_active:
+                    type: boolean
+                  trial_expired:
+                    type: boolean
+                  trial_ends_at:
+                    type: string
+                    nullable: true
+                    format: date-time
+                  invite_code:
+                    type: string
+                    nullable: true
+                  created_at:
+                    type: string
+                    format: date-time
+                  users_count:
+                    type: integer
+                  active_external_users_count:
+                    type: integer
+                  max_messages:
+                    type: integer
+                    nullable: true
+                  sources_count:
+                    type: integer
+                  max_sources:
+                    type: integer
+                    nullable: true
+                  documents_count:
+                    type: integer
+                  max_documents:
+                    type: integer
+                    nullable: true
+                  last_internal_conversation_at:
+                    type: string
+                    nullable: true
+                    format: date-time
+                  last_external_conversation_at:
+                    type: string
+                    nullable: true
+                    format: date-time
+                required:
+                - id
+                - name
+                - plan
+                - trial_active
+                - trial_expired
+                - created_at
+                - users_count
+                - active_external_users_count
+                - sources_count
+                - documents_count
+                - last_internal_conversation_at
+                - last_external_conversation_at
+        '403':
+          description: Forbidden - Not a super admin
+        '401':
+          description: Unauthorized
+    patch:
+      summary: Update admin-only fields of a hub
+      tags:
+      - Admin
+      security:
+      - bearerAuth: []
+      description: 'Super admin only. Updates sensitive hub fields: plan, trial dates,
+        and custom limits. Trial dates must be in YYYY-MM-DD format. Custom limit
+        values must be non-negative integers.'
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: Hub ID
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Hub updated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  name:
+                    type: string
+                  organization_name:
+                    type: string
+                    nullable: true
+                  plan:
+                    type: string
+                  trial_active:
+                    type: boolean
+                  trial_expired:
+                    type: boolean
+                  trial_ends_at:
+                    type: string
+                    nullable: true
+                    format: date-time
+                  invite_code:
+                    type: string
+                    nullable: true
+                  created_at:
+                    type: string
+                    format: date-time
+                  users_count:
+                    type: integer
+                  active_external_users_count:
+                    type: integer
+                  max_messages:
+                    type: integer
+                    nullable: true
+                  sources_count:
+                    type: integer
+                  max_sources:
+                    type: integer
+                    nullable: true
+                  documents_count:
+                    type: integer
+                  max_documents:
+                    type: integer
+                    nullable: true
+                  last_internal_conversation_at:
+                    type: string
+                    nullable: true
+                    format: date-time
+                  last_external_conversation_at:
+                    type: string
+                    nullable: true
+                    format: date-time
+                required:
+                - id
+                - name
+                - plan
+                - trial_active
+                - trial_expired
+                - created_at
+                - users_count
+                - active_external_users_count
+                - sources_count
+                - documents_count
+                - last_internal_conversation_at
+                - last_external_conversation_at
+        '422':
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                required:
+                - errors
+        '403':
+          description: Forbidden - Not a super admin
+        '401':
+          description: Unauthorized
+        '404':
+          description: Hub not found
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                hub:
+                  type: object
+                  properties:
+                    plan:
+                      type: string
+                      enum:
+                      - free
+                      - enterprise
+                      - free_unrestricted
+                      - standard
+                      - pro
+                      - subsidized
+                      example: enterprise
+                    trial_started_at:
+                      type: string
+                      format: date
+                      nullable: true
+                      example: '2026-01-01'
+                    trial_ends_at:
+                      type: string
+                      format: date
+                      nullable: true
+                      example: '2026-07-01'
+                    custom_limits:
+                      type: object
+                      nullable: true
+                      properties:
+                        sources:
+                          type: integer
+                          example: 20
+                        messages:
+                          type: integer
+                          example: 5000
+                        documents:
+                          type: integer
+                          example: 2000
+              required:
+              - hub
+  "/api/admin/hubs/{id}/activity":
+    get:
+      summary: Get a hub's lifecycle activity timeline
+      tags:
+      - Admin
+      security:
+      - bearerAuth: []
+      description: Super admin only. Returns a curated, chronological (newest first)
+        timeline of one hub's key lifecycle events — creation, deletion, plan changes,
+        deletion requests, editors added/removed, data sources added/removed, first
+        document synced, messaging platforms connected/disconnected, trial start/end
+        date edits, custom limit edits, feature flag changes, and trial email toggles
+        — read from the audit log so it still covers history through a hub that has
+        since been deleted.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: Hub ID
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Activity timeline returned successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    type:
+                      type: string
+                    at:
+                      type: string
+                      format: date-time
+                    actor_email:
+                      type: string
+                      nullable: true
+                    detail:
+                      type: string
+                      nullable: true
+                    old_plan:
+                      type: string
+                      nullable: true
+                      description: Only present on plan_changed events
+                    new_plan:
+                      type: string
+                      nullable: true
+                      description: Only present on plan_changed events
+                  required:
+                  - type
+                  - at
+                  - actor_email
+                  - detail
+        '403':
+          description: Forbidden - Not a super admin
+        '401':
+          description: Unauthorized
+  "/api/admin/export/hubs":
+    get:
+      summary: Export hubs as CSV
+      tags:
+      - Admin
+      security:
+      - bearerAuth: []
+      description: Super admin only endpoint to export all hubs data as CSV.
+      responses:
+        '200':
+          description: CSV file generated successfully
+        '403':
+          description: Forbidden - Not a super admin
+        '401':
+          description: Unauthorized
+  "/api/admin/export/message-reports":
+    get:
+      summary: Export message reports as CSV
+      tags:
+      - Admin
+      security:
+      - bearerAuth: []
+      description: Super admin only endpoint to export all message reports as CSV.
+      parameters:
+      - name: hub_id
+        in: query
+        required: false
+        description: Only export the reports of this hub
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: CSV file generated successfully
+        '403':
+          description: Forbidden - Not a super admin
+        '401':
+          description: Unauthorized
+  "/api/admin/message-reports":
+    get:
+      summary: List message reports
+      tags:
+      - Admin
+      security:
+      - bearerAuth: []
+      description: Super admin only endpoint that returns a page of message reports,
+        newest first.
+      parameters:
+      - name: hub_id
+        in: query
+        required: false
+        description: Only return the reports of this hub
+        schema:
+          type: integer
+      - name: page
+        in: query
+        required: false
+        description: Page number, starting at 1; defaults to the last page
+        schema:
+          type: integer
+      - name: per_page
+        in: query
+        required: false
+        description: Reports per page, from 1 to 100 (default 100)
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Message reports returned successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                        hub_id:
+                          type: integer
+                          nullable: true
+                        hub_name:
+                          type: string
+                          nullable: true
+                        message_id:
+                          type: integer
+                        message_link:
+                          type: string
+                          nullable: true
+                        platform:
+                          type: string
+                          nullable: true
+                        user_question:
+                          type: string
+                          nullable: true
+                        message_body:
+                          type: string
+                          nullable: true
+                        message_sent_at:
+                          type: string
+                          format: date-time
+                          nullable: true
+                        reported_by_email:
+                          type: string
+                          nullable: true
+                        comment:
+                          type: string
+                          nullable: true
+                        created_at:
+                          type: string
+                          format: date-time
+                      required:
+                      - id
+                      - hub_id
+                      - hub_name
+                      - message_id
+                      - message_link
+                      - platform
+                      - user_question
+                      - message_body
+                      - message_sent_at
+                      - reported_by_email
+                      - comment
+                      - created_at
+                  pagination:
+                    type: object
+                    properties:
+                      current_page:
+                        type: integer
+                      per_page:
+                        type: integer
+                      total_pages:
+                        type: integer
+                      total_count:
+                        type: integer
+                    required:
+                    - current_page
+                    - per_page
+                    - total_pages
+                    - total_count
+                required:
+                - data
+                - pagination
+        '403':
+          description: Forbidden - Not a super admin
+        '401':
+          description: Unauthorized
+  "/api/admin/users/unconfirmed":
+    get:
+      summary: List users who have not confirmed their email
+      tags:
+      - Admin
+      security:
+      - bearerAuth: []
+      description: Super admin only. Returns internal users whose email confirmation
+        is still pending.
+      responses:
+        '200':
+          description: Users returned successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    email:
+                      type: string
+                    hub_name:
+                      type: string
+                      nullable: true
+                    hub_id:
+                      type: integer
+                      nullable: true
+                    created_at:
+                      type: string
+                      format: date-time
+                    requested_at:
+                      type: string
+                      format: date-time
+                      nullable: true
+                    last_login_at:
+                      type: string
+                      format: date-time
+                      nullable: true
+                    last_active_at:
+                      type: string
+                      format: date-time
+                      nullable: true
+                  required:
+                  - id
+                  - email
+                  - hub_name
+                  - hub_id
+                  - created_at
+                  - requested_at
+                  - last_login_at
+                  - last_active_at
+        '403':
+          description: Forbidden - Not a super admin
+        '401':
+          description: Unauthorized
+  "/api/admin/users/no-hub":
+    get:
+      summary: List users who are not a member of any hub
+      tags:
+      - Admin
+      security:
+      - bearerAuth: []
+      description: Super admin only. Returns internal users who have no hub membership.
+      responses:
+        '200':
+          description: Users returned successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    email:
+                      type: string
+                    hub_name:
+                      type: string
+                      nullable: true
+                    hub_id:
+                      type: integer
+                      nullable: true
+                    created_at:
+                      type: string
+                      format: date-time
+                    requested_at:
+                      type: string
+                      format: date-time
+                      nullable: true
+                    last_login_at:
+                      type: string
+                      format: date-time
+                      nullable: true
+                    last_active_at:
+                      type: string
+                      format: date-time
+                      nullable: true
+                  required:
+                  - id
+                  - email
+                  - hub_name
+                  - hub_id
+                  - created_at
+                  - requested_at
+                  - last_login_at
+                  - last_active_at
+        '403':
+          description: Forbidden - Not a super admin
+        '401':
+          description: Unauthorized
+  "/api/admin/users/inactive":
+    get:
+      summary: List hub editors who have not been active recently
+      tags:
+      - Admin
+      security:
+      - bearerAuth: []
+      description: Super admin only. Returns confirmed users with an approved hub
+        membership whose last activity is older than the platform inactivity threshold,
+        one row per approved membership, longest inactive first. `threshold_days`
+        reports the cutoff that was applied.
+      responses:
+        '200':
+          description: Users returned successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  threshold_days:
+                    type: integer
+                  users:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                        email:
+                          type: string
+                        hub_name:
+                          type: string
+                          nullable: true
+                        hub_id:
+                          type: integer
+                          nullable: true
+                        created_at:
+                          type: string
+                          format: date-time
+                        requested_at:
+                          type: string
+                          format: date-time
+                          nullable: true
+                        last_login_at:
+                          type: string
+                          format: date-time
+                          nullable: true
+                        last_active_at:
+                          type: string
+                          format: date-time
+                          nullable: true
+                      required:
+                      - id
+                      - email
+                      - hub_name
+                      - hub_id
+                      - created_at
+                      - requested_at
+                      - last_login_at
+                      - last_active_at
+                required:
+                - threshold_days
+                - users
+        '403':
+          description: Forbidden - Not a super admin
+        '401':
+          description: Unauthorized
+  "/api/admin/users/pending-approval":
+    get:
+      summary: List users with pending hub membership requests
+      tags:
+      - Admin
+      security:
+      - bearerAuth: []
+      description: Super admin only. Returns one row per unapproved hub membership.
+        A user may appear multiple times if they have pending requests across multiple
+        hubs.
+      responses:
+        '200':
+          description: Users returned successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    email:
+                      type: string
+                    hub_name:
+                      type: string
+                      nullable: true
+                    hub_id:
+                      type: integer
+                      nullable: true
+                    created_at:
+                      type: string
+                      format: date-time
+                    requested_at:
+                      type: string
+                      format: date-time
+                      nullable: true
+                    last_login_at:
+                      type: string
+                      format: date-time
+                      nullable: true
+                    last_active_at:
+                      type: string
+                      format: date-time
+                      nullable: true
+                  required:
+                  - id
+                  - email
+                  - hub_name
+                  - hub_id
+                  - created_at
+                  - requested_at
+                  - last_login_at
+                  - last_active_at
+        '403':
+          description: Forbidden - Not a super admin
+        '401':
+          description: Unauthorized
+  "/api/admin/health":
+    get:
+      summary: Check system health status
+      tags:
+      - Admin
+      security:
+      - bearerAuth: []
+      description: Super admin only endpoint to check system health including Sidekiq
+        and Knowledge Service RQ metrics.
+      responses:
+        '200':
+          description: System is healthy
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    enum:
+                    - ok
+                    - warning
+                  sidekiq:
+                    type: object
+                    properties:
+                      processed:
+                        type: integer
+                      failed:
+                        type: integer
+                      enqueued:
+                        type: integer
+                      retry_size:
+                        type: integer
+                      dead_size:
+                        type: integer
+                      processes:
+                        type: integer
+                      queues:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            name:
+                              type: string
+                            size:
+                              type: integer
+                            latency:
+                              type: number
+                  knowledge_service_rq:
+                    type: object
+                    properties:
+                      status:
+                        type: string
+                      enqueued_jobs:
+                        type: integer
+                      failed_jobs:
+                        type: integer
+                      active_workers:
+                        type: integer
+        '503':
+          description: System is unhealthy
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    enum:
+                    - ok
+                    - warning
+                  sidekiq:
+                    type: object
+                  knowledge_service_rq:
+                    type: object
+        '403':
+          description: Forbidden - Not a super admin
+        '401':
+          description: Unauthorized
+  "/api/admin/users/{id}":
+    delete:
+      summary: Delete an unconfirmed or hubless user
+      tags:
+      - Admin
+      security:
+      - bearerAuth: []
+      description: Super admin only. Permanently deletes a user account, but only
+        if the user has not yet confirmed their email address or is not a member of
+        any hub.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: User ID
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: User deleted successfully
+        '422':
+          description: User has confirmed their account and is a member of a hub
+        '404':
+          description: User not found
+        '403':
+          description: Forbidden - Not a super admin
+        '401':
+          description: Unauthorized
+  "/api/admin/statistics":
+    get:
+      summary: Get platform-wide analytics statistics
+      tags:
+      - Admin
+      security:
+      - bearerAuth: []
+      description: Super admin only. Returns global counts (including all-time and
+        churned hub counts, read from the audit log so a hard-deleted hub still counts),
+        the churned-hubs list, documents by sync status, messages by state, bot replies
+        by answered/unanswered, and average answer time.
+      parameters:
+      - name: group_by
+        in: query
+        required: false
+        description: 'Time bucket: day, week (default), or month'
+        schema:
+          type: string
+      - name: from
+        in: query
+        required: false
+        description: Start of date range (ISO 8601)
+        schema:
+          type: string
+      - name: to
+        in: query
+        required: false
+        description: End of date range (ISO 8601)
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Statistics returned successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  global_counts:
+                    type: object
+                    properties:
+                      hubs:
+                        type: integer
+                        description: Currently-active (live) hub count
+                      sources:
+                        type: integer
+                      conversations:
+                        type: integer
+                      users:
+                        type: integer
+                      external_users:
+                        type: integer
+                      documents:
+                        type: integer
+                      messages:
+                        type: integer
+                      hubs_all_time:
+                        type: integer
+                        description: Every hub ever created, including hard-deleted
+                          ones
+                      hubs_churned:
+                        type: integer
+                        description: Hubs hard-deleted while still on a free plan
+                    required:
+                    - hubs
+                    - sources
+                    - conversations
+                    - users
+                    - external_users
+                    - documents
+                    - messages
+                    - hubs_all_time
+                    - hubs_churned
+                  churned_hubs:
+                    type: array
+                    description: Hubs hard-deleted while still on a free plan, most-recently-deleted
+                      first
+                    items:
+                      type: object
+                      properties:
+                        hub_id:
+                          type: integer
+                        hub_name:
+                          type: string
+                        organization_name:
+                          type: string
+                          nullable: true
+                        plan_at_deletion:
+                          type: string
+                        created_at:
+                          type: string
+                          format: date-time
+                        deleted_at:
+                          type: string
+                          format: date-time
+                      required:
+                      - hub_id
+                      - hub_name
+                      - organization_name
+                      - plan_at_deletion
+                      - created_at
+                      - deleted_at
+                  documents_by_sync_status:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        date:
+                          type: string
+                          format: date
+                        pending:
+                          type: integer
+                        error:
+                          type: integer
+                        complete:
+                          type: integer
+                      required:
+                      - date
+                      - pending
+                      - error
+                      - complete
+                  messages_by_state:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        date:
+                          type: string
+                          format: date
+                        user_message:
+                          type: integer
+                        bot_message:
+                          type: integer
+                      required:
+                      - date
+                  questions_by_answered:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        date:
+                          type: string
+                          format: date
+                        answered:
+                          type: integer
+                        unanswered:
+                          type: integer
+                      required:
+                      - date
+                      - answered
+                      - unanswered
+                  average_answer_times:
+                    type: object
+                    properties:
+                      all_time:
+                        type: number
+                        nullable: true
+                      last_week:
+                        type: number
+                        nullable: true
+                      last_month:
+                        type: number
+                        nullable: true
+                  hubs_by_creation_date:
+                    type: array
+                    description: Hubs created per bucket, split by whether they're
+                      still live or were since hard-deleted
+                    items:
+                      type: object
+                      properties:
+                        date:
+                          type: string
+                          format: date
+                        active:
+                          type: integer
+                        deleted:
+                          type: integer
+                      required:
+                      - date
+                      - active
+                      - deleted
+                required:
+                - global_counts
+                - churned_hubs
+                - documents_by_sync_status
+                - messages_by_state
+                - questions_by_answered
+                - hubs_by_creation_date
+        '403':
+          description: Forbidden - Not a super admin
+        '401':
+          description: Unauthorized
+  "/api/admin/hubs/{id}/deleted":
+    get:
+      summary: Get a deleted hub's summary and activity timeline
+      tags:
+      - Admin
+      security:
+      - bearerAuth: []
+      description: Super admin only. Returns a hard-deleted hub's last known name,
+        organization, plan at deletion, created/deleted dates, and its full activity
+        timeline — all read from the audit log, since the hub no longer exists as
+        a live row. 404s for a hub id that is still live or never existed.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: Hub ID
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Deleted hub summary returned successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  hub_id:
+                    type: integer
+                  hub_name:
+                    type: string
+                  organization_name:
+                    type: string
+                    nullable: true
+                  plan_at_deletion:
+                    type: string
+                  created_at:
+                    type: string
+                    format: date-time
+                  deleted_at:
+                    type: string
+                    format: date-time
+                  activity:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        type:
+                          type: string
+                        at:
+                          type: string
+                          format: date-time
+                        actor_email:
+                          type: string
+                          nullable: true
+                        detail:
+                          type: string
+                          nullable: true
+                        old_plan:
+                          type: string
+                          nullable: true
+                          description: Only present on plan_changed events
+                        new_plan:
+                          type: string
+                          nullable: true
+                          description: Only present on plan_changed events
+                      required:
+                      - type
+                      - at
+                      - actor_email
+                      - detail
+                required:
+                - hub_id
+                - hub_name
+                - organization_name
+                - plan_at_deletion
+                - created_at
+                - deleted_at
+                - activity
+        '403':
+          description: Forbidden - Not a super admin
+        '401':
+          description: Unauthorized
+  "/api/admin/users/super-admins":
+    get:
+      summary: List all platform admins
+      tags:
+      - Admin
+      security:
+      - bearerAuth: []
+      description: Write super admin only. Returns all confirmed Meedan email users
+        (meedan.com or meedan.org), with their admin_write_access flag indicating
+        whether they have write or read-only access.
+      responses:
+        '200':
+          description: Platform admins returned successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    email:
+                      type: string
+                    admin_write_access:
+                      type: boolean
+                    created_at:
+                      type: string
+                      format: date-time
+                  required:
+                  - id
+                  - email
+                  - admin_write_access
+                  - created_at
+        '403':
+          description: Forbidden - Not a write platform admin
+        '401':
+          description: Unauthorized
+  "/api/admin/users/{id}/upgrade-to-write-admin":
+    patch:
+      summary: Upgrade a read-only platform admin to write platform admin
+      tags:
+      - Admin
+      security:
+      - bearerAuth: []
+      description: Write super admin only. Grants write platform admin access to a
+        confirmed Meedan email user who currently has read-only access.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: User ID of the platform admin to upgrade
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: User upgraded successfully
+        '403':
+          description: Forbidden - Requester is not a write platform admin, or target
+            user is not a platform admin
+        '404':
+          description: User not found
+        '401':
+          description: Unauthorized
+  "/api/admin/users/{id}/move-to-hub":
+    patch:
+      summary: Move a stray signup into an existing hub
+      tags:
+      - Admin
+      security:
+      - bearerAuth: []
+      description: Write super admin only. Moves a user who is the sole member of
+        a free trial hub into another hub as an editor. The new membership is pending
+        approval by the target hub's admins unless approved is true. The original
+        hub is left in place.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: User ID
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: User moved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                required:
+                - message
+        '422':
+          description: User is not the sole member of a free trial hub, or the target
+            hub has no approved admin or is scheduled for deletion
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                required:
+                - error
+        '403':
+          description: Forbidden - Requester is not a write platform admin, or the
+            user is a platform admin
+        '404':
+          description: User or hub not found
+        '401':
+          description: Unauthorized
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                hub_id:
+                  type: integer
+                  description: Target hub ID
+                approved:
+                  type: boolean
+                  description: Approve the new membership right away instead of leaving
+                    it to the hub's admins
+              required:
+              - hub_id
+  "/api/confirmation":
+    post:
+      summary: Confirms a user
+      tags:
+      - User
+      parameters:
+      - name: confirmation_token
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: User account confirmed successfully
+        '422':
+          description: Invalid confirmation token
+  "/api/hubs/{hub_id}/contributions":
+    get:
+      summary: Lists the contributions of a hub
+      tags:
+      - Contribution
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: hub_id
+        in: path
+        description: Hub ID
+        required: true
+        schema:
+          type: string
+      - name: page
+        in: query
+        required: false
+        description: Page number
+        schema:
+          type: integer
+      - name: per_page
+        in: query
+        required: false
+        description: Items per page
+        schema:
+          type: integer
+      - name: topics
+        in: query
+        required: false
+        description: Topic ids, separated by commas, and "none" for the items with
+          no topics. Shows the items that have any of them, or all but those with
+          topics_mode exclude
+        schema:
+          type: string
+      - name: participants
+        in: query
+        required: false
+        description: 'The types of end-user to show, separated by commas: anonymous,
+          trusted, or both'
+        schema:
+          type: string
+      - name: topics_mode
+        in: query
+        required: false
+        enum:
+        - include
+        - exclude
+        description: "Whether the topics filter shows the matching items (the default)
+          or all but them:\n * `include` \n * `exclude` \n "
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Lists contributions of a hub
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+  "/api/contributions/{id}":
+    get:
+      summary: Gets a contribution
+      tags:
+      - Contribution
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: id
+        in: path
+        description: Contribution ID
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Contribution found
+        '401':
+          description: Unauthorized
+        '404':
+          description: Contribution not found
+    patch:
+      summary: Updates a contribution
+      tags:
+      - Contribution
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: id
+        in: path
+        description: Contribution ID
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Contribution updated
+        '401':
+          description: Unauthorized
+        '404':
+          description: Contribution not found
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                contribution:
+                  type: object
+                  properties:
+                    active:
+                      type: boolean
+                      example: false
+                    priority_tier:
+                      type: integer
+                      example: 2
+                      description: 'Priority tier: -1 (low, preloaded FAQ), 1 (default),
+                        2 (high)'
+              required:
+              - contribution
+    delete:
+      summary: Deletes a contribution
+      tags:
+      - Contribution
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: id
+        in: path
+        description: Contribution ID
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Contribution deleted successfully
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+  "/api/contributions/{id}/retry-sync":
+    post:
+      summary: Retries sync for a contribution
+      tags:
+      - Contribution
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: id
+        in: path
+        description: Contribution ID
+        required: true
+        schema:
+          type: string
+      responses:
+        '202':
+          description: Sync retry queued
+        '401':
+          description: Unauthorized
+        '404':
+          description: Contribution not found
+        '422':
+          description: Contribution not in retryable state
+  "/api/conversations":
+    post:
+      summary: Creates a conversation
+      tags:
+      - Conversation
+      security:
+      - bearerAuth: []
+      parameters: []
+      responses:
+        '201':
+          description: Conversation created
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found - no permission to create conversation
+        '422':
+          description: Invalid conversation
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                conversation:
+                  type: object
+                  properties:
+                    hub_id:
+                      type: integer
+                      example: 1
+                    title:
+                      type: string
+                      example: Chat with Hub
+                  required:
+                  - hub_id
+                  - title
+              required:
+              - conversation
+  "/api/conversations/{id}":
+    patch:
+      summary: Updates a conversation
+      tags:
+      - Conversation
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: id
+        in: path
+        description: Conversation ID
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Conversation updated
+        '401':
+          description: Unauthorized
+        '404':
+          description: Conversation not found
+        '422':
+          description: Invalid conversation
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                conversation:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                      example: 1
+                    title:
+                      type: string
+                      example: Chat with Hub, updated
+                  required:
+                  - id
+                  - title
+              required:
+              - conversation
+    delete:
+      summary: Deletes a conversation
+      tags:
+      - Conversation
+      description: Internal conversations can only be deleted by their participant;
+        external ones by write super admins.
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: id
+        in: path
+        description: Conversation ID
+        required: true
+        schema:
+          type: string
+      responses:
+        '202':
+          description: Conversation deletion accepted
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden (deleting an external conversation without write super admin access)
+        '404':
+          description: Conversation not found
+    get:
+      summary: Get a single conversation
+      tags:
+      - Conversation
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: id
+        in: path
+        description: Conversation ID
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Get a conversation
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+  "/api/hubs/{hub_id}/conversations":
+    get:
+      summary: Lists the conversations of a hub
+      tags:
+      - Conversation
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: hub_id
+        in: path
+        description: Hub ID
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Lists conversations of a hub
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+  "/api/hubs/{hub_id}/my-conversations":
+    get:
+      summary: Lists the user's conversations in a hub
+      tags:
+      - Conversation
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: hub_id
+        in: path
+        description: Hub ID
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Lists my conversations in a hub
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+  "/api/hubs/{hub_id}/conversations/{id}/export":
+    get:
+      summary: Exports a conversation's messages as CSV
+      tags:
+      - Conversation
+      security:
+      - bearerAuth: []
+      description: Super admin only endpoint. Exports the latest 10000 messages of
+        an external or internal conversation, oldest first, without the participant's
+        personal data.
+      parameters:
+      - name: hub_id
+        in: path
+        description: Hub ID
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        description: Conversation ID
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: CSV export of the conversation
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden for users who are not super admins
+        '404':
+          description: Not found
+  "/api/hubs/{hub_id}/conversations/bulk-export":
+    post:
+      summary: Starts a CSV export of a hub's conversations
+      tags:
+      - Conversation
+      security:
+      - bearerAuth: []
+      description: Super admin only endpoint. Builds a CSV of the hub's latest 5000
+        conversations in the background. Returns the hub's pending export instead
+        when one is already running. Poll the latest endpoint for its download URL.
+      parameters:
+      - name: hub_id
+        in: path
+        description: Hub ID
+        required: true
+        schema:
+          type: string
+      responses:
+        '202':
+          description: Export started, or the pending one returned
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden for users who are not super admins
+  "/api/hubs/{hub_id}/conversations/bulk-export/latest":
+    get:
+      summary: Returns the hub's most recent conversation export
+      tags:
+      - Conversation
+      security:
+      - bearerAuth: []
+      description: Super admin only endpoint. Returns the hub's most recent bulk export,
+        or null. download_url is set only while the export is ready and within its
+        4 hours TTL; it is signed per request, so fetch it right before downloading.
+      parameters:
+      - name: hub_id
+        in: path
+        description: Hub ID
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: The latest export, or null
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden for users who are not super admins
+  "/api/sources/{source_id}/documents":
+    get:
+      summary: Lists the documents of a source
+      tags:
+      - Document
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: source_id
+        in: path
+        description: Source ID
+        required: true
+        schema:
+          type: string
+      - name: topics
+        in: query
+        required: false
+        description: Topic ids, separated by commas, and "none" for the items with
+          no topics. Shows the items that have any of them, or all but those with
+          topics_mode exclude
+        schema:
+          type: string
+      - name: topics_mode
+        in: query
+        required: false
+        enum:
+        - include
+        - exclude
+        description: "Whether the topics filter shows the matching items (the default)
+          or all but them:\n * `include` \n * `exclude` \n "
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Lists of documents of a source
+        '401':
+          description: Unauthorized
+        '404':
+          description: Source not found
+  "/api/documents/{id}":
+    get:
+      summary: Gets a document
+      tags:
+      - Document
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: id
+        in: path
+        description: Document ID
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Document found
+        '401':
+          description: Unauthorized
+        '404':
+          description: Document not found
+    patch:
+      summary: Updates a document
+      tags:
+      - Document
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: id
+        in: path
+        description: Document ID
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Document updated
+        '401':
+          description: Unauthorized
+        '404':
+          description: Document not found
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                document:
+                  type: object
+                  properties:
+                    active:
+                      type: boolean
+                      example: false
+                    priority_tier:
+                      type: integer
+                      example: 1
+                      description: 'Priority tier: -1 (low, preloaded FAQ), 1 (default),
+                        2 (high)'
+                    summary:
+                      type: string
+                      maxLength: 2000
+                      example: A summary written by a user
+                      description: Summary written by a user, which takes precedence
+                        over the AI-generated one (ai_summary)
+              required:
+              - document
+    delete:
+      summary: Deletes a document
+      tags:
+      - Document
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: id
+        in: path
+        description: Document ID
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Document deleted successfully
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+  "/api/documents/{id}/retry-sync":
+    post:
+      summary: Retries sync for a document
+      tags:
+      - Document
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: id
+        in: path
+        description: Document ID
+        required: true
+        schema:
+          type: string
+      responses:
+        '202':
+          description: Sync retry queued
+        '401':
+          description: Unauthorized
+        '404':
+          description: Document not found
+        '422':
+          description: Document not in retryable state
+  "/api/documents/{id}/refresh":
+    post:
+      summary: Refreshes a document's content from its source
+      tags:
+      - Document
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: id
+        in: path
+        description: Document ID
+        required: true
+        schema:
+          type: string
+      responses:
+        '202':
+          description: Refresh queued
+        '401':
+          description: Unauthorized
+        '404':
+          description: Document not found
+        '422':
+          description: Document not in a refreshable state
+  "/api/external-resources":
+    post:
+      summary: Creates an external resource
+      tags:
+      - ExternalResource
+      security:
+      - bearerAuth: []
+      parameters: []
+      responses:
+        '201':
+          description: Resource created
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found - no permission to create resource
+        '422':
+          description: Invalid resource
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                external_resource:
+                  type: object
+                  properties:
+                    hub_id:
+                      type: integer
+                      example: 1
+                    title:
+                      type: string
+                      example: https://example.com/start
+                    resource_type:
+                      type: string
+                      enum:
+                      - email
+                      - phone
+                      - link
+                      - question
+                      example: link
+                    scenarios:
+                      type: array
+                      items:
+                        type: string
+                        enum:
+                        - role_description
+                        - unanswerable_question
+                        - error_occurred
+                      example:
+                      - role_description
+                      - error_occurred
+                    description:
+                      type: string
+                      example: For getting started questions
+                  required:
+                  - hub_id
+                  - title
+                  - scenarios
+              required:
+              - external_resource
+  "/api/external-resources/{id}":
+    patch:
+      summary: Updates a resource
+      tags:
+      - ExternalResource
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: id
+        in: path
+        description: External Resource ID
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Resource updated
+        '401':
+          description: Unauthorized
+        '404':
+          description: Resource not found
+        '422':
+          description: Invalid resource
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                external_resource:
+                  type: object
+                  properties:
+                    title:
+                      type: string
+                      example: Updated Guide
+                    scenarios:
+                      type: array
+                      items:
+                        type: string
+                        enum:
+                        - role_description
+                        - unanswerable_question
+                        - error_occurred
+                      example:
+                      - unanswerable_question
+                    description:
+                      type: string
+                      example: Updated description
+              required:
+              - external_resource
+    delete:
+      summary: Deletes a resource
+      tags:
+      - ExternalResource
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: id
+        in: path
+        description: Resource ID
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Resource deleted
+        '401':
+          description: Unauthorized
+        '404':
+          description: Resource not found
+  "/api/hubs/{hub_id}/external-resources":
+    get:
+      summary: Lists the external resources of a hub
+      tags:
+      - ExternalResource
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: hub_id
+        in: path
+        description: Hub ID
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Lists of external resources of a hub
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+  "/api/hubs/{hub_id}/external-users":
+    get:
+      summary: Lists the external users of a hub
+      tags:
+      - ExternalUser
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: hub_id
+        in: path
+        description: Hub ID
+        required: true
+        schema:
+          type: string
+      - name: trusted
+        in: query
+        required: false
+        description: Filter by trusted users (true/false)
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Lists only trusted external users when filtered
+        '401':
+          description: Unauthorized
+        '404':
+          description: Hub not found
+    post:
+      summary: Creates a trusted external user (hub admin only)
+      tags:
+      - ExternalUser
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: hub_id
+        in: path
+        description: Hub ID
+        required: true
+        schema:
+          type: string
+      responses:
+        '201':
+          description: External user created
+        '403':
+          description: Forbidden - not a hub admin
+        '422':
+          description: Unprocessable content
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                external_id:
+                  type: string
+                  description: Platform-specific user identifier
+                platform:
+                  type: string
+                  enum:
+                  - telegram
+                  - whatsapp
+                  - signal
+                  description: Messaging platform. For signal, external_id is the
+                    end-user's phone number, which is looked up to their Signal account
+                    id
+                display_name:
+                  type: string
+                  description: Optional display name
+              required:
+              - external_id
+              - platform
+  "/api/hubs/{hub_id}/external-users/{id}":
+    patch:
+      summary: Updates an external user's trusted_user field (hub admin only; promoting
+        to trusted requires a write super admin)
+      tags:
+      - ExternalUser
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: hub_id
+        in: path
+        description: Hub ID
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        description: External User ID
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: External user updated
+        '403':
+          description: Forbidden - not a hub admin
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                trusted_user:
+                  type: boolean
+                  description: Whether the user is trusted
+              required:
+              - trusted_user
+  "/api/hubs/{hub_id}/memberships":
+    post:
+      summary: Request to join a hub (creates a pending membership)
+      tags:
+      - HubMembership
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: hub_id
+        in: path
+        description: Hub ID
+        required: true
+        schema:
+          type: string
+      responses:
+        '201':
+          description: Membership request created
+        '401':
+          description: Unauthorized
+        '404':
+          description: Hub not found
+        '422':
+          description: Hub not joinable or user is already a member
+    get:
+      summary: Lists the memberships of a hub
+      tags:
+      - HubMembership
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: hub_id
+        in: path
+        description: Hub ID
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Lists memberships of a hub
+        '401':
+          description: Unauthorized
+        '404':
+          description: Hub not found
+  "/api/hubs/{hub_id}/memberships/{id}":
+    patch:
+      summary: Updates a hub membership
+      tags:
+      - HubMembership
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: hub_id
+        in: path
+        description: Hub ID
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        description: HubMembership ID
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: HubMembership updated
+        '401':
+          description: Unauthorized
+        '403':
+          description: No permission to update hub membership
+        '404':
+          description: Hub not found
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                hub_membership:
+                  type: object
+                  properties:
+                    role:
+                      type: string
+                      enum:
+                      - admin
+                      - editor
+                      example: admin
+                    approved:
+                      type: boolean
+                      example: true
+              required:
+              - hub_membership
+    delete:
+      summary: Deletes a hub membership
+      tags:
+      - HubMembership
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: hub_id
+        in: path
+        description: Hub ID
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        description: HubMembership ID
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: HubMembership deleted
+        '401':
+          description: Unauthorized
+        '403':
+          description: No permission to delete hub membership
+        '404':
+          description: Hub not found
+  "/api/hubs/{hub_id}/memberships/leave":
+    delete:
+      summary: Leave a hub (removes the current user's own membership)
+      tags:
+      - HubMembership
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: hub_id
+        in: path
+        description: Hub ID
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successfully left the hub
+        '401':
+          description: Unauthorized
+        '404':
+          description: Hub not found or user is not a member
+  "/api/hubs":
+    post:
+      summary: Creates a new hub
+      tags:
+      - Hub
+      security:
+      - bearerAuth: []
+      parameters: []
+      responses:
+        '201':
+          description: Hub created
+        '401':
+          description: Unauthorized
+        '422':
+          description: Invalid hub
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                hub:
+                  type: object
+                  required:
+                  - name
+                  properties:
+                    name:
+                      type: string
+                      example: My Hub
+  "/api/hubs/{id}":
+    get:
+      summary: Shows details of a hub
+      tags:
+      - Hub
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: id
+        in: path
+        description: Hub ID
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Hub details
+        '401':
+          description: Unauthorized
+        '404':
+          description: Hub not found
+    patch:
+      summary: Updates a hub
+      tags:
+      - Hub
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: id
+        in: path
+        description: Hub ID
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Hub updated
+        '401':
+          description: Unauthorized
+        '404':
+          description: Hub not found
+        '422':
+          description: Invalid hub
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                hub[name]:
+                  type: string
+                  example: Updated Hub Name
+                hub[profile_picture]:
+                  type: string
+                  format: binary
+                hub[bot_attributes][name]:
+                  type: string
+                  example: KnowledgeBot
+                hub[bot_attributes][description]:
+                  type: string
+                  example: Helps users find information
+                hub[bot_attributes][tone]:
+                  type: string
+                  example: advocate
+  "/api/hubs/{id}/refresh-invite-code":
+    patch:
+      summary: Refreshes the invite code of a hub
+      tags:
+      - Hub
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: id
+        in: path
+        description: Hub ID
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Invite code refreshed
+        '401':
+          description: Unauthorized
+        '404':
+          description: Hub not found
+  "/api/hubs/{id}/statistics":
+    get:
+      summary: Returns statistics of a hub
+      tags:
+      - Hub
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: id
+        in: path
+        description: Hub ID
+        required: true
+        schema:
+          type: string
+      - name: fields
+        in: query
+        required: false
+        description: Comma-separated list of fields to return
+        schema:
+          type: string
+      - name: from
+        in: query
+        required: false
+        description: Start date (ISO 8601 format)
+        schema:
+          type: string
+      - name: to
+        in: query
+        required: false
+        description: End date (ISO 8601 format)
+        schema:
+          type: string
+      - name: group_by
+        in: query
+        required: false
+        enum:
+        - day
+        - week
+        - month
+        - range
+        - rolling_week
+        description: "Bucket size for time-series fields (defaults to day). \"range\"
+          returns the whole period as a single bucket; \"rolling_week\" counts seven-day
+          buckets from the start of the window rather than from Monday:\n * `day`
+          \n * `week` \n * `month` \n * `range` \n * `rolling_week` \n "
+        schema:
+          type: string
+      - name: limit
+        in: query
+        required: false
+        description: How many records ranked fields return (defaults to 5, capped
+          at 100)
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Hub statistics
+        '401':
+          description: Unauthorized
+        '404':
+          description: Hub not found
+  "/api/hubs/{id}/message-data-source-items-ranking":
+    get:
+      summary: Returns the message data source items ranking of a hub
+      tags:
+      - Hub
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: id
+        in: path
+        description: Hub ID
+        required: true
+        schema:
+          type: string
+      - name: page
+        in: query
+        required: false
+        description: Page number
+        schema:
+          type: integer
+      - name: per_page
+        in: query
+        required: false
+        description: Items per page
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Hub message-data-source-items-ranking
+        '401':
+          description: Unauthorized
+        '404':
+          description: Hub not found
+  "/api/hubs/{id}/questions-ranking":
+    get:
+      summary: Returns the end-user questions ranking of a hub
+      tags:
+      - Hub
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: id
+        in: path
+        description: Hub ID
+        required: true
+        schema:
+          type: string
+      - name: answered
+        in: query
+        required: false
+        description: Answered/Unanswered questions
+        schema:
+          type: string
+      - name: from
+        in: query
+        required: false
+        description: Only rank questions asked from this date on (ISO 8601 format).
+          Without from/to the ranking covers the hub’s whole history
+        schema:
+          type: string
+      - name: to
+        in: query
+        required: false
+        description: Only rank questions asked up to this date (ISO 8601 format)
+        schema:
+          type: string
+      - name: page
+        in: query
+        required: false
+        description: Page number
+        schema:
+          type: integer
+      - name: per_page
+        in: query
+        required: false
+        description: Items per page
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Hub questions-ranking
+        '401':
+          description: Unauthorized
+        '404':
+          description: Hub not found
+  "/api/hubs/{id}/preview":
+    post:
+      summary: Preview bot response for a scenario
+      tags:
+      - Hub
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: id
+        in: path
+        description: Hub ID
+        required: true
+        schema:
+          type: string
+      - name: scenario
+        in: query
+        required: true
+        schema:
+          type: string
+          enum:
+          - role_description
+          - unanswerable_question
+          - error_occurred
+          - first_message
+          - speak_to_person
+          - purchase_subscribe
+          - conversation_closed
+        description: Scenario to preview
+      - name: language
+        in: query
+        required: false
+        description: Language code to preview in; defaults to the hub's default language
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Preview generated successfully
+        '400':
+          description: Preview failed
+        '401':
+          description: Unauthorized
+        '404':
+          description: Hub not found
+        '422':
+          description: Invalid scenario or no personalization configured
+  "/api/hubs/joinable":
+    get:
+      summary: Lists up to 5 hubs the current user is joinable to join
+      tags:
+      - Hub
+      security:
+      - bearerAuth: []
+      responses:
+        '200':
+          description: List of joinable hubs
+        '401':
+          description: Unauthorized
+  "/api/message-clusters/{id}/messages":
+    get:
+      summary: Returns a cluster's messages and their bot reply
+      tags:
+      - MessageCluster
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: id
+        in: path
+        description: Message Cluster ID
+        required: true
+        schema:
+          type: string
+      - name: answered
+        in: query
+        required: false
+        description: Answered/Unanswered questions
+        schema:
+          type: string
+      - name: page
+        in: query
+        required: false
+        description: Page number
+        schema:
+          type: integer
+      - name: per_page
+        in: query
+        required: false
+        description: Items per page
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Message Cluster's messages
+        '401':
+          description: Unauthorized
+        '404':
+          description: Cluster not found
+  "/api/messages/{message_id}/reports":
+    parameters:
+    - name: message_id
+      in: path
+      required: true
+      description: Message ID of the message being reported
+      schema:
+        type: integer
+    post:
+      summary: Creates a message report
+      tags:
+      - MessageReport
+      security:
+      - bearerAuth: []
+      parameters: []
+      responses:
+        '201':
+          description: Message report created
+        '401':
+          description: Unauthorized
+        '404':
+          description: Message not found
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message_report:
+                  type: object
+                  description: Send only `comment`. `reported_by` is taken from the
+                    authenticated user.
+                  properties:
+                    comment:
+                      type: string
+                      example: Spam or inappropriate content
+                  required:
+                  - comment
+              required:
+              - message_report
+              example:
+                message_report:
+                  comment: Spam or inappropriate content
+  "/api/messages":
+    post:
+      summary: Creates a message
+      tags:
+      - Message
+      security:
+      - bearerAuth: []
+      parameters: []
+      responses:
+        '201':
+          description: Message created
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '422':
+          description: Invalid message
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: object
+                  properties:
+                    conversation_id:
+                      type: integer
+                      example: 1
+                    body:
+                      type: string
+                      example: This is my message.
+                  required:
+                  - conversation_id
+                  - body
+              required:
+              - message
+  "/api/conversations/{conversation_id}/messages":
+    get:
+      summary: Lists the messages of a conversation
+      tags:
+      - Message
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: conversation_id
+        in: path
+        description: Conversation ID
+        required: true
+        schema:
+          type: string
+      - name: around_id
+        in: query
+        description: Message ID (get messages around it)
+        schema:
+          type: string
+      - name: anchor
+        in: query
+        required: false
+        enum:
+        - first
+        - last
+        description: "Without around_id, start from the first (default) or last message
+          in sort order:\n * `first` \n * `last` \n "
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Lists of messages of a conversation
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+  "/api/messages/{id}/callback":
+    post:
+      summary: Processes a message callback
+      tags:
+      - Message
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: id
+        in: path
+        description: Message ID
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Callback processed
+        '400':
+          description: Invalid callback payload
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Message not found
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                callback:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      example: see_sources_123
+                    type:
+                      type: string
+                      example: sources
+                  required:
+                  - id
+                  - type
+              required:
+              - callback
+  "/api/messaging-integrations":
+    post:
+      summary: Creates a messaging integration
+      tags:
+      - MessagingIntegration
+      security:
+      - bearerAuth: []
+      parameters: []
+      responses:
+        '201':
+          description: Messaging integration created
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found - no permission to create messaging integration
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                messaging_integration:
+                  type: object
+                  properties:
+                    hub_id:
+                      type: integer
+                      example: 1
+                    platform:
+                      type: string
+                      example: telegram
+                      enum:
+                      - telegram
+                      - whatsapp
+                      - sms
+                      - signal
+                    telegram_bot_token:
+                      type: string
+                      example: 123456789:ABC-DEF1234ghIkl-zyx57W2v1u123ew11
+                      description: Required only for telegram platform
+                    sms_country:
+                      type: string
+                      example: US
+                      description: Required only for sms platform (ISO 3166-1 alpha-2
+                        country code); a number is provisioned for it
+                    sms_number_type:
+                      type: string
+                      example: tollfree
+                      enum:
+                      - tollfree
+                      - local
+                      description: Optional for sms platform; number type to provision
+                        (defaults to tollfree). Available types per country come from
+                        /api/about
+                    sms_state:
+                      type: string
+                      example: CA
+                      description: Optional for sms platform with local number type;
+                        two-letter state code to provision the number in
+                    sms_area_code:
+                      type: string
+                      example: '718'
+                      description: Optional for sms platform with local number type;
+                        three-digit area code to provision the number in
+                  required:
+                  - hub_id
+                  - platform
+              required:
+              - messaging_integration
+  "/api/messaging-integrations/{id}":
+    delete:
+      summary: Deletes a messaging integration
+      tags:
+      - MessagingIntegration
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: id
+        in: path
+        description: Messaging Integration ID
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Messaging integration deleted
+        '401':
+          description: Unauthorized
+        '404':
+          description: Messaging integration not found
+  "/api/hubs/{hub_id}/messaging-integrations":
+    get:
+      summary: Lists the messaging integrations of a hub
+      tags:
+      - MessagingIntegration
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: hub_id
+        in: path
+        description: Hub ID
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Lists messaging integrations of a hub
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+  "/api/notebooks/{notebook_id}/items":
+    get:
+      summary: Lists the items of a notebook
+      tags:
+      - NotebookItem
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: notebook_id
+        in: path
+        description: Notebook ID
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Lists of items of a notebook
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+    post:
+      summary: Creates a notebook item
+      tags:
+      - NotebookItem
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: notebook_id
+        in: path
+        description: Notebook ID
+        required: true
+        schema:
+          type: string
+      responses:
+        '201':
+          description: NotebookItem created
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found - no permission to create notebook item
+        '422':
+          description: Invalid notebook item
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                item_type:
+                  type: string
+                  example: Message
+                  enum:
+                  - Message
+                  - Conversation
+                  - Document
+                  - Contribution
+                  - MessageCluster
+                  - Notebook
+                item_id:
+                  type: integer
+                  example: 1
+              required:
+              - item_type
+              - item_id
+  "/api/notebooks/{notebook_id}/items/{id}":
+    delete:
+      summary: Deletes a notebook item
+      tags:
+      - NotebookItem
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: notebook_id
+        in: path
+        description: Notebook ID
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        description: NotebookItem ID
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: NotebookItem deleted
+        '401':
+          description: Unauthorized
+        '404':
+          description: NotebookItem not found
+  "/api/documents/{document_id}/notebook-items":
+    get:
+      summary: Lists the notebook items of a document
+      tags:
+      - NotebookItem
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: document_id
+        in: path
+        description: Document ID
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Lists of notebook items of a document
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+  "/api/conversations/{conversation_id}/notebook-items":
+    get:
+      summary: Lists the notebook items of a conversation
+      tags:
+      - NotebookItem
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: conversation_id
+        in: path
+        description: Conversation ID
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Lists of notebook items of a conversation
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+  "/api/messages/{message_id}/notebook-items":
+    get:
+      summary: Lists the notebook items of a message
+      tags:
+      - NotebookItem
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: message_id
+        in: path
+        description: Message ID
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Lists of notebook items of a message
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+  "/api/contributions/{contribution_id}/notebook-items":
+    get:
+      summary: Lists the notebook items of a contribution
+      tags:
+      - NotebookItem
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: contribution_id
+        in: path
+        description: Contribution ID
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Lists of notebook items of a contribution
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+  "/api/notebooks/{item_notebook_id}/notebook-items":
+    get:
+      summary: Lists the notebooks where a notebook is used as an item
+      tags:
+      - NotebookItem
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: item_notebook_id
+        in: path
+        description: Notebook ID
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: List of notebooks where the notebook is used as an item
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+  "/api/notebooks":
+    post:
+      summary: Creates a notebook
+      tags:
+      - Notebook
+      security:
+      - bearerAuth: []
+      parameters: []
+      responses:
+        '201':
+          description: Notebook created
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found - no permission to create notebook
+        '422':
+          description: Invalid notebook
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                notebook:
+                  type: object
+                  properties:
+                    hub_id:
+                      type: integer
+                      example: 1
+                    name:
+                      type: string
+                      example: My Notebook
+                  required:
+                  - hub_id
+                  - name
+              required:
+              - notebook
+  "/api/notebooks/{id}":
+    get:
+      summary: Gets a notebook
+      tags:
+      - Notebook
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: id
+        in: path
+        description: Notebook ID
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Notebook found
+        '401':
+          description: Unauthorized
+        '404':
+          description: Notebook not found
+    patch:
+      summary: Updates a notebook
+      tags:
+      - Notebook
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: id
+        in: path
+        description: Notebook ID
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Notebook updated
+        '401':
+          description: Unauthorized
+        '404':
+          description: Notebook not found
+        '422':
+          description: Invalid notebook
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                notebook:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                      example: 1
+                    name:
+                      type: string
+                      example: My Notebook
+                    summary:
+                      type: string
+                      example: The summary of my notebook.
+                    published:
+                      type: boolean
+                      example: true
+                    active:
+                      type: boolean
+                      example: true
+                    priority_tier:
+                      type: integer
+                      example: 1
+                      description: 'Priority tier: -1 (low, preloaded FAQ), 1 (default),
+                        2 (high)'
+                  required:
+                  - id
+              required:
+              - notebook
+    delete:
+      summary: Deletes a notebook
+      tags:
+      - Notebook
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: id
+        in: path
+        description: Notebook ID
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Notebook deleted
+        '401':
+          description: Unauthorized
+        '404':
+          description: Notebook not found
+  "/api/hubs/{hub_id}/notebooks":
+    get:
+      summary: Lists the notebooks of a hub
+      tags:
+      - Notebook
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: hub_id
+        in: path
+        description: Hub ID
+        required: true
+        schema:
+          type: string
+      - name: published
+        in: query
+        description: Show only published notebooks
+        schema:
+          type: boolean
+      - name: topics
+        in: query
+        required: false
+        description: Topic ids, separated by commas, and "none" for the items with
+          no topics. Shows the items that have any of them, or all but those with
+          topics_mode exclude
+        schema:
+          type: string
+      - name: topics_mode
+        in: query
+        required: false
+        enum:
+        - include
+        - exclude
+        description: "Whether the topics filter shows the matching items (the default)
+          or all but them:\n * `include` \n * `exclude` \n "
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Lists of notebooks of a hub
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+  "/api/notebooks/{id}/retry-sync":
+    post:
+      summary: Retries sync for a notebook
+      tags:
+      - Notebook
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: id
+        in: path
+        description: Notebook ID
+        required: true
+        schema:
+          type: string
+      responses:
+        '202':
+          description: Sync retry queued
+        '401':
+          description: Unauthorized
+        '404':
+          description: Notebook not found
+        '422':
+          description: Notebook not in retryable state
+  "/api/notebooks/{id}/regenerate-ai-summary":
+    post:
+      summary: Triggers notebook AI summary regeneration
+      tags:
+      - Notebook
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: id
+        in: path
+        description: Notebook ID
+        required: true
+        schema:
+          type: string
+      responses:
+        '202':
+          description: Notebook AI summary generation acknowledged
+        '401':
+          description: Unauthorized
+        '404':
+          description: Notebook not found
+  "/api/notes":
+    post:
+      summary: Creates a note
+      tags:
+      - Note
+      security:
+      - bearerAuth: []
+      parameters: []
+      responses:
+        '201':
+          description: Note created
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found - no permission to create note
+        '422':
+          description: Invalid note
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                note:
+                  type: object
+                  properties:
+                    notebook_id:
+                      type: integer
+                      example: 1
+                    title:
+                      type: string
+                      example: My Note
+                    content:
+                      type: string
+                      example: This is my note.
+                  required:
+                  - notebook_id
+                  - title
+                  - content
+              required:
+              - note
+  "/api/notes/{id}":
+    patch:
+      summary: Updates a note
+      tags:
+      - Note
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: id
+        in: path
+        description: Note ID
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Note updated
+        '401':
+          description: Unauthorized
+        '404':
+          description: Note not found
+        '422':
+          description: Invalid note
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                note:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                      example: 1
+                    title:
+                      type: string
+                      example: My Note
+                    content:
+                      type: string
+                      example: This is my note.
+                  required:
+                  - id
+              required:
+              - note
+    delete:
+      summary: Deletes a note
+      tags:
+      - Note
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: id
+        in: path
+        description: Note ID
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Note deleted
+        '401':
+          description: Unauthorized
+        '404':
+          description: Note not found
+  "/api/notebooks/{notebook_id}/notes":
+    get:
+      summary: Lists the notes of a notebook
+      tags:
+      - Note
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: notebook_id
+        in: path
+        description: Notebook ID
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Lists of notes of a notebook
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+  "/api/password":
+    post:
+      summary: Request password reset
+      tags:
+      - User
+      parameters: []
+      responses:
+        '200':
+          description: Password reset instructions sent
+        '400':
+          description: Missing parameters
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user:
+                  type: object
+                  properties:
+                    email:
+                      type: string
+                      example: user@example.com
+                  required:
+                  - email
+              required:
+              - user
+    put:
+      summary: Reset password
+      tags:
+      - User
+      parameters: []
+      responses:
+        '200':
+          description: Password reset successfully
+        '422':
+          description: Invalid request
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user:
+                  type: object
+                  properties:
+                    reset_password_token:
+                      type: string
+                      example: abc123token
+                    password:
+                      type: string
+                      example: newpassword123@
+                    password_confirmation:
+                      type: string
+                      example: newpassword123@
+                  required:
+                  - reset_password_token
+                  - password
+                  - password_confirmation
+              required:
+              - user
+  "/api/signup":
+    post:
+      summary: Creates a user
+      tags:
+      - User
+      parameters: []
+      responses:
+        '200':
+          description: Registration received
+        '422':
+          description: Invalid request
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user:
+                  type: object
+                  properties:
+                    email:
+                      type: string
+                      example: foo@bar.test
+                    password:
+                      type: string
+                      example: foobar123@
+                    password_confirmation:
+                      type: string
+                      example: foobar123@
+                    invite_code:
+                      type: string
+                      example: ABC123
+                  required:
+                  - email
+                  - password
+                  - password_confirmation
+                  - invite_code
+              required:
+              - user
+  "/api/resends":
+    post:
+      summary: Resends confirmation instructions
+      tags:
+      - User
+      parameters: []
+      responses:
+        '200':
+          description: Email does not exist
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: string
+        required: true
+  "/api/login":
+    post:
+      summary: Logs in as a user
+      tags:
+      - User
+      parameters: []
+      responses:
+        '200':
+          description: Logged in successfully
+        '401':
+          description: Invalid request
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user:
+                  type: object
+                  properties:
+                    email:
+                      type: string
+                      example: foo@bar.test
+                    password:
+                      type: string
+                      example: foobar123@
+                  required:
+                  - email
+                  - password
+              required:
+              - user
+  "/api/logout":
+    delete:
+      summary: Logs out as a user
+      tags:
+      - User
+      security:
+      - bearerAuth: []
+      responses:
+        '200':
+          description: Logged out successfully
+  "/api/sources":
+    post:
+      summary: Creates a source
+      tags:
+      - Source
+      security:
+      - bearerAuth: []
+      parameters: []
+      responses:
+        '201':
+          description: Source created
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found - no permission to create source
+        '422':
+          description: Uploaded files source without files
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                source:
+                  type: object
+                  properties:
+                    hub_id:
+                      type: integer
+                      example: 1
+                    name:
+                      type: string
+                      example: Meedan Blog
+                    source_type:
+                      type: string
+                      example: website
+                      enum:
+                      - website
+                      - google_drive_folder
+                      - conversation
+                      - rss_feed
+                      - json_api
+                      - uploaded_files
+                      - wordpress_api
+                    ownership_receipt:
+                      type: string
+                      description: 'Required for `wordpress_api`: the receipt from
+                        `/api/sources/verify_ownership`'
+                    config:
+                      type: object
+                      example: {}
+                      description: |
+                        For `website` source type, configuration must include:
+
+                        • `base_url`: base URL with optional `{page}` placeholder.
+
+                        • `post_link_selector`, `title_selector`, `body_selector`: CSS selectors.
+
+                        For `google_drive_folder` source type, configuration must include:
+
+                        • `folder_url`: URL of a shared Google Drive folder (the folder MUST be shared with the service account email ckh-local@ckh-local.iam.gserviceaccount.com).
+
+                        For `wordpress_api` source type, configuration must include:
+
+                        • `site_url`: home page URL of a WordPress site with its REST API enabled.
+
+                          Also send `source.ownership_receipt` from `/api/sources/verify_ownership`.
+
+                        For `uploaded_files` source type, no configuration is needed. Files are uploaded via multipart form data in the `source[files][]` parameter.
+                  required:
+                  - hub_id
+                  - name
+                  - source_type
+              required:
+              - source
+  "/api/sources/{id}":
+    get:
+      summary: Gets a source
+      tags:
+      - Source
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: id
+        in: path
+        description: Source ID
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Source found
+        '401':
+          description: Unauthorized
+        '404':
+          description: Source not found
+    patch:
+      summary: Updates a source
+      tags:
+      - Source
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: id
+        in: path
+        description: Source ID
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Source updated
+        '401':
+          description: Unauthorized
+        '404':
+          description: Source not found
+        '422':
+          description: Invalid source
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                source:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                      example: 1
+                    name:
+                      type: string
+                      example: Meedan Blog
+                    active:
+                      type: boolean
+                      example: true
+                  required:
+                  - id
+              required:
+              - source
+    delete:
+      summary: Deletes a source
+      tags:
+      - Source
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: id
+        in: path
+        description: Source ID
+        required: true
+        schema:
+          type: string
+      responses:
+        '202':
+          description: Source scheduled to be deleted
+        '401':
+          description: Unauthorized
+        '404':
+          description: Source not found
+  "/api/hubs/{hub_id}/sources":
+    get:
+      summary: Lists the sources of a hub
+      tags:
+      - Source
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: hub_id
+        in: path
+        description: Hub ID
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Lists of sources of a hub
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+  "/api/sources/configure":
+    post:
+      summary: Suggest configuration for a source before creation
+      tags:
+      - Source
+      security:
+      - bearerAuth: []
+      parameters: []
+      responses:
+        '200':
+          description: Configuration suggestion returned
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found - no permission to configure source
+        '422':
+          description: Source type does not support configuration
+        '413':
+          description: Source content exceeds the maximum allowed size
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                source:
+                  type: object
+                  properties:
+                    hub_id:
+                      type: integer
+                      example: 1
+                    source_type:
+                      type: string
+                      example: website
+                      enum:
+                      - rss_feed
+                      - website
+                    config:
+                      type: object
+                      properties:
+                        base_url:
+                          type: string
+                          example: https://example.com/posts/page/2
+                  required:
+                  - hub_id
+                  - source_type
+                  - config
+              required:
+              - source
+  "/api/sources/preview":
+    post:
+      summary: Preview a source before creation
+      tags:
+      - Source
+      security:
+      - bearerAuth: []
+      parameters: []
+      responses:
+        '200':
+          description: Preview successful
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found - no permission to preview source
+        '422':
+          description: Invalid source configuration
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                source:
+                  type: object
+                  properties:
+                    hub_id:
+                      type: integer
+                      example: 1
+                    name:
+                      type: string
+                      example: Test Blog
+                    source_type:
+                      type: string
+                      example: website
+                      enum:
+                      - website
+                      - google_drive_folder
+                      - conversation
+                      - rss_feed
+                      - json_api
+                      - uploaded_files
+                      - wordpress_api
+                    config:
+                      type: object
+                      example:
+                        base_url: https://example.com/page/{page}
+                        post_link_selector: a.post-link
+                        title_selector: h1.title
+                        body_selector: div.content
+                      description: Configuration for the source type. For `website`,
+                        same as create endpoint.
+                  required:
+                  - hub_id
+                  - name
+                  - source_type
+                  - config
+              required:
+              - source
+  "/api/topic-items":
+    post:
+      summary: Adds a topic of the hub to a data source item, creating the topic if
+        the hub has none of that name
+      tags:
+      - Topic Item
+      security:
+      - bearerAuth: []
+      parameters: []
+      responses:
+        '201':
+          description: Topic added to the item; topic_created says whether it was
+            created first
+        '403':
+          description: 'Forbidden: creating a topic of the hub is for admins'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '422':
+          description: The topic could not be added to the item
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                topic_id:
+                  type: integer
+                  description: ID of a topic of the hub of the item. Not needed when
+                    topic_name is given
+                topic_name:
+                  type: string
+                  description: Name of the topic to add, which is created if the hub
+                    has none of that name, whatever the case
+                item_type:
+                  type: string
+                  enum:
+                  - Document
+                  - Contribution
+                  - Notebook
+                  description: Kind of data source item
+                item_id:
+                  type: integer
+                  description: ID of the item
+              required:
+              - item_type
+              - item_id
+  "/api/topic-items/{id}":
+    delete:
+      summary: Removes a topic from a data source item
+      tags:
+      - Topic Item
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: id
+        in: path
+        description: Topic Item ID
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Topic removed from the item successfully
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+  "/api/hubs/{hub_id}/topics":
+    get:
+      summary: Lists the topics of a hub
+      tags:
+      - Topic
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: hub_id
+        in: path
+        description: Hub ID
+        required: true
+        schema:
+          type: string
+      - name: q
+        in: query
+        required: false
+        description: Only the topics whose name contains this, whatever the case
+        schema:
+          type: string
+      - name: page
+        in: query
+        required: false
+        description: Page number, from 1
+        schema:
+          type: integer
+      - name: per_page
+        in: query
+        required: false
+        description: Topics per page, up to 100
+        schema:
+          type: integer
+      - name: ids
+        in: query
+        required: false
+        description: Only the topics with these ids, separated by commas, such as
+          to show the names of those a list is filtered by
+        schema:
+          type: string
+      - name: item_type
+        in: query
+        required: false
+        enum:
+        - Document
+        - Contribution
+        - Notebook
+        description: "Counts the items of this kind that each topic is on, among those
+          of its list, and leaves out the topics that are on none of them. Adds untagged_count,
+          how many of them have no topics:\n * `Document` \n * `Contribution` \n *
+          `Notebook` \n "
+        schema:
+          type: string
+      - name: source_id
+        in: query
+        required: false
+        description: 'Required with item_type Document: the data source whose documents
+          are counted'
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: A page of the topics of the hub, by name, with the number of
+            data source items each is on
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+  "/api/me":
+    get:
+      summary: Gets information about authenticated user
+      tags:
+      - User
+      security:
+      - bearerAuth: []
+      responses:
+        '200':
+          description: User authenticated
+        '401':
+          description: User not authenticated
+    patch:
+      summary: Updates information about authenticated user
+      tags:
+      - User
+      security:
+      - bearerAuth: []
+      parameters: []
+      responses:
+        '200':
+          description: User updated
+        '401':
+          description: User not authenticated
+        '422':
+          description: User not updated
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                user[name]:
+                  type: string
+                  example: New Name
+                user[profile_picture]:
+                  type: string
+                  format: binary
+  "/api/me/password":
+    patch:
+      summary: Changes the authenticated user's password
+      tags:
+      - User
+      security:
+      - bearerAuth: []
+      parameters: []
+      responses:
+        '200':
+          description: Password changed
+        '401':
+          description: User not authenticated
+        '422':
+          description: Current password is invalid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user:
+                  type: object
+                  properties:
+                    current_password:
+                      type: string
+                      example: password123@
+                    password:
+                      type: string
+                      example: newPassword123@
+                    password_confirmation:
+                      type: string
+                      example: newPassword123@
+  "/api/sources/ownership_code":
+    post:
+      summary: Get the code that proves ownership of a WordPress site
+      tags:
+      - Source
+      security:
+      - bearerAuth: []
+      description: Returns the code an admin adds to their WordPress site's tagline
+        before calling `verify_ownership`, and the settings page where the tagline
+        is changed. When the site supports Application Passwords, also returns the
+        page where its admin can approve Suwali instead; WordPress then sends them
+        to the frontend's `/wordpress/authorized` page with a `state`, `user_login`
+        and `password`. Admins only.
+      parameters: []
+      responses:
+        '200':
+          description: Ownership code returned
+        '422':
+          description: Invalid site URL
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                source:
+                  type: object
+                  properties:
+                    hub_id:
+                      type: integer
+                      example: 1
+                    source_type:
+                      type: string
+                      example: wordpress_api
+                      enum:
+                      - wordpress_api
+                    config:
+                      type: object
+                      properties:
+                        site_url:
+                          type: string
+                          example: https://blog.example.com
+                  required:
+                  - hub_id
+                  - config
+              required:
+              - source
+  "/api/sources/verify_ownership":
+    post:
+      summary: Verify ownership of a WordPress site through its tagline or an Application
+        Password
+      tags:
+      - Source
+      security:
+      - bearerAuth: []
+      description: Checks the site's tagline for the code from `ownership_code` or,
+        when `authorization` is sent, signs in with the Application Password the site's
+        admin approved, checks that it belongs to an administrator, and revokes it.
+        When either proves ownership, returns a receipt, valid for one hour, to send
+        as `source.ownership_receipt` when creating the source or changing its site.
+        Admins only.
+      parameters: []
+      responses:
+        '200':
+          description: Verification result
+        '422':
+          description: Tagline could not be read
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                source:
+                  type: object
+                  properties:
+                    hub_id:
+                      type: integer
+                      example: 1
+                    source_type:
+                      type: string
+                      example: wordpress_api
+                      enum:
+                      - wordpress_api
+                    config:
+                      type: object
+                      properties:
+                        site_url:
+                          type: string
+                          example: https://blog.example.com
+                  required:
+                  - hub_id
+                  - source_type
+                  - config
+                authorization:
+                  type: object
+                  description: What WordPress sent back after its admin approved Suwali.
+                    Omit to check the tagline instead.
+                  properties:
+                    state:
+                      type: string
+                      description: From the `success_url` in `authorize_url`
+                    user_login:
+                      type: string
+                      example: admin
+                    password:
+                      type: string
+                      example: abcd EFGH 1234 ijkl MNOP 6789
+                  required:
+                  - state
+                  - user_login
+                  - password
+              required:
+              - source
+  "/api/sources/detect_wordpress":
+    post:
+      summary: Detect whether a URL belongs to a WordPress site
+      tags:
+      - Source
+      security:
+      - bearerAuth: []
+      parameters: []
+      responses:
+        '200':
+          description: Detection result returned
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden - only hub admins can detect a WordPress site
+        '404':
+          description: Not found - no access to the hub
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                hub_id:
+                  type: integer
+                  example: 1
+                url:
+                  type: string
+                  example: https://www.your-site.com/feed
+              required:
+              - hub_id
+              - url
+  "/api/knowledge-service-callbacks/update-sync-status":
+    post:
+      summary: Updates the sync status of a document, notebook, or contribution
+      tags:
+      - Knowledge Service Callbacks
+      security: []
+      parameters:
+      - name: token
+        in: query
+        required: true
+        description: Authentication token for Knowledge Service callbacks
+        schema:
+          type: string
+      - name: id
+        in: query
+        required: true
+        description: Base64-encoded identifier in format 'ClassName/id' (e.g., 'Document/123')
+        schema:
+          type: string
+      - name: success
+        in: query
+        required: true
+        description: Whether the sync operation was successful
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: Sync status updated successfully
+        '401':
+          description: Unauthorized - invalid or missing token
+        '404':
+          description: Not found - record does not exist
+        '422':
+          description: Unprocessable entity - invalid id format or unsupported class
+  "/api/knowledge-service-callbacks/update-chat-status":
+    post:
+      summary: Receives chat status updates from the Knowledge Service
+      tags:
+      - Knowledge Service Callbacks
+      security: []
+      parameters:
+      - name: token
+        in: query
+        required: true
+        description: Authentication token for Knowledge Service callbacks
+        schema:
+          type: string
+      - name: message_id
+        in: query
+        required: true
+        description: ID of the incoming message being answered
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Status update processed successfully
+        '401':
+          description: Unauthorized - invalid or missing token
+        '404':
+          description: Not found - message does not exist
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+                  enum:
+                  - parsing_question
+                  - searching_sources
+                  - evaluating_results
+                  - complete
+                  - error
+                  description: Pipeline status identifier
+                payload:
+                  type: object
+                  nullable: true
+                  description: Present only for 'complete' status
+                  properties:
+                    answer:
+                      type: string
+                      description: The generated answer
+                    metadata:
+                      type: object
+                      description: Response metadata (documents_count, query_tokens,
+                        etc.)
+                    error_type:
+                      type: string
+                      nullable: true
+                      description: Error type if applicable
+              required:
+              - status

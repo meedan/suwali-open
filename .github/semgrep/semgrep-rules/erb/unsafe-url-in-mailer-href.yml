@@ -1,0 +1,32 @@
+# Replaces ruby.rails.security.audit.xss.templates.var-in-href (excluded in .semgrep-exclude-rules),
+# which flagged every href in our mailer views.
+rules:
+  - id: unsafe-url-in-mailer-href
+    message: |
+      This `href` interpolates an expression whose URL scheme is not provably a literal, so a
+      value reaching it could be a `javascript:` or `data:` URI. Assign the URL in the mailer to
+      an `@..._url` instance variable built on a literal scheme (`ENV.fetch("FRONTEND_URL", ...)`
+      or a Rails `*_url` route helper) and interpolate that, as the other mailers do.
+      ERB's `<%= %>` escaping does not help here — it stops attribute breakout, not the scheme.
+      If the expression is deliberately dynamic, annotate the line with
+      `<%# nosemgrep: unsafe-url-in-mailer-href -- <reason> %>`.
+    languages: [generic]
+    severity: WARNING
+    paths:
+      include:
+        - "*.erb"
+    metadata:
+      cwe:
+        - "CWE-79: Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')"
+      category: security
+      confidence: MEDIUM
+      references:
+        - https://semgrep.dev/r/ruby.rails.security.audit.xss.templates.var-in-href.var-in-href
+    patterns:
+      - pattern-either:
+          - pattern: <a ... href = "<%= ... %>" ... >
+          - pattern: <a ... href = '<%= ... %>' ... >
+      # A bare `@..._url` ivar is the app's mailer idiom, and every such assignment starts from a
+      # literal scheme. Anything else — `params[...]`, a model attribute, a bare helper call — is
+      # not checkable from the template, so it stays flagged.
+      - pattern-not-regex: 'href\s*=\s*["'']<%=\s*@[a-z_]*url\s*%>["'']'

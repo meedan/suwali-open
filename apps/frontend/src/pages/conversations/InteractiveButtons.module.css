@@ -1,0 +1,17 @@
+.wrapper {
+  align-items: start;
+  display: flex;
+  flex-flow: column nowrap;
+  gap: 8px;
+  margin-top: 8px;
+  text-align: center;
+}
+
+.disabledButtonTooltipTrigger {
+  width: 100%;
+}
+
+.button {
+  flex: 1;
+  width: 100%;
+}

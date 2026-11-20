@@ -1,0 +1,41 @@
+version: "3.9"
+
+networks:
+  test:
+
+services:
+  cms-api:
+    build:
+      context: .
+    env_file: .env.test
+    environment:
+      RAILS_ENV: test
+    depends_on:
+      - postgres
+      - redis
+      - silo
+    networks:
+      - test
+
+  postgres:
+    image: pgvector/pgvector:pg17
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    networks:
+      - test
+
+  redis:
+    image: redis:7
+    networks:
+      - test
+
+  silo:
+    image: pgsty/silo:RELEASE.2026-09-16T00-00-00Z
+    environment:
+      MINIO_ROOT_USER: ${S3_ACCESS_KEY_ID}
+      MINIO_ROOT_PASSWORD: ${S3_SECRET_ACCESS_KEY}
+    command: server /data
+    networks:
+      - test

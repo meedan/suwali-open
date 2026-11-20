@@ -1,0 +1,124 @@
+.hubSetupWrapper {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+  padding: 0;
+  position: sticky;
+  top: 0;
+  width: 100%;
+  z-index: var(--z-index-5);
+
+  &::before {
+    animation: animatedgradient 7s ease alternate infinite;
+    background: linear-gradient(to bottom right, var(--color-purple-67) 0%, var(--color-orange-59) 25%, var(--color-green-68)50%, var(--color-yellow-69) 75%, var(--color-pink-80) 100%);
+    background-size: 200% 200%;
+    border-radius: var(--border-radius-16);
+    content: "";
+    inset-block: 0;
+    inset-inline: 0;
+    position: absolute;
+    z-index: var(--z-index-1);
+
+    @media (prefers-reduced-motion: reduce) {
+      animation: none;
+    }
+  }
+}
+
+.hubSetupContent {
+  background-color: var(--background-color-bg1);
+  border-radius: var(--border-radius-12);
+  display: flex;
+  flex-flow: column nowrap;
+  gap: 16px;
+  margin: 4px;
+  overflow: hidden;
+  padding: 8px 8px 16px;
+  position: relative;
+  width: 100%;
+  z-index: var(--z-index-1);
+
+  .hubSetupSteps {
+    display: flex;
+    flex-flow: column nowrap;
+    gap: 8px;
+    justify-content: start;
+    padding: 0 16px;
+    position: relative;
+  }
+
+  > footer {
+    display: flex;
+    justify-content: flex-end;
+    padding: 0 8px;
+  }
+
+  .firstInternalConversationHint {
+    width: 100%;
+  }
+
+  .firstInternalConversationMessage footer {
+    padding: 0;
+    width: 100%;
+  }
+}
+
+.sourceList {
+  display: flex;
+  flex-flow: column nowrap;
+  gap: 4px;
+  list-style: disc;
+  margin: 0 0 0 12px;
+  padding: 0 0 0 16px;
+}
+
+.organizationStep {
+  display: flex;
+  flex-flow: column nowrap;
+  gap: 16px;
+  width: 100%;
+}
+
+.orgFields {
+  align-items: center;
+  display: flex;
+  flex-flow: row nowrap;
+  gap: 16px;
+
+  > div {
+    flex: 1;
+  }
+}
+
+.domainReference {
+  white-space: nowrap;
+}
+
+.organizationStepFooter {
+  align-items: center;
+  border-top: 1px solid var(--border-color-dialog);
+  display: flex;
+  margin-top: 16px;
+  padding: 16px 0 0;
+}
+
+.organizationStepFooterActions {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+}
+
+@keyframes animatedgradient {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}

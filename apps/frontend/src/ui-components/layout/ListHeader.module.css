@@ -1,0 +1,101 @@
+.listHeaderWrapper {
+  align-items: center;
+  border-bottom: 1px solid var(--border-color-panel);
+  display: flex;
+  gap: 16px;
+  justify-content: space-between;
+  min-height: 66px;
+  padding: 16px;
+
+  .actionLeftWrapper {
+    flex: 0 0 32px;
+  }
+
+  .actionRightWrapper {
+    align-items: center;
+    display: flex;
+    gap: 8px;
+  }
+
+  hgroup {
+    align-items: center;
+    display: flex;
+    flex: 1 1 auto;
+    flex-flow: column wrap;
+    gap: 4px;
+    text-align: center;
+
+    h3 {
+      color: var(--text-color-primary);
+      font: var(--font-12-semibold);
+    }
+
+    .caption {
+      color: var(--text-color-secondary);
+      font: var(--font-12-regular);
+      text-align: center;
+    }
+  }
+
+  &.stickyHeader {
+    background-color: var(--background-color-bg0);
+    border-bottom: 0;
+    outline: solid 1px var(--border-color-panel);
+    position: sticky;
+    top: 0;
+    z-index: var(--z-index-1);
+  }
+
+  &.alignmentCenter {
+    &.hasActionRight {
+        padding: 16px 10px;
+
+        &::before {
+
+          /* pseudo element spacer so the title ends up centered */
+          content: '';
+          flex: 0 0 32px;
+          height: 32px;
+          width: 32px;
+        }
+
+        &.editingTitle {
+          .actionLeftWrapper,
+          &::before {
+            display: none;
+          }
+        }
+      }
+
+    &.hasActionLeft {
+        padding: 16px 10px;
+
+        &::after {
+
+          /* pseudo element spacer so the title ends up centered */
+          content: '';
+          flex: 0 0 32px;
+          height: 32px;
+          width: 32px;
+        }
+
+        &.editingTitle {
+          .actionLeftWrapper,
+          &::after {
+            display: none;
+          }
+        }
+      }
+  }
+
+  &.alignmentStart {
+    hgroup {
+      align-items: start;
+      text-align: start;
+    }
+  }
+
+  @media only screen and (width <= 500px) {
+    background-color: var(--background-color-bg1);
+  }
+}

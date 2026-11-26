@@ -17,7 +17,7 @@ import styles from "./InteractiveButtons.module.css";
 const messages = defineMessages({
   actionFailed: {
     id: "global.actionFailed",
-    defaultMessage: "Action failed!",
+    defaultMessage: "Action failed",
     description: "Generic short error message displayed when an action fails",
   },
 });

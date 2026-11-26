@@ -127,7 +127,7 @@ const messages = defineMessages({
   },
   permalinkCopied: {
     id: 'global.permalinkCopied',
-    defaultMessage: 'Permalink copied!',
+    defaultMessage: 'Permalink copied',
     description: 'Confirmation message shown when permalink is copied',
   },
   permalinkCopyFailed: {

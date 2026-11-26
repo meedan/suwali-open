@@ -15,7 +15,7 @@ class MessageSenderServices::TelegramService < MessageSenderServices::BaseServic
     if response.success?
       message.update!(
         status: :sent,
-        external_id: response.dig("result", "message_id")
+        external_id: integration.message_external_id(response.dig("result", "message_id"))
       )
     else
       error = parsed_error_body(response)
@@ -51,8 +51,11 @@ class MessageSenderServices::TelegramService < MessageSenderServices::BaseServic
     @telegram_client ||= TelegramService.new(bot_token)
   end
 
+  def integration
+    @integration ||= TelegramMessagingIntegration.find_by(hub: hub, active: true)
+  end
+
   def bot_token
-    integration = TelegramMessagingIntegration.find_by(hub: hub, active: true)
     return nil if integration.nil?
     integration.get_credential(:bot_token)
   end

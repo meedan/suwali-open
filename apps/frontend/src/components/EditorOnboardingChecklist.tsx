@@ -43,7 +43,7 @@ const EditorOnboardingChecklist = () => {
       <hgroup>
         <FormattedMessage
           id="global.onboardingtitle"
-          defaultMessage="Get to know Suwali"
+          defaultMessage="Start using Suwali"
           description="Title for the onboarding tasks section"
           tagName="h3"
         />
@@ -84,7 +84,7 @@ const EditorOnboardingChecklist = () => {
           />
           <FormattedMessage
             id="global.onboardingonboardingInternalConversationDescription"
-            defaultMessage="Get to know your chatbot and how it responds to your data sources."
+            defaultMessage="See how your chatbot answers questions using your data sources."
             description="Description text for this onboarding task"
             tagName="small"
           />

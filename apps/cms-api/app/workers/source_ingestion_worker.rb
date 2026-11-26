@@ -58,6 +58,7 @@ class SourceIngestionWorker
           title: doc_data[:title],
           content: doc_data[:content],
           metadata: doc_data[:metadata],
+          public_url: Document.usable_public_url(doc_data[:public_url]),
           document_type: doc_data[:document_type],
           published_at: Document.parse_published_at(doc_data[:date])
         )

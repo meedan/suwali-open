@@ -98,6 +98,100 @@ paths:
           description: Forbidden - Not a super admin
         '401':
           description: Unauthorized
+    post:
+      summary: Create a hub
+      tags:
+      - Admin
+      security:
+      - bearerAuth: []
+      description: Write platform admin only. Creates a hub and its organization without
+        adding the caller as a member. The plan defaults to free, which starts a trial.
+        Trial emails start turned off.
+      parameters: []
+      responses:
+        '201':
+          description: Hub created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  name:
+                    type: string
+                  organization_name:
+                    type: string
+                    nullable: true
+                  plan:
+                    type: string
+                  trial_active:
+                    type: boolean
+                  trial_expired:
+                    type: boolean
+                  trial_ends_at:
+                    type: string
+                    nullable: true
+                    format: date-time
+                  invite_code:
+                    type: string
+                    nullable: true
+                  created_at:
+                    type: string
+                    format: date-time
+                  users_count:
+                    type: integer
+                required:
+                - id
+                - name
+                - plan
+                - trial_active
+                - trial_expired
+                - created_at
+                - users_count
+        '422':
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                required:
+                - errors
+        '403':
+          description: Forbidden - Not a write platform admin
+        '401':
+          description: Unauthorized
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                hub:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                      example: Test hub
+                    plan:
+                      type: string
+                      enum:
+                      - free
+                      - enterprise
+                      - free_unrestricted
+                      - standard
+                      - pro
+                      - subsidized
+                      example: enterprise
+                  required:
+                  - name
+              required:
+              - hub
   "/api/admin/hubs/{id}":
     get:
       summary: Get a single hub with full detail and conversation activity
@@ -1568,7 +1662,8 @@ paths:
         '401':
           description: Unauthorized
         '403':
-          description: Forbidden (deleting an external conversation without write super admin access)
+          description: Forbidden (deleting an external conversation without write
+            super admin access)
         '404':
           description: Conversation not found
     get:
@@ -1816,6 +1911,13 @@ paths:
                       example: A summary written by a user
                       description: Summary written by a user, which takes precedence
                         over the AI-generated one (ai_summary)
+                    public_url:
+                      type: string
+                      nullable: true
+                      maxLength: 1000
+                      example: https://example.com/article
+                      description: http(s) URL shown to end users under "Show more";
+                        blank clears it
               required:
               - document
     delete:
@@ -3671,7 +3773,7 @@ paths:
 
                         For `google_drive_folder` source type, configuration must include:
 
-                        • `folder_url`: URL of a shared Google Drive folder (the folder MUST be shared with the service account email ckh-local@ckh-local.iam.gserviceaccount.com).
+                        • `folder_url`: URL of a shared Google Drive folder (the folder MUST be shared with the service account email returned as `google_drive_share_email` by `GET /api/about`).
 
                         For `wordpress_api` source type, configuration must include:
 

@@ -116,7 +116,7 @@ const ConfirmationNeeded: React.FC<ConfirmationNeededProps> = ({ email, password
           <hgroup>
             <FormattedMessage
               id="global.accountCreated"
-              defaultMessage="Account created!"
+              defaultMessage="Account created"
               description="Header message on the account confirmation page that indicates the account was successfully created"
               tagName="h1"
             />
@@ -137,7 +137,7 @@ const ConfirmationNeeded: React.FC<ConfirmationNeededProps> = ({ email, password
             <div>{email}</div>
             <FormattedMessage
               id="global.emailConfirmationThanks"
-              defaultMessage="Thanks for helping us keep Suwali secure!"
+              defaultMessage="Thanks for helping us keep Suwali secure."
               description="Message that explains that verifying your email address helps the system be more secure"
               tagName="p"
             />

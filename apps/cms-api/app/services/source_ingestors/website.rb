@@ -215,6 +215,7 @@ module SourceIngestors
         content: body,
         metadata: {url: post_url},
         link: post_url,
+        public_url: post_url,
         document_type: "blog_post"
       }
     end

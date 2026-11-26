@@ -157,7 +157,7 @@ const SignalIntegration = ({ hubId, integration, onChange, onDisconnect }: Signa
       <div className={styles.pending}>
         <FormattedMessage
           id="global.messagingIntegrationssignalLinkFailed"
-          defaultMessage="The QR code expired before it was scanned, or the phone couldn’t be linked. Please try again."
+          defaultMessage="The QR code expired before you scanned it, or we couldn’t link the phone. Please try again."
           description="Shown on the Signal integration when linking a phone by QR code didn’t complete"
           tagName="em"
         />

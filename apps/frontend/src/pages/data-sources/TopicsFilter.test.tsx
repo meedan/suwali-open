@@ -1,3 +1,4 @@
+import { Tooltip as TooltipPrimitive } from 'radix-ui';
 import { IntlProvider } from 'react-intl';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
@@ -55,7 +56,9 @@ const renderFilter = (props: Partial<React.ComponentProps<typeof TopicsFilter>> 
   render(
     <QueryClientProvider client={new QueryClient({ defaultOptions: { queries: { retry: false } } })}>
       <IntlProvider locale="en" messages={{}}>
-        <TopicsFilter itemType="Document" sourceId={6} onTopicsChange={onTopicsChange} onModeChange={onModeChange} {...props} />
+        <TooltipPrimitive.Provider>
+          <TopicsFilter itemType="Document" sourceId={6} onTopicsChange={onTopicsChange} onModeChange={onModeChange} {...props} />
+        </TooltipPrimitive.Provider>
       </IntlProvider>
     </QueryClientProvider>,
   );
@@ -64,7 +67,7 @@ const renderFilter = (props: Partial<React.ComponentProps<typeof TopicsFilter>> 
 
 const openPicker = async () => {
   fireEvent.click(screen.getByRole('button', { name: 'Add topic' }));
-  await screen.findByRole('textbox', { name: 'Search topics' });
+  await screen.findByRole('searchbox', { name: 'Search topics' });
 };
 
 describe('TopicsFilter', () => {
@@ -246,7 +249,7 @@ describe('TopicsFilter', () => {
 
       fireEvent.click(await screen.findByRole('checkbox', { name: 'Climate 12' }));
 
-      expect(screen.getByRole('textbox', { name: 'Search topics' })).toBeInTheDocument();
+      expect(screen.getByRole('searchbox', { name: 'Search topics' })).toBeInTheDocument();
     });
 
     it('searches the topics by what is typed, and offers untagged only when nothing is', async () => {
@@ -254,7 +257,7 @@ describe('TopicsFilter', () => {
       await openPicker();
       await screen.findByRole('checkbox', { name: 'Untagged 7' });
 
-      fireEvent.change(screen.getByRole('textbox', { name: 'Search topics' }), { target: { value: 'hou' } });
+      fireEvent.change(screen.getByRole('searchbox', { name: 'Search topics' }), { target: { value: 'hou' } });
 
       expect(await screen.findByRole('checkbox', { name: 'Housing 4' })).toBeInTheDocument();
       await waitFor(() => expect(screen.queryByRole('checkbox', { name: 'Climate 12' })).not.toBeInTheDocument());
@@ -266,7 +269,7 @@ describe('TopicsFilter', () => {
       renderFilter();
       await openPicker();
 
-      fireEvent.change(screen.getByRole('textbox', { name: 'Search topics' }), { target: { value: 'zzz' } });
+      fireEvent.change(screen.getByRole('searchbox', { name: 'Search topics' }), { target: { value: 'zzz' } });
 
       expect(await screen.findByText('No topics match your search.')).toBeInTheDocument();
     });
@@ -279,12 +282,12 @@ describe('TopicsFilter', () => {
       expect(await screen.findByText('None of the items in this list have topics yet.')).toBeInTheDocument();
     });
 
-    it('says when the topics could not be loaded', async () => {
+    it('says when the topics couldn’t be loaded', async () => {
       vi.mocked(TopicsService.fetchHubTopics).mockRejectedValue(new Error('nope'));
       renderFilter();
       await openPicker();
 
-      expect(await screen.findByText('The topics could not be loaded. Please try again.')).toBeInTheDocument();
+      expect(await screen.findByText('We couldn’t load the topics. Please try again.')).toBeInTheDocument();
     });
   });
 });

@@ -47,7 +47,7 @@ RSpec.describe WebhookServices::TelegramService, type: :service do
     let!(:integration) { create(:telegram_messaging_integration, credentials: {bot_token: "token"}, active: true) }
     let!(:external_user) { create(:external_user, hub: integration.hub, platform: "telegram", external_id: "1111111") }
     let!(:conversation) { create(:conversation, hub: integration.hub, platform: "telegram", participant: external_user) }
-    let!(:original_message) { create(:message, :outgoing, conversation: conversation, external_id: "100") }
+    let!(:original_message) { create(:message, :outgoing, conversation: conversation, external_id: integration.message_external_id(100)) }
 
     it "stores replied_to_message_id in metadata" do
       payload = {
@@ -90,6 +90,24 @@ RSpec.describe WebhookServices::TelegramService, type: :service do
       reply = Message.incoming.last
       expect(reply.metadata["replied_to_message_id"]).to be_nil
     end
+  end
+
+  it "accepts restarted message ids after the bot is replaced in the same hub" do
+    old_integration = create(:telegram_messaging_integration, credentials: {bot_token: "token"}, active: true)
+    external_user = create(:external_user, hub: old_integration.hub, platform: "telegram", external_id: "1111111")
+    conversation = create(:conversation, hub: old_integration.hub, platform: "telegram", participant: external_user)
+    create(:message, :incoming, conversation: conversation, external_id: old_integration.message_external_id(1))
+    old_integration.destroy!
+    new_integration = create(:telegram_messaging_integration, hub: old_integration.hub, credentials: {bot_token: "token"}, active: true)
+
+    payload = JSON.parse({
+      messaging_integration_id: new_integration.id,
+      message: {message_id: 1, from: {id: 1111111, first_name: "Foo"}, text: "Hello again"}
+    }.to_json)
+
+    expect {
+      described_class.new(payload).process(new_integration.get_credential("webhook_secret"))
+    }.to change(conversation.messages, :count).by(1)
   end
 
   context "when receiving unsupported message types" do

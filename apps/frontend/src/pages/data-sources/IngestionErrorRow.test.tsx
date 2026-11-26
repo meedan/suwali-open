@@ -65,12 +65,12 @@ describe('IngestionErrorRow', () => {
 
   it('falls back to a generic reason for an unrecognized reason', () => {
     renderRow({ reason: 'something_new' });
-    expect(screen.getByText('This file could not be imported.')).toBeInTheDocument();
+    expect(screen.getByText('We couldn’t import this file.')).toBeInTheDocument();
   });
 
   it('shows the reason for a document with no extractable text', () => {
     renderRow({ reason: 'NO_TEXT_FOUND' });
-    expect(screen.getByText('No text could be extracted from this file.')).toBeInTheDocument();
+    expect(screen.getByText('We couldn’t find any text in this file.')).toBeInTheDocument();
   });
 
   it('shows the reason for a document that is too large to process', () => {

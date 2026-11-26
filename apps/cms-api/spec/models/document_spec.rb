@@ -19,6 +19,64 @@ RSpec.describe Document, type: :model do
     expect(document.reload.published_at).to eq(published_at)
   end
 
+  describe "public_url" do
+    it "strips surrounding whitespace" do
+      document = create(:document, public_url: "  https://example.com/page  ")
+
+      expect(document.reload.public_url).to eq("https://example.com/page")
+    end
+
+    it "saves a blank value as nil" do
+      document = create(:document, public_url: "   ")
+
+      expect(document.reload.public_url).to be_nil
+    end
+
+    it "is invalid when it is not an http(s) URL" do
+      expect(build(:document, public_url: "ftp://example.com/page")).not_to be_valid
+    end
+
+    it { expect(build(:document)).to validate_length_of(:public_url).is_at_most(Document::MAX_PUBLIC_URL_LENGTH) }
+
+    it "does not block unrelated updates when a stored value is invalid" do
+      document = create(:document)
+      document.update_column(:public_url, "not a url")
+
+      document.update!(summary: "User summary")
+
+      expect(document.reload.summary).to eq("User summary")
+    end
+
+    it "does not re-ingest an active document when it changes" do
+      document = create(:document, active: true)
+      expect(KnowledgeServiceWorker).not_to receive(:perform_in)
+
+      document.update!(public_url: "https://example.com/page")
+    end
+  end
+
+  describe ".usable_public_url" do
+    it "returns a valid URL" do
+      expect(Document.usable_public_url("https://example.com/page")).to eq("https://example.com/page")
+    end
+
+    it "strips surrounding whitespace" do
+      expect(Document.usable_public_url(" https://example.com/page\n")).to eq("https://example.com/page")
+    end
+
+    it "returns nil for a URL longer than the maximum" do
+      url = "https://example.com/#{"a" * Document::MAX_PUBLIC_URL_LENGTH}"
+
+      expect(Document.usable_public_url(url)).to be_nil
+    end
+
+    [nil, "", "not a url", "ftp://example.com/page"].each do |url|
+      it "returns nil for #{url.inspect}" do
+        expect(Document.usable_public_url(url)).to be_nil
+      end
+    end
+  end
+
   it "is invalid without a title" do
     document = build(:document, title: nil)
     expect(document).not_to be_valid
@@ -416,6 +474,31 @@ RSpec.describe Document, type: :model do
         expect(document.reload.title).to eq("New Title")
         expect(document.content).to eq("New content")
         expect(document.metadata).to eq({"url" => "http://example.com/1"})
+      end
+
+      def refresh_with_public_url(document, public_url)
+        doc_data = {title: "New Title", content: "New content", metadata: {url: "http://example.com/1"}, public_url: public_url}
+        handler = double("handler", refetch_document_data: doc_data, as_file: "/tmp/fake_file.txt")
+        allow(document.source).to receive(:handler).and_return(handler)
+        allow(document).to receive(:attach_file!)
+
+        document.recreate!
+      end
+
+      it "keeps a public_url set by a user" do
+        document = create(:document, public_url: "https://example.com/user-set")
+
+        refresh_with_public_url(document, "https://example.com/from-source")
+
+        expect(document.reload.public_url).to eq("https://example.com/user-set")
+      end
+
+      it "keeps a public_url cleared by a user" do
+        document = create(:document, public_url: nil)
+
+        refresh_with_public_url(document, "https://example.com/from-source")
+
+        expect(document.reload.public_url).to be_nil
       end
 
       it "keeps the original published_at" do

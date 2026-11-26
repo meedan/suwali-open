@@ -65,6 +65,7 @@ Rails.application.routes.draw do
     get "/admin/export/message-reports", to: "admin#export_message_reports"
     get "/admin/message-reports", to: "admin#message_reports"
     get "/admin/hubs", to: "admin#hubs"
+    post "/admin/hubs", to: "admin#create_hub"
     get "/admin/hubs/:id", to: "admin#hub_detail"
     patch "/admin/hubs/:id", to: "admin#update_hub"
     delete "/admin/hubs/:id", to: "admin#destroy_hub"

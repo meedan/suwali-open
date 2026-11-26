@@ -14,21 +14,15 @@ module Api
     end
 
     def create
-      organization = Organization.new(name: create_params[:name])
-      @hub = Hub.new(name: create_params[:name], organization: organization, plan: :free, profile_picture: create_params[:profile_picture])
-
-      begin
-        ActiveRecord::Base.transaction do
-          organization.save!
-          @hub.save!
-          HubMembership.create!(user: current_user, hub: @hub)
-        end
-        Sentry.capture_message("New hub created", level: :warning, extra: @hub.as_json) if defined?(Sentry)
-        render json: @hub.as_json(include_codes: true, include_pending_approvals_count: true), status: :created
-      rescue ActiveRecord::RecordInvalid => e
-        errors = e.record ? e.record.errors.full_messages : [e.message]
-        render json: {errors: errors}, status: :unprocessable_content
+      ActiveRecord::Base.transaction do
+        @hub = Hub.create_with_organization!(name: create_params[:name], plan: :free, profile_picture: create_params[:profile_picture])
+        HubMembership.create!(user: current_user, hub: @hub)
       end
+      Sentry.capture_message("New hub created", level: :warning, extra: @hub.as_json) if defined?(Sentry)
+      render json: @hub.as_json(include_codes: true, include_pending_approvals_count: true), status: :created
+    rescue ActiveRecord::RecordInvalid => e
+      errors = e.record ? e.record.errors.full_messages : [e.message]
+      render json: {errors: errors}, status: :unprocessable_content
     end
 
     def update

@@ -33,7 +33,7 @@ const Fallback = ({ actions }: FallbackProps) => {
       <div className={styles.message}>
         <FormattedMessage
           id="global.fallbackApptryRefreshing"
-          defaultMessage="Try again or reach out to our support team."
+          defaultMessage="Try again or contact our support team."
           description="Message displayed when an error occurs in the app"
           tagName="p"
         />

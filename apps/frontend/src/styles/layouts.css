@@ -7,6 +7,13 @@
   width: 100vw;
 }
 
+.layout-frame {
+  display: flex;
+  flex: 1 1 0;
+  min-height: 0;
+  position: relative;
+}
+
 main {
   background-color: var(--background-color-bg1);
   display: flex;
@@ -26,34 +33,15 @@ main {
     flex: 0 1 var(--width-sidecolumn-full);
     flex-flow: row nowrap;
     height: auto;
-    inset-inline-start: var(--width-column-gap);
+
+    /* Starts where the rail ends and gives up the rail's width, so the main column keeps its own */
+    inset-inline-start: var(--width-sidecolumn-small);
     overflow: hidden;
     position: absolute;
     top: var(--width-column-gap);
-    transition: flex 150ms var(--easing-function) 0ms, width 150ms var(--easing-function) 0ms;
-    width: var(--width-sidecolumn-full);
+    transition: opacity 150ms var(--easing-function), transform 150ms var(--easing-function), visibility 0s;
+    width: calc(var(--width-sidecolumn-full) + var(--width-column-gap) - var(--width-sidecolumn-small));
     z-index: var(--z-index-5);
-
-    .layout-shelf {
-      align-items: center;
-      border-inline-end: solid 1px var(--border-color-panel);
-      display: flex;
-      flex: 0 0 var(--width-sidecolumn-small);
-      flex-flow: column nowrap;
-      gap: 24px;
-      height: 100%;
-      justify-content: space-between;
-      max-width: var(--width-sidecolumn-small);
-      padding: 16px 0;
-
-      header,
-      footer {
-        align-items: center;
-        display: flex;
-        flex-flow: column nowrap;
-        gap: 24px;
-      }
-    }
 
     .layout-drawer-wrapper {
       display: flex;
@@ -166,8 +154,8 @@ main {
     width: var(--width-sidecolumn-full);
   }
 
+  /* z-index waits for the fade-out, or the cover drops behind the page before it can be seen fading */
   .layout-cover {
-    animation: layout-cover-show 150ms var(--easing-function);
     backdrop-filter: blur(2px);
     background-color: var(--background-color-cover);
     content: '';
@@ -176,6 +164,7 @@ main {
     opacity: 0;
     pointer-events: none;
     position: fixed;
+    transition: opacity 150ms var(--easing-function), z-index 0s 150ms;
     z-index: var(--z-index-min);
   }
 
@@ -184,16 +173,25 @@ main {
   }
 
   &.layout-responsive-drawer-closed {
-    .layout-left-column {
-      flex-basis: var(--width-sidecolumn-small);
-      width: var(--width-sidecolumn-small);
+    @media only screen and (width > 500px) {
+      .layout-left-column {
 
-      .layout-shelf {
-        border-inline-end: 0;
-      }
+        /* Hidden instead of display: none so it can fade; visibility still drops it from the tab order once the fade ends */
+        opacity: 0;
+        transform: translateX(-12px);
+        transition: opacity 150ms var(--easing-function), transform 150ms var(--easing-function), visibility 0s 150ms;
+        visibility: hidden;
 
-      .layout-drawer {
-        display: none;
+        [dir="rtl"] & {
+          transform: translateX(12px);
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+          &,
+          [dir="rtl"] & {
+            transform: none;
+          }
+        }
       }
     }
 
@@ -209,7 +207,10 @@ main {
   }
 
   @media only screen and (width <= 1250px) {
-    .layout-left-column,
+    .layout-left-column {
+      width: calc(var(--width-sidecolumn-medium) + var(--width-column-gap) - var(--width-sidecolumn-small));
+    }
+
     .layout-right-column {
       flex-basis: var(--width-sidecolumn-medium);
       width: var(--width-sidecolumn-medium);
@@ -236,6 +237,12 @@ main {
   }
 
   @media only screen and (500px < width <= 850px) {
+    .layout-left-column {
+
+      /* Covers the main column here instead of pushing it, so it can take its full width back */
+      width: calc(var(--width-sidecolumn-full) + var(--width-column-gap) - var(--width-sidecolumn-small));
+    }
+
     .layout-right-column {
       flex-basis: var(--width-sidecolumn-medium);
       width: var(--width-sidecolumn-medium);
@@ -249,6 +256,7 @@ main {
         ~ .layout-cover {
           opacity: 1;
           pointer-events: auto;
+          transition: opacity 150ms var(--easing-function);
           z-index: var(--z-index-5);
         }
       }
@@ -270,7 +278,6 @@ main {
 
   @media only screen and (width <= 500px) {
     .layout-left-column,
-    .layout-left-column .layout-shelf,
     .layout-main-column,
     .layout-right-column {
       display: none;
@@ -504,15 +511,5 @@ tbody {
 @keyframes skeleton-text {
   50% {
     opacity: 0.4;
-  }
-}
-
-@keyframes layout-cover-show {
-  from {
-    opacity: 0;
-  }
-
-  to {
-    opacity: 1;
   }
 }

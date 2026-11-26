@@ -116,6 +116,7 @@ RSpec.describe SourceIngestors::JsonApi, type: :service do
       expect(doc1[:title]).to eq("First Article")
       expect(doc1[:content]).to eq("Content of the first article")
       expect(doc1[:metadata][:url]).to eq("https://example.com/first-article")
+      expect(doc1[:public_url]).to eq("https://example.com/first-article")
       expect(doc1[:document_type]).to eq("json")
       expect(doc1[:raw_data]["author"]).to eq("John Doe")
 
@@ -159,6 +160,14 @@ RSpec.describe SourceIngestors::JsonApi, type: :service do
 
       expect(documents.size).to eq(2)
       expect(documents.first[:title]).to eq("Article 1")
+    end
+
+    it "leaves public_url nil when no url field is mapped" do
+      ingestor = described_class.new(config.merge("field_mappings" => config["field_mappings"].except("url")))
+
+      documents, _ = ingestor.call
+
+      expect(documents.map { |document| document[:public_url] }).to all(be_nil)
     end
 
     it "stops pagination when no records are returned" do

@@ -478,7 +478,7 @@ def test_vote_recommendation_fallback_names_no_option(mock_llm_config: MagicMock
 @patch("app.core.errors.create_chat_model")
 @patch("app.core.errors.LLMConfig")
 def test_error_message_prompt_forbids_first_person(mock_llm_config: MagicMock, mock_create: MagicMock) -> None:
-    """SUWALI-1148: the message LLM must get the neutral-voice rule, not an invitation to say "I"."""
+    """The message LLM must get the neutral-voice rule, not an invitation to say "I"."""
     mock_model = MagicMock(spec=Runnable)
     mock_model.invoke.return_value = MagicMock(content="This chatbot can't advise on whom to vote for.")
     mock_create.return_value = mock_model

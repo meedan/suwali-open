@@ -1,9 +1,20 @@
 import clsx from 'clsx';
 import React from 'react';
+import { defineMessages, FormattedMessage, useIntl } from 'react-intl';
 
+import Button from '@ui-components/input/Button';
 import Icon from '@ui-components/layout/Icon';
+import Tooltip from '@ui-components/layout/Tooltip.tsx';
 
 import styles from './TextInput.module.css';
+
+const messages = defineMessages({
+  clearSearch: {
+    id: 'global.clearSearch',
+    defaultMessage: 'Clear search',
+    description: 'Reusable label for the button that empties a search field',
+  },
+});
 
 interface TextInputProps {
   id?: string;
@@ -24,11 +35,13 @@ interface TextInputProps {
   required?: boolean;
   className?: string;
   size?: 'small' | 'large';
-  type?: 'text' | 'password' | 'email' | 'url' | 'number' | 'date';
+  type?: 'text' | 'password' | 'email' | 'url' | 'number' | 'date' | 'search';
   inputProps?: object;
   // A short, non-editable value (e.g. a phone country code) shown inside the input, before its
   // editable content, so the person doesn't need to type it themselves or duplicate it.
   prefix?: React.ReactNode;
+  // Shows a button that empties a search field once something is typed; the browser's own one is hidden
+  onClear?: () => void;
 }
 
 const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(({
@@ -53,8 +66,11 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(({
   size = 'small',
   type = 'text',
   prefix,
+  onClear,
 }, ref) => {
+  const intl = useIntl();
   const inputRef = React.useRef<HTMLInputElement>(null);
+  const isSearch = type === 'search';
 
   const setRefs = (node: HTMLInputElement | null) => {
     inputRef.current = node;
@@ -73,7 +89,8 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(({
         {
           disabled: disabled,
           errors: error,
-          [styles.prefix]: prefix,
+          [styles.prefix]: prefix || isSearch,
+          [styles.search]: isSearch,
           // css-modules-allow-undefined: small is the default size, so it has no styles
           [styles.sizeSmall]: size === 'small',
           [styles.sizeLarge]: size === 'large',
@@ -95,6 +112,7 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(({
         className={clsx('base-input', 'base-input-row', styles.inputRow)}
         onClick={() => inputRef.current?.focus()}
       >
+        {isSearch && <span key="searchIcon" className={styles.searchIcon}><Icon id="magnifying_glass" aria-hidden /></span>}
         {prefix && <span key="prefix" className="base-input-prefix">{prefix}</span>}
         <input
           key="input"
@@ -114,6 +132,31 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(({
           autoComplete={autoComplete}
           {...inputProps}
         />
+        {isSearch && onClear && value !== '' && (
+          <div key="clear" className={styles.clear}>
+            <Tooltip
+              content={
+                <FormattedMessage
+                  id="global.clearSearch"
+                  defaultMessage="Clear search"
+                  description="Reusable label for the button that empties a search field"
+                />
+              }
+            >
+              <Button
+                aria-label={intl.formatMessage(messages.clearSearch)}
+                iconLeft={<Icon id="x" aria-hidden />}
+                size="small"
+                themeMode
+                variant="filled"
+                onClick={() => {
+                  onClear();
+                  inputRef.current?.focus();
+                }}
+              />
+            </Tooltip>
+          </div>
+        )}
       </div>
       { helpContent && (
         <div className="base-help-container">

@@ -84,12 +84,12 @@ const messages = defineMessages({
   },
   stateUserContributionCancelled: {
     id: 'admin.stateUserContributionCancelled',
-    defaultMessage: 'Contribution cancelled (user)',
+    defaultMessage: 'Contribution canceled (user)',
     description: 'Message state label for user_contribution_cancelled in chart legend',
   },
   stateBotContributionCancelled: {
     id: 'admin.stateBotContributionCancelled',
-    defaultMessage: 'Contribution cancelled (bot)',
+    defaultMessage: 'Contribution canceled (bot)',
     description: 'Message state label for bot_contribution_cancelled in chart legend',
   },
   stateContribution: {

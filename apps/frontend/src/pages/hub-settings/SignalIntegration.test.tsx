@@ -76,8 +76,8 @@ describe('SignalIntegration', () => {
   });
 
   it('links to the connected number on Signal', () => {
-    renderSignal(signalIntegration({ active: true, phone_number: '+447520692068' }));
+    renderSignal(signalIntegration({ active: true, phone_number: '+447700900123' }));
 
-    expect(screen.getByRole('link', { name: '+447520692068' })).toHaveAttribute('href', 'https://signal.me/#p/+447520692068');
+    expect(screen.getByRole('link', { name: '+447700900123' })).toHaveAttribute('href', 'https://signal.me/#p/+447700900123');
   });
 });

@@ -56,7 +56,7 @@ describe('WordpressWizardTestAndCreate', () => {
 
     renderComponent();
     fireEvent.click(screen.getByText('Test configuration'));
-    await waitFor(() => screen.getByText('Test successful!'));
+    await waitFor(() => screen.getByText('Test successful'));
 
     expect(SourcesService.previewSource).toHaveBeenCalledWith({
       source: expect.objectContaining({
@@ -77,7 +77,7 @@ describe('WordpressWizardTestAndCreate', () => {
 
     renderComponent({ wizardState: { siteUrl: 'https://blog.example.com/wp-json/' } });
     fireEvent.click(screen.getByText('Test configuration'));
-    await waitFor(() => screen.getByText('Test successful!'));
+    await waitFor(() => screen.getByText('Test successful'));
 
     fireEvent.click(screen.getByText('Add source'));
     await waitFor(() =>
@@ -100,7 +100,7 @@ describe('WordpressWizardTestAndCreate', () => {
 
     renderComponent({ wizardState: { siteUrl: 'https://blog.example.com', ownershipReceipt: 'signed-receipt' } });
     fireEvent.click(screen.getByText('Test configuration'));
-    await waitFor(() => screen.getByText('Test successful!'));
+    await waitFor(() => screen.getByText('Test successful'));
 
     fireEvent.click(screen.getByText('Add source'));
     await waitFor(() =>
@@ -119,7 +119,7 @@ describe('WordpressWizardTestAndCreate', () => {
 
     renderComponent();
     fireEvent.click(screen.getByText('Test configuration'));
-    await waitFor(() => screen.getByText('Test successful!'));
+    await waitFor(() => screen.getByText('Test successful'));
 
     fireEvent.click(screen.getByText('Add source'));
     await waitFor(() =>
@@ -153,7 +153,7 @@ describe('WordpressWizardTestAndCreate', () => {
     renderComponent({ isEditing: true, source });
 
     fireEvent.click(screen.getByText('Test configuration'));
-    await waitFor(() => screen.getByText('Test successful!'));
+    await waitFor(() => screen.getByText('Test successful'));
 
     fireEvent.click(screen.getByText('Save setup'));
     await waitFor(() =>

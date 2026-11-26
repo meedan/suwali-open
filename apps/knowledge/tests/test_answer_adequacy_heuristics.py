@@ -220,7 +220,7 @@ _CMS_CONTRIBUTION_ID = "Q29udHJpYnV0aW9uLzE=\n"
 _CMS_REPORT_ID = "RG9jdW1lbnQvMTg=\n"
 _CMS_CONTEXT = [
     f'<{SOURCE_DOCUMENT_TAG} ref="{_CMS_CONTRIBUTION_ID}" {SOURCE_PRIORITIZED_ATTRIBUTE}="true">\n'
-    f"Kristina Sekrst is the director of Meedan as of September 2026.\n</{SOURCE_DOCUMENT_TAG}>\n"
+    f"Person Name is the director of Meedan as of September 2026.\n</{SOURCE_DOCUMENT_TAG}>\n"
     f'<{SOURCE_DOCUMENT_TAG} ref="{_CMS_REPORT_ID}">\nDr. Dima Saber is the executive director.\n</{SOURCE_DOCUMENT_TAG}>'
 ]
 
@@ -228,7 +228,7 @@ _CMS_CONTEXT = [
 def test_claims_prioritized_without_citing_it_matches_cms_ids_with_trailing_newline() -> None:
     """Production regression: the stripped cited id never matched the newline-terminated ref, so every
     correct answer citing the contribution was hard-rejected."""
-    answer = "Kristina Sekrst is the director of Meedan. This information is prioritized."
+    answer = "Person Name is the director of Meedan. This information is prioritized."
     assert claims_prioritized_without_citing_it(answer, [_CMS_CONTRIBUTION_ID], _CMS_CONTEXT) is False
     assert claims_prioritized_without_citing_it(answer, [_CMS_CONTRIBUTION_ID.strip()], _CMS_CONTEXT) is False
     assert claims_prioritized_without_citing_it(answer, [_CMS_REPORT_ID], _CMS_CONTEXT) is True

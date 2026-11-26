@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { defineMessages, FormattedMessage, useIntl } from 'react-intl';
 import { useQuery } from '@tanstack/react-query';
 
@@ -11,6 +12,7 @@ import { Can } from '@components/Can';
 
 import AttentionList from './AttentionList';
 import ChurnedHubsSection from './ChurnedHubsSection';
+import CreateHubModal from './CreateHubModal';
 import styles from './Dashboard.module.css';
 import HubsSection from './HubsSection';
 import PlatformAnalytics from './PlatformAnalytics';
@@ -29,6 +31,7 @@ const messages = defineMessages({
 const Dashboard = () => {
   const intl = useIntl();
   const { exportingPath, error, handleExport } = useAdminExport();
+  const [creatingHub, setCreatingHub] = useState(false);
 
   usePageTitle(
     <FormattedMessage
@@ -78,6 +81,14 @@ const Dashboard = () => {
           tagName="h1"
         />
         <div className={styles.exportButtons}>
+          <Can action="IS_WRITE_ADMIN">
+            <Button
+              label={<FormattedMessage id="admin.createHub" defaultMessage="Create hub" description="Button label for the action of creating a new hub. In English, “create” is a verb and “hub” its object; it is not a noun phrase such as “hub creation”." />}
+              onClick={() => setCreatingHub(true)}
+              size="small"
+            />
+            <CreateHubModal open={creatingHub} onOpenChange={setCreatingHub} />
+          </Can>
           <ButtonLink
             label={<FormattedMessage id="admin.messageReportsLabel" defaultMessage="Message reports" description="Label for the button that opens the message reports page" />}
             to="/platform-admin/message-reports"

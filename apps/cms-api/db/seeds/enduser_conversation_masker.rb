@@ -6,7 +6,7 @@ class EnduserConversationMasker
   # Fake people are named after rock stars, but always as a mashup of two different artists
   # (Bruce McCartney, John Dickinson). Generating names here rather than with Faker keeps the
   # masker usable under RAILS_ENV=production, where the :development, :test gem group — and so
-  # Faker — is not loaded, which is exactly how the export runs on staging.
+  # Faker — is not loaded, which is exactly how the export runs in deployed environments.
   ROCK_STARS = [
     ["John", "Lennon"], ["Paul", "McCartney"], ["George", "Harrison"], ["Ringo", "Starr"],
     ["Mick", "Jagger"], ["Keith", "Richards"], ["Freddie", "Mercury"], ["Brian", "May"],

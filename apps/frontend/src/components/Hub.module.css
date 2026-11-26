@@ -4,7 +4,6 @@
   gap: 8px;
 
   .hubAvatar {
-    background-color: var(--background-color-bg1);
     border-radius: var(--border-radius-8);
     flex: 0 0 var(--icon-size-36);
     font: var(--font-12-regular);
@@ -43,7 +42,8 @@
 
 .hubAvatarLoading,
 .hub .hubAvatar {
-  background-color: var(--background-color-bg1);
+  background-color: var(--background-color-bg0);
+  border: solid 1px var(--border-color-panel);
   border-radius: var(--border-radius-8);
   height: var(--icon-size-36);
   width: var(--icon-size-36);

@@ -37,7 +37,7 @@ const CONTRIBUTION_TITLES = {
     user: (
       <FormattedMessage
         id="global.userContributionCancelledNodetitle"
-        defaultMessage="End-user cancelled contribution"
+        defaultMessage="End-user canceled contribution"
         description="Label for a contribution that was cancelled by the user"
         tagName="span"
       />
@@ -45,7 +45,7 @@ const CONTRIBUTION_TITLES = {
     bot: (
       <FormattedMessage
         id="global.botContributionCancelledNodetitle"
-        defaultMessage="Chatbot acknowledged contribution cancelled"
+        defaultMessage="Chatbot acknowledged contribution canceled"
         description="Label for chatbot’s response to a contribution being cancelled"
         tagName="span"
       />

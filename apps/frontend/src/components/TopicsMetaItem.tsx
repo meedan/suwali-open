@@ -71,7 +71,7 @@ const TopicsMetaItem = ({ topics = [], onTopicDeleted, title, stacked = false, a
       content={
         <FormattedMessage
           id="topicsMetaItem.describeTopics"
-          defaultMessage="Topics are automatically generated based on the content of the document. Topics can be removed."
+          defaultMessage="We generate topics automatically from the document’s content. You can remove them."
           description="Description of how topics are applied to documents"
         />
       }

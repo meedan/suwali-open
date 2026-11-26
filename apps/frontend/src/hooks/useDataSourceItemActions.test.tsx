@@ -443,7 +443,7 @@ describe('useDataSourceItemActions', () => {
       await waitFor(() => {
         expect(writeText).toHaveBeenCalledWith(`${window.location.origin}/hub/1/data-sources/contributions/7`);
       });
-      expect(await screen.findByText('Permalink copied!')).toBeInTheDocument();
+      expect(await screen.findByText('Permalink copied')).toBeInTheDocument();
     });
 
     it('previews the linked item and returns to the list when the preview is closed', async () => {

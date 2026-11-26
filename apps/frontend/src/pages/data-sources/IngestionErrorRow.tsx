@@ -46,7 +46,7 @@ const ReasonMessage = ({ reason, details }: Pick<IngestionError, 'reason' | 'det
       return (
         <FormattedMessage
           id="global.ingestionErrorImportFailed"
-          defaultMessage="This file could not be imported. It will be retried on the next sync."
+          defaultMessage="We couldn’t import this file. We’ll try again on the next sync."
           description="Reason shown when a file failed to import for an unexpected reason."
         />
       );
@@ -54,7 +54,7 @@ const ReasonMessage = ({ reason, details }: Pick<IngestionError, 'reason' | 'det
       return (
         <FormattedMessage
           id="dataSourcesDocumentsPanel.ingestionErrorNoTextFound"
-          defaultMessage="No text could be extracted from this file."
+          defaultMessage="We couldn’t find any text in this file."
           description="Reason shown when a document was imported but no readable text could be found in it."
         />
       );
@@ -70,7 +70,7 @@ const ReasonMessage = ({ reason, details }: Pick<IngestionError, 'reason' | 'det
       return (
         <FormattedMessage
           id="global.ingestionErrorUnknown"
-          defaultMessage="This file could not be imported."
+          defaultMessage="We couldn’t import this file."
           description="Fallback reason shown when a file could not be imported for an unrecognized reason."
         />
       );

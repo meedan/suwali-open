@@ -1,4 +1,4 @@
-import { Toast as ToastPrimitive } from 'radix-ui';
+import { Toast as ToastPrimitive, Tooltip as TooltipPrimitive } from 'radix-ui';
 import { IntlProvider } from 'react-intl';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
@@ -88,7 +88,9 @@ const renderAddTopic = (existingTopicNames: string[] = [], onAdded = vi.fn()) =>
       <QueryClientProvider client={new QueryClient({ defaultOptions: { queries: { retry: false } } })}>
         <ToastPrimitive.Provider>
           <ToastProvider>
-            <AddTopic itemType="Document" itemId={7} existingTopicNames={existingTopicNames} onAdded={onAdded} />
+            <TooltipPrimitive.Provider>
+              <AddTopic itemType="Document" itemId={7} existingTopicNames={existingTopicNames} onAdded={onAdded} />
+            </TooltipPrimitive.Provider>
           </ToastProvider>
           <ToastPrimitive.Viewport />
         </ToastPrimitive.Provider>
@@ -99,7 +101,7 @@ const renderAddTopic = (existingTopicNames: string[] = [], onAdded = vi.fn()) =>
 };
 
 const open = () => fireEvent.click(screen.getByRole('button', { name: 'Add topic' }));
-const search = () => screen.getByRole('textbox', { name: 'Search topics' });
+const search = () => screen.getByRole('searchbox', { name: 'Search topics' });
 const searchFor = (value: string) => fireEvent.change(search(), { target: { value } });
 
 describe('AddTopic', () => {
@@ -235,7 +237,7 @@ describe('AddTopic', () => {
 
     await waitFor(() => expect(onAdded).toHaveBeenCalledTimes(1));
     expect(TopicsService.addTopicItem).toHaveBeenCalledWith({ topicId: 3, itemType: 'Document', itemId: 7 });
-    await waitFor(() => expect(screen.queryByRole('textbox', { name: 'Search topics' })).not.toBeInTheDocument());
+    await waitFor(() => expect(screen.queryByRole('searchbox', { name: 'Search topics' })).not.toBeInTheDocument());
   });
 
   describe('with Enter pressed in the search', () => {
@@ -370,7 +372,7 @@ describe('AddTopic', () => {
       await waitFor(() => expect(onAdded).toHaveBeenCalledTimes(1));
       expect(TopicsService.addTopicItem).toHaveBeenCalledWith({ topicName: 'Public transport', itemType: 'Document', itemId: 7 });
       expect(await screen.findByText('Topic “Public transport” created and added')).toBeInTheDocument();
-      await waitFor(() => expect(screen.queryByRole('textbox', { name: 'Search topics' })).not.toBeInTheDocument());
+      await waitFor(() => expect(screen.queryByRole('searchbox', { name: 'Search topics' })).not.toBeInTheDocument());
     });
 
     it('does not say a topic was created when the server used one the hub already had', async () => {

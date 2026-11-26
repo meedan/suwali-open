@@ -1319,6 +1319,104 @@ RSpec.describe "Admin API", type: :request do
     end
   end
 
+  describe "POST /api/admin/hubs" do
+    context "when user is a write super admin" do
+      let(:headers) { auth_headers_for(write_admin) }
+
+      it "creates a hub with its own organization and the given plan" do
+        expect {
+          post "/api/admin/hubs", params: {hub: {name: "Test hub", plan: "enterprise"}}, headers: headers
+        }.to change(Hub, :count).by(1).and change(Organization, :count).by(1)
+
+        expect(response).to have_http_status(:created)
+        json = JSON.parse(response.body)
+        hub = Hub.find(json["id"])
+        expect(json).to include("name" => "Test hub", "plan" => "enterprise", "organization_name" => "Test hub")
+        expect(hub.organization.name).to eq("Test hub")
+        expect(hub.trial_ends_at).to be_nil
+      end
+
+      it "does not make the admin a member of the hub" do
+        post "/api/admin/hubs", params: {hub: {name: "Test hub", plan: "enterprise"}}, headers: headers
+
+        hub = Hub.find(JSON.parse(response.body)["id"])
+        expect(hub.hub_memberships).to be_empty
+        expect(write_admin.hub_memberships).to be_empty
+      end
+
+      it "defaults to the free plan with a trial when no plan is given" do
+        post "/api/admin/hubs", params: {hub: {name: "Test hub"}}, headers: headers
+
+        expect(response).to have_http_status(:created)
+        hub = Hub.find(JSON.parse(response.body)["id"])
+        expect(hub).to be_free
+        expect(hub.trial_ends_at).to be_present
+      end
+
+      it "creates the hub with trial emails turned off and none recorded as sent" do
+        post "/api/admin/hubs", params: {hub: {name: "Test hub", plan: "free"}}, headers: headers
+
+        hub = Hub.find(JSON.parse(response.body)["id"])
+        expect(JSON.parse(response.body)["trial_emails_enabled"]).to be(false)
+        expect(hub.trial_emails_enabled).to be(false)
+        expect(hub.trial_emails_sent).to be_empty
+      end
+
+      it "returns 422 and creates nothing when the name is blank" do
+        expect {
+          post "/api/admin/hubs", params: {hub: {name: "", plan: "enterprise"}}, headers: headers
+        }.not_to change(Organization, :count)
+
+        expect(response).to have_http_status(:unprocessable_content)
+        expect(JSON.parse(response.body)["errors"]).not_to be_empty
+      end
+
+      it "returns 422 and creates nothing when the name is too long" do
+        expect {
+          post "/api/admin/hubs", params: {hub: {name: "a" * 101, plan: "enterprise"}}, headers: headers
+        }.not_to change(Organization, :count)
+
+        expect(response).to have_http_status(:unprocessable_content)
+        expect(JSON.parse(response.body)["errors"]).not_to be_empty
+      end
+
+      it "returns 422 for an invalid plan value" do
+        expect {
+          post "/api/admin/hubs", params: {hub: {name: "Test hub", plan: "galaxy_brain"}}, headers: headers
+        }.not_to change(Hub, :count)
+
+        expect(response).to have_http_status(:unprocessable_content)
+        expect(JSON.parse(response.body)["errors"]).not_to be_empty
+      end
+    end
+
+    context "when user is a read-only super admin (no write access flag)" do
+      it "returns forbidden" do
+        post "/api/admin/hubs", params: {hub: {name: "Test hub"}}, headers: auth_headers_for(super_admin)
+
+        expect(response).to have_http_status(:forbidden)
+        expect(JSON.parse(response.body)).to have_key("error")
+      end
+    end
+
+    context "when user is not a super admin" do
+      it "returns forbidden" do
+        post "/api/admin/hubs", params: {hub: {name: "Test hub"}}, headers: auth_headers_for(regular_user)
+
+        expect(response).to have_http_status(:forbidden)
+        expect(JSON.parse(response.body)).to have_key("error")
+      end
+    end
+
+    context "when user is not authenticated" do
+      it "returns unauthorized" do
+        post "/api/admin/hubs", params: {hub: {name: "Test hub"}}
+
+        expect(response).to have_http_status(:unauthorized)
+      end
+    end
+  end
+
   describe "DELETE /api/admin/hubs/:id" do
     context "when user is a write super admin" do
       it "flags the hub for deletion and enqueues the deletion worker" do
@@ -1844,6 +1942,95 @@ describe "Admin API" do
       end
 
       response "401", "Unauthorized" do
+        let(:Authorization) { nil }
+        run_test! do |response|
+          expect(response).to have_http_status(:unauthorized)
+        end
+      end
+    end
+
+    post "Create a hub" do
+      tags "Admin"
+      consumes "application/json"
+      produces "application/json"
+      security [bearerAuth: []]
+      description "Write platform admin only. Creates a hub and its organization without adding the caller as a member. " \
+                  "The plan defaults to free, which starts a trial. Trial emails start turned off."
+      parameter name: :hub, in: :body, schema: {
+        type: :object,
+        properties: {
+          hub: {
+            type: :object,
+            properties: {
+              name: {type: :string, example: "Test hub"},
+              plan: {type: :string, enum: Hub.plans.keys, example: "enterprise"}
+            },
+            required: ["name"]
+          }
+        },
+        required: ["hub"]
+      }
+
+      response "201", "Hub created successfully" do
+        schema type: :object,
+          properties: {
+            id: {type: :integer},
+            name: {type: :string},
+            organization_name: {type: :string, nullable: true},
+            plan: {type: :string},
+            trial_active: {type: :boolean},
+            trial_expired: {type: :boolean},
+            trial_ends_at: {type: :string, nullable: true, format: "date-time"},
+            invite_code: {type: :string, nullable: true},
+            created_at: {type: :string, format: "date-time"},
+            users_count: {type: :integer}
+          },
+          required: %w[id name plan trial_active trial_expired created_at users_count]
+
+        let!(:super_admin) { create(:user, email: "admin@meedan.com", admin_write_access: true) }
+        let(:hub) { {hub: {name: "Test hub", plan: "enterprise"}} }
+        let(:Authorization) do
+          token, _ = Warden::JWTAuth::UserEncoder.new.call(super_admin, :user, nil)
+          "Bearer #{token}"
+        end
+        run_test! do |response|
+          expect(response).to have_http_status(:created)
+          expect(JSON.parse(response.body)).to include("name" => "Test hub", "plan" => "enterprise", "users_count" => 0)
+        end
+      end
+
+      response "422", "Validation error" do
+        schema type: :object,
+          properties: {
+            errors: {type: :array, items: {type: :string}}
+          },
+          required: ["errors"]
+
+        let!(:super_admin) { create(:user, email: "admin@meedan.com", admin_write_access: true) }
+        let(:hub) { {hub: {name: ""}} }
+        let(:Authorization) do
+          token, _ = Warden::JWTAuth::UserEncoder.new.call(super_admin, :user, nil)
+          "Bearer #{token}"
+        end
+        run_test! do |response|
+          expect(response).to have_http_status(:unprocessable_content)
+        end
+      end
+
+      response "403", "Forbidden - Not a write platform admin" do
+        let!(:super_admin) { create(:user, email: "admin@meedan.com") }
+        let(:hub) { {hub: {name: "Test hub"}} }
+        let(:Authorization) do
+          token, _ = Warden::JWTAuth::UserEncoder.new.call(super_admin, :user, nil)
+          "Bearer #{token}"
+        end
+        run_test! do |response|
+          expect(response).to have_http_status(:forbidden)
+        end
+      end
+
+      response "401", "Unauthorized" do
+        let(:hub) { {hub: {name: "Test hub"}} }
         let(:Authorization) { nil }
         run_test! do |response|
           expect(response).to have_http_status(:unauthorized)

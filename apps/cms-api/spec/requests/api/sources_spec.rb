@@ -818,7 +818,7 @@ describe "Sources API" do
                              "• `base_url`: base URL with optional `{page}` placeholder.\n\n" \
                              "• `post_link_selector`, `title_selector`, `body_selector`: CSS selectors.\n\n" \
                              "For `google_drive_folder` source type, configuration must include:\n\n" \
-                             "• `folder_url`: URL of a shared Google Drive folder (the folder MUST be shared with the service account email #{SourceIngestors::GoogleDriveFolder.share_email}).\n\n" \
+                             "• `folder_url`: URL of a shared Google Drive folder (the folder MUST be shared with the service account email returned as `google_drive_share_email` by `GET /api/about`).\n\n" \
                              "For `wordpress_api` source type, configuration must include:\n\n" \
                              "• `site_url`: home page URL of a WordPress site with its REST API enabled.\n\n" \
                              "  Also send `source.ownership_receipt` from `/api/sources/verify_ownership`.\n\n" \

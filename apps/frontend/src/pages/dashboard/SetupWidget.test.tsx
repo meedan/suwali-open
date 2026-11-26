@@ -73,7 +73,7 @@ describe("SetupWidget", () => {
   it("Should prompt to connect a platform when the hub has content but no integration", () => {
     renderWithProviders(vi.fn());
 
-    expect(screen.getByText("Go live!")).toBeInTheDocument();
+    expect(screen.getByText("Go live")).toBeInTheDocument();
     expect(screen.getByText("Connect a platform")).toBeInTheDocument();
     // Setup isn't done yet, so there is nothing to hide
     expect(screen.queryByTitle("Hide this widget")).not.toBeInTheDocument();

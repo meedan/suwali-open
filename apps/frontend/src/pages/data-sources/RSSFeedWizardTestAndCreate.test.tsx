@@ -55,7 +55,7 @@ describe('RSSFeedWizardTestAndCreate', () => {
 
     renderComponent();
     fireEvent.click(screen.getByText('Test configuration'));
-    await waitFor(() => screen.getByText('Test successful!'));
+    await waitFor(() => screen.getByText('Test successful'));
 
     fireEvent.click(screen.getByText('Add source'));
     await waitFor(() =>
@@ -74,7 +74,7 @@ describe('RSSFeedWizardTestAndCreate', () => {
 
     renderComponent();
     fireEvent.click(screen.getByText('Test configuration'));
-    await waitFor(() => screen.getByText('Test successful!'));
+    await waitFor(() => screen.getByText('Test successful'));
 
     fireEvent.click(screen.getByText('Add source'));
     await waitFor(() =>
@@ -109,7 +109,7 @@ describe('RSSFeedWizardTestAndCreate', () => {
 
     renderComponent({ wizardState: { feedUrl: 'https://example.com' } });
     fireEvent.click(screen.getByText('Test configuration'));
-    await waitFor(() => screen.getByText('Test successful!'));
+    await waitFor(() => screen.getByText('Test successful'));
 
     expect(screen.getByText('Feed URL updated')).toBeInTheDocument();
   });
@@ -124,7 +124,7 @@ describe('RSSFeedWizardTestAndCreate', () => {
 
     renderComponent({ wizardState: { feedUrl: 'https://example.com' } });
     fireEvent.click(screen.getByText('Test configuration'));
-    await waitFor(() => screen.getByText('Test successful!'));
+    await waitFor(() => screen.getByText('Test successful'));
 
     fireEvent.click(screen.getByText('Add source'));
     await waitFor(() =>
@@ -150,7 +150,7 @@ describe('RSSFeedWizardTestAndCreate', () => {
     renderComponent({ isEditing: true, source });
 
     fireEvent.click(screen.getByText('Test configuration'));
-    await waitFor(() => screen.getByText('Test successful!'));
+    await waitFor(() => screen.getByText('Test successful'));
 
     fireEvent.click(screen.getByText('Save setup'));
     await waitFor(() =>
@@ -168,7 +168,7 @@ describe('RSSFeedWizardTestAndCreate', () => {
 
     renderComponent({ onCreate });
     fireEvent.click(screen.getByText('Test configuration'));
-    await waitFor(() => screen.getByText('Test successful!'));
+    await waitFor(() => screen.getByText('Test successful'));
 
     fireEvent.click(screen.getByText('Add source'));
     await waitFor(() => expect(onCreate).toHaveBeenCalledWith(7));
@@ -182,7 +182,7 @@ describe('RSSFeedWizardTestAndCreate', () => {
     const source: Source = { id: 3, name: 'My Custom Name', config: {}, documents_count: 0, updated_at: '', source_type: 'rss_feed' };
     renderComponent({ isEditing: true, source, onCreate });
     fireEvent.click(screen.getByText('Test configuration'));
-    await waitFor(() => screen.getByText('Test successful!'));
+    await waitFor(() => screen.getByText('Test successful'));
 
     fireEvent.click(screen.getByText('Save setup'));
     await waitFor(() => expect(onCreate).toHaveBeenCalledWith(3));

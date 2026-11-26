@@ -15,6 +15,7 @@ class Api::AboutController < ApplicationController
       allowed_extensions: SourceIngestors::FileConstraints::ALLOWED_EXTENSIONS.map(&:upcase).join(", "),
       max_files_per_upload: SourceIngestors::UploadedFiles::MAX_FILES_PER_UPLOAD,
       max_summary_length: Document::MAX_SUMMARY_LENGTH,
+      max_public_url_length: Document::MAX_PUBLIC_URL_LENGTH,
       max_topic_name_length: Topicable::MAX_TOPIC_NAME_LENGTH,
       max_resource_question_length: ExternalResource::MAX_QUESTION_LENGTH,
       max_resource_description_length: ExternalResource::MAX_DESCRIPTION_LENGTH,

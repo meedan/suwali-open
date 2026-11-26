@@ -180,8 +180,8 @@
   --width-sidecolumn-full-padding: calc(var(--width-sidecolumn-full) + (var(--width-column-gap) * 2));
   --width-sidecolumn-medium: 300px;
   --width-sidecolumn-medium-padding: calc(var(--width-sidecolumn-medium) + (var(--width-column-gap) * 2));
-  --width-sidecolumn-small: 56px;
-  --width-sidecolumn-small-padding: calc(var(--width-sidecolumn-small) + (var(--width-column-gap) * 2));
+  --width-sidecolumn-small: 64px;
+  --width-sidecolumn-small-padding: calc(var(--width-sidecolumn-small) + var(--width-column-gap));
   --width-interiorcolumn-small: 250px;
 
   /* widths */

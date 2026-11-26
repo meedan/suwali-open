@@ -16,6 +16,7 @@ RSpec.describe "About API", type: :request do
     )
     expect(json["conversation_inactivity_timeout_minutes"]).to eq(Conversation.inactivity_timeout.in_minutes.to_i)
     expect(json["max_summary_length"]).to eq(Document::MAX_SUMMARY_LENGTH)
+    expect(json["max_public_url_length"]).to eq(Document::MAX_PUBLIC_URL_LENGTH)
     expect(json["max_topic_name_length"]).to eq(Topicable::MAX_TOPIC_NAME_LENGTH)
     expect(json["max_resource_question_length"]).to eq(ExternalResource::MAX_QUESTION_LENGTH)
     expect(json["max_resource_description_length"]).to eq(ExternalResource::MAX_DESCRIPTION_LENGTH)

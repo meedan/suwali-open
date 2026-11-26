@@ -1,4 +1,4 @@
-# One-off backfill of the topic changes users made before added_by and tombstones existed (SUWALI-1168).
+# One-off backfill of the topic changes users made before added_by and tombstones existed.
 # Replays each topic item's latest change by a user from the audit log: an add records added_by (restoring the
 # topic item if Knowledge Service removed it), a removal records a tombstone (removing the topic item if Knowledge
 # Service gave it back). Idempotent: re-running finds nothing left to change.

@@ -234,7 +234,7 @@ const WebsiteWizardPaginationCard = ({ wizardState, setWizardState}: WebsiteWiza
               <Icon aria-hidden id="check_circle_filled" />
               <FormattedMessage
                 id="websiteWizardPaginationCard.queryStringDetected"
-                defaultMessage="Detected query string pagination!"
+                defaultMessage="Detected query string pagination"
                 description="Informs that we have detected a pagination parameter in the url query string"
                 tagName="strong"
               />
@@ -245,7 +245,7 @@ const WebsiteWizardPaginationCard = ({ wizardState, setWizardState}: WebsiteWiza
               <Icon aria-hidden id="check_circle_filled" />
               <FormattedMessage
                 id="websiteWizardPaginationCard.slashPathDetected"
-                defaultMessage="Detected path-based pagination!"
+                defaultMessage="Detected path-based pagination"
                 description="Informs that we have detected a pagination parameter in the url slash path"
                 tagName="strong"
               />

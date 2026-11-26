@@ -39,7 +39,7 @@ namespace :enduser_conversation_snapshot do
 
     # Mirror config/storage.yml: explicit keys are optional, so deployed environments fall back to
     # the IAM role, and the endpoint is only set for Silo locally. Fetching the keys outright
-    # fails on staging, where S3 access comes from the task role rather than the environment.
+    # fails in deployed environments, where S3 access comes from the task role rather than the environment.
     client_options = {region: ENV.fetch("S3_REGION", "eu-west-1")}
     if ENV["S3_ACCESS_KEY_ID"].present?
       client_options[:access_key_id] = ENV["S3_ACCESS_KEY_ID"]

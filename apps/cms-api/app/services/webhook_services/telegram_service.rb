@@ -50,12 +50,12 @@ class WebhookServices::TelegramService < WebhookServices::BaseService
   def message_data
     message = payload["message"]
     data = {
-      id: message["message_id"],
+      id: @integration.message_external_id(message["message_id"]),
       text: message["text"],
       raw: message
     }
     reply_to_message_id = message.dig("reply_to_message", "message_id")
-    data[:reply_to_external_id] = reply_to_message_id if reply_to_message_id
+    data[:reply_to_external_id] = @integration.message_external_id(reply_to_message_id) if reply_to_message_id
     data
   end
 

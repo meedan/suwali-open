@@ -93,6 +93,7 @@ RSpec.describe SourceIngestors::RssFeed, type: :service do
       expect(second_doc[:title]).to eq("Second Post")
       expect(second_doc[:content]).to eq("This is the second post description.")
       expect(second_doc[:metadata][:url]).to eq("https://example.com/posts/2")
+      expect(second_doc[:public_url]).to eq("https://example.com/posts/2")
     end
 
     it "sends the configured User-Agent" do

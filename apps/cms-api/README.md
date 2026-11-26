@@ -131,6 +131,12 @@ irb> hub = Hub.create!(name: "Hub Name", organization: Organization.create!(name
 irb> puts hub.invite_code
 ```
 
+#### Super admins
+Confirmed users whose email domain is in `SUPER_ADMIN_EMAIL_DOMAINS` can read every hub. Write access is granted per user, and the first one has to be granted in the Rails console; after that, a write admin can grant it from the admin pages:
+```bash
+irb> User.find_by!(email: "you@your-domain.org").update!(admin_write_access: true)
+```
+
 ### 8. Access other services
 
 #### Swagger: API endpoints

@@ -149,7 +149,7 @@ describe('Dashboard', () => {
 
     renderWithProviders(<Dashboard />);
 
-    fireEvent.change(screen.getByRole('textbox'), { target: { value: 'acme' } });
+    fireEvent.change(screen.getByRole('searchbox', { name: 'Find hubs' }), { target: { value: 'acme' } });
 
     expect(screen.queryByRole('link', { name: 'Test Hub' })).not.toBeInTheDocument();
     expect(screen.getByRole('link', { name: 'Acme Hub' })).toBeInTheDocument();
@@ -171,7 +171,7 @@ describe('Dashboard', () => {
     renderWithProviders(<Dashboard />);
 
     fireEvent.click(screen.getByRole('radio', { name: /all good/i }));
-    fireEvent.change(screen.getByRole('textbox'), { target: { value: 'acme' } });
+    fireEvent.change(screen.getByRole('searchbox', { name: 'Find hubs' }), { target: { value: 'acme' } });
 
     expect(screen.queryByRole('link', { name: 'Acme Pink' })).not.toBeInTheDocument();
     expect(screen.getByRole('link', { name: 'Acme Hub' })).toBeInTheDocument();

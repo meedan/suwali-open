@@ -240,6 +240,7 @@ module SourceIngestors
         content: content.presence || excerpt,
         date: published_at,
         link: link,
+        public_url: link,
         metadata: {
           url: link,
           published_at: published_at,

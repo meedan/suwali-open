@@ -26,7 +26,7 @@ const messages = defineMessages({
   },
   roleDescriptionPlaceholder: {
     id: 'global.roleDescriptionPlaceholder',
-    defaultMessage: 'e.g., This chatbot answers questions about our programs, events and how to get involved.',
+    defaultMessage: 'e.g., This chatbot answers questions about our programs, events, and how to get involved.',
     description: 'Placeholder for the field where the chatbot’s role and description is entered',
   },
 });
@@ -181,7 +181,7 @@ const BotAttributeForm = ({
             helpContent={
               <FormattedMessage
                 id="global.roleDescriptionDescriptionHelp"
-                defaultMessage="A good description will include the best uses and a brief description of the data sources this chatbot is trained with."
+                defaultMessage="A good description will include the best uses and a brief description of the data sources this chatbot answers from."
                 description="Additional description for role & description field"
               />
             }

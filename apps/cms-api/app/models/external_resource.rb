@@ -8,12 +8,7 @@ class ExternalResource < ApplicationRecord
   MAX_QUESTION_LENGTH = 200
 
   TITLE_CHECKS = {
-    "link" => lambda do |title|
-      uri = URI.parse(URI::RFC2396_PARSER.escape(title))
-      uri.is_a?(URI::HTTP) && uri.host.present?
-    rescue URI::InvalidURIError
-      false
-    end,
+    "link" => ->(title) { HttpUrl.valid?(title) },
     "phone" => ->(title) { title.delete(" ().-").match?(/\A\+?\d{7,15}\z/) },
     "email" => ->(title) { URI::MailTo::EMAIL_REGEXP.match?(title) }
   }.freeze

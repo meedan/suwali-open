@@ -58,6 +58,7 @@ RSpec.describe SourceIngestionWorker, type: :worker do
     doc = source.documents.find_by(external_id: "doc-123")
     expect(doc).to be_present
     expect(doc.title).to eq("test.pdf")
+    expect(doc.public_url).to be_nil
     expect(source.reload.last_synced_at).to be_within(5.seconds).of(Time.current)
   end
 
@@ -335,6 +336,41 @@ RSpec.describe SourceIngestionWorker, type: :worker do
     result = described_class.new.perform(999)
 
     expect(result).to eq(false)
+  end
+
+  describe "public_url" do
+    def ingest_document_with_public_url(public_url)
+      source.update!(source_type: "rss_feed")
+      ingestor = instance_double(SourceIngestors::RssFeed)
+      allow(SourceIngestors::RssFeed).to receive(:new).and_return(ingestor)
+      allow(ingestor).to receive(:call).and_return([[
+        {external_id: "public-1", title: "Public", content: "c", metadata: {}, document_type: "rss_entry", public_url: public_url}
+      ], 1])
+
+      described_class.new.perform(source.id)
+
+      source.documents.find_by(external_id: "public-1")
+    end
+
+    it "is set from the URL the ingestor reports" do
+      document = ingest_document_with_public_url("https://example.com/post")
+
+      expect(document.public_url).to eq("https://example.com/post")
+    end
+
+    it "is nil, without failing ingestion, when the URL is invalid" do
+      document = ingest_document_with_public_url("not a url")
+
+      expect(document).to be_present
+      expect(document.public_url).to be_nil
+    end
+
+    it "is nil, without failing ingestion, when the URL is too long" do
+      document = ingest_document_with_public_url("https://example.com/#{"a" * Document::MAX_PUBLIC_URL_LENGTH}")
+
+      expect(document).to be_present
+      expect(document.public_url).to be_nil
+    end
   end
 
   describe "metrics" do

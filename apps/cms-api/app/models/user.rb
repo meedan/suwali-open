@@ -33,6 +33,13 @@ class User < ApplicationRecord
 
   scope :inactive, ->(since = INACTIVITY_THRESHOLD.ago) { where("#{LAST_SEEN_AT} < ?", since) }
   scope :least_recently_seen_first, -> { order(Arel.sql("#{LAST_SEEN_AT} ASC")) }
+  scope :super_admins, -> { where.not(confirmed_at: nil).where.not("email LIKE '%@%@%'").where("lower(split_part(email, '@', 2)) IN (?)", super_admin_email_domains) }
+
+  # Public domains are ignored; otherwise anyone could sign up with one and read every hub.
+  def self.super_admin_email_domains
+    ENV.fetch("SUPER_ADMIN_EMAIL_DOMAINS", "").split(",").map { |d| d.strip.downcase }
+      .reject { |d| d.empty? || PUBLIC_EMAIL_DOMAINS_LIST.include?(d) }
+  end
 
   # update_columns: these run on ordinary requests and must not fire validations
   # or touch updated_at.
@@ -53,9 +60,9 @@ class User < ApplicationRecord
     profile_picture.attached? ? Rails.application.routes.url_helpers.rails_storage_proxy_url(profile_picture, host: ENV.fetch("CMS_API_EXTERNAL_URL", "http://localhost:3000")) : nil
   end
 
-  # Read-only super admin: any confirmed @meedan.com or @meedan.org user
+  # Read-only super admin: any confirmed user whose email domain is in SUPER_ADMIN_EMAIL_DOMAINS
   def is_admin
-    confirmed? && email&.match?(/@meedan\.(com|org)\z/) || false
+    confirmed? && email.to_s.count("@") == 1 && User.super_admin_email_domains.include?(email_domain) || false
   end
 
   def is_write_admin

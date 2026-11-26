@@ -140,6 +140,7 @@ module SourceIngestors
         title: title.to_s.strip,
         content: content,
         date: date,
+        public_url: url,
         metadata: {
           url: url,
           date: date,

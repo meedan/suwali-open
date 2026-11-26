@@ -336,6 +336,10 @@ SET n.published_at =
 RETURN count(n) AS updated_nodes;
 ```
 
+## Contributing
+
+We don't accept pull requests at the moment. To report a vulnerability, follow [SECURITY.md](SECURITY.md).
+
 ## License
 
 Copyright (C) 2025 Meedan.

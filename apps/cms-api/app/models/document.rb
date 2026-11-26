@@ -11,6 +11,8 @@ class Document < ApplicationRecord
   # The summary is prepended to the document's text on ingestion, which fails if the whole text is too large.
   # Sent to the frontend by the about endpoint, for it to show how much is left.
   MAX_SUMMARY_LENGTH = 2000
+  # So a capped title plus this URL fits one SMS (SmsService::MAX_BODY_LENGTH); sent to the frontend by /about.
+  MAX_PUBLIC_URL_LENGTH = 1000
 
   belongs_to :source, counter_cache: true
   delegate :hub, to: :source
@@ -50,6 +52,11 @@ class Document < ApplicationRecord
     nil
   end
 
+  def self.usable_public_url(url)
+    url = url.to_s.strip
+    url if url.length <= MAX_PUBLIC_URL_LENGTH && HttpUrl.valid?(url)
+  end
+
   # In-memory counterpart of the public_source scope (no query when source is already loaded).
   def public_source?
     active && PUBLIC_SOURCE_TYPES.include?(source&.source_type)
@@ -69,8 +76,12 @@ class Document < ApplicationRecord
 
   enum document_type: TYPES
 
+  normalizes :public_url, with: ->(value) { value.strip.presence }
+
   validates :title, :document_type, presence: true
   validates :summary, length: {maximum: MAX_SUMMARY_LENGTH}
+  validates :public_url, length: {maximum: MAX_PUBLIC_URL_LENGTH}, if: :public_url_changed?
+  validate :public_url_must_be_http_url, if: :public_url_changed?
   validates :external_id, uniqueness: {scope: :source_id}, allow_nil: true
   validate :check_plan_restrictions, on: :create
 
@@ -200,6 +211,10 @@ class Document < ApplicationRecord
   end
 
   private
+
+  def public_url_must_be_http_url
+    errors.add(:public_url, :invalid) if public_url.present? && !HttpUrl.valid?(public_url)
+  end
 
   def refresh_payload
     if source.website?

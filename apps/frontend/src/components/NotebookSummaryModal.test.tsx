@@ -133,7 +133,7 @@ describe('NotebookSummaryModal', () => {
     renderModal();
 
     await waitFor(() => {
-      expect(screen.getByText(/could not be displayed with formatting/)).toBeInTheDocument();
+      expect(screen.getByText(/couldn’t display this content with formatting/)).toBeInTheDocument();
     });
     expect(screen.getByText(/Key points/)).toBeInTheDocument();
     expect(screen.queryByTestId('markdown-editor')).not.toBeInTheDocument();

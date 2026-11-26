@@ -185,6 +185,7 @@ RSpec.describe SourceIngestors::WordpressApi, type: :service do
         content: "Body of post 2.",
         date: Time.utc(2024, 1, 2, 10),
         link: "#{site_url}/post-2/",
+        public_url: "#{site_url}/post-2/",
         metadata: {
           url: "#{site_url}/post-2/",
           published_at: Time.utc(2024, 1, 2, 10),

@@ -238,6 +238,13 @@ class Hub < ApplicationRecord
     "Suwali/1.0 (Hub #{hub_id}; +https://suwali.io)"
   end
 
+  # Each hub gets its own organization, named after it.
+  def self.create_with_organization!(name:, **attrs)
+    transaction do
+      create!(name: name, organization: Organization.create!(name: name), **attrs)
+    end
+  end
+
   def self.generate_invite_code
     max_retries = 10
     retries = 0

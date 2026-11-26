@@ -58,7 +58,7 @@ describe('BillingWidget', () => {
 
     renderComponent();
     expect(screen.getByText(/Ends August 23, 2026/)).toBeInTheDocument();
-    expect(screen.getByText('Free trial!')).toBeInTheDocument();
+    expect(screen.getByText('Free trial')).toBeInTheDocument();
     expect(screen.getByText('90%')).toBeInTheDocument();
     expect(screen.getByText('1,000 per month')).toBeInTheDocument();
     expect(screen.getByText('10%')).toBeInTheDocument();

@@ -3,7 +3,7 @@ import React from 'react';
 import { IntlProvider } from 'react-intl';
 import { BrowserRouter } from 'react-router';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { fireEvent, render, screen, within } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 
 import { Layout } from './Layout';
 
@@ -94,8 +94,13 @@ vi.mock('@components/Hub', () => ({
 }));
 
 vi.mock('@ui-components/input/Button', () => ({
-  default: ({ onClick, iconLeft }: { onClick: () => void; iconLeft: React.ReactNode }) => (
-    <button data-testid="drawer-toggle-button" onClick={onClick}>
+  default: ({ onClick, iconLeft, 'aria-label': ariaLabel, 'aria-expanded': ariaExpanded }: {
+    onClick: () => void;
+    iconLeft: React.ReactNode;
+    'aria-label'?: string;
+    'aria-expanded'?: boolean;
+  }) => (
+    <button aria-label={ariaLabel} aria-expanded={ariaExpanded} onClick={onClick}>
       {iconLeft}
     </button>
   )
@@ -290,7 +295,7 @@ describe('Layout', () => {
       );
 
       const main = container.querySelector('main');
-      const toggleButton = within(container.querySelector('header')!).getByTestId('drawer-toggle-button');
+      const toggleButton = screen.getByRole('button', { name: 'Show/Hide menu' });
 
       // Initially closed
       expect(main).toHaveClass('layout-responsive-drawer-closed');
@@ -314,7 +319,7 @@ describe('Layout', () => {
 
       const main = container.querySelector('main');
       const cover = container.querySelector('.layout-cover');
-      const toggleButton = within(container.querySelector('header')!).getByTestId('drawer-toggle-button');
+      const toggleButton = screen.getByRole('button', { name: 'Show/Hide menu' });
 
       // First open the drawer
       fireEvent.click(toggleButton);
@@ -343,14 +348,14 @@ describe('Layout', () => {
     it('calls onLeftDrawerOpenChange with correct boolean when button is clicked', () => {
       const handleChange = vi.fn();
 
-      const { container } = renderWithProviders(
+      renderWithProviders(
         <Layout leftDrawerOpen={false} onLeftDrawerOpenChange={handleChange}>
           <Layout.Left>Left content</Layout.Left>
           <Layout.Main>Main</Layout.Main>
         </Layout>
       );
 
-      fireEvent.click(within(container.querySelector('header')!).getByTestId('drawer-toggle-button'));
+      fireEvent.click(screen.getByRole('button', { name: 'Show/Hide menu' }));
       expect(handleChange).toHaveBeenCalledWith(true);
       expect(handleChange).toHaveBeenCalledTimes(1);
     });
@@ -365,9 +370,38 @@ describe('Layout', () => {
 
       const main = container.querySelector('main');
 
-      fireEvent.click(within(container.querySelector('header')!).getByTestId('drawer-toggle-button'));
+      fireEvent.click(screen.getByRole('button', { name: 'Show/Hide menu' }));
       // Should still be closed since parent didn't update
       expect(main).toHaveClass('layout-responsive-drawer-closed');
+    });
+  });
+
+  describe('rail', () => {
+    it('renders the rail outside the main landmark', () => {
+      renderWithProviders(
+        <Layout>
+          <Layout.Left>Left content</Layout.Left>
+          <Layout.Main>Main</Layout.Main>
+        </Layout>
+      );
+
+      const toggleButton = screen.getByRole('button', { name: 'Show/Hide menu' });
+      expect(screen.getByRole('main')).not.toContainElement(toggleButton);
+    });
+
+    it('reflects the drawer state on the menu toggle', () => {
+      renderWithProviders(
+        <Layout>
+          <Layout.Left>Left content</Layout.Left>
+          <Layout.Main>Main</Layout.Main>
+        </Layout>
+      );
+
+      const toggleButton = screen.getByRole('button', { name: 'Show/Hide menu' });
+      expect(toggleButton).toHaveAttribute('aria-expanded', 'false');
+
+      fireEvent.click(toggleButton);
+      expect(toggleButton).toHaveAttribute('aria-expanded', 'true');
     });
   });
 

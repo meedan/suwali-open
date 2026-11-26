@@ -84,6 +84,22 @@ RSpec.describe Hub, type: :model do
     expect(hub.topic_names).to eq(["Climate", "Elections"])
   end
 
+  describe ".create_with_organization!" do
+    it "creates the hub with an organization of the same name" do
+      hub = Hub.create_with_organization!(name: "Acme", plan: :enterprise, skip_data_preload: true)
+
+      expect(hub).to be_persisted
+      expect(hub.organization.name).to eq("Acme")
+      expect(hub).to be_enterprise
+    end
+
+    it "does not leave an organization behind when the hub is invalid" do
+      expect {
+        expect { Hub.create_with_organization!(name: "a" * 101, plan: :enterprise) }.to raise_error(ActiveRecord::RecordInvalid)
+      }.not_to change(Organization, :count)
+    end
+  end
+
   describe "invite code generation" do
     it "generates 6-character Base-36 invite code" do
       code = Hub.generate_invite_code

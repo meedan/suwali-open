@@ -28,7 +28,7 @@ describe('MarkdownPreview', () => {
     renderPreview();
 
     expect(await screen.findByTestId('markdown-editor')).toHaveTextContent('# Heading Some text.');
-    expect(screen.queryByText(/could not be displayed with formatting/)).not.toBeInTheDocument();
+    expect(screen.queryByText(/couldn’t display this content with formatting/)).not.toBeInTheDocument();
   });
 
   it('falls back to plain text with a warning when the markdown cannot be parsed', async () => {
@@ -42,7 +42,7 @@ describe('MarkdownPreview', () => {
     const { container } = renderPreview();
 
     await waitFor(() => {
-      expect(screen.getByText(/could not be displayed with formatting/)).toBeInTheDocument();
+      expect(screen.getByText(/couldn’t display this content with formatting/)).toBeInTheDocument();
     });
     expect(container).toHaveTextContent('# HeadingSome text.');
     expect(screen.queryByTestId('markdown-editor')).not.toBeInTheDocument();

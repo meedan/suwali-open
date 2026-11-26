@@ -1,0 +1,25 @@
+.rail {
+  align-items: center;
+  display: flex;
+  flex-flow: column nowrap;
+  inset-block: 0;
+  inset-inline-start: 0;
+  justify-content: space-between;
+  padding-block: calc(var(--width-column-gap) + 12px);
+  position: absolute;
+  width: var(--width-sidecolumn-small);
+  z-index: var(--z-index-6);
+
+  @media only screen and (width <= 500px) {
+    display: none;
+  }
+}
+
+.group {
+  align-items: center;
+  display: flex;
+  flex-flow: column nowrap;
+  gap: 24px;
+  padding-inline: 8px;
+  width: 100%;
+}

@@ -1,3 +1,5 @@
+import { defineMessages, FormattedMessage, useIntl } from 'react-intl';
+
 import Button from '@ui-components/input/Button';
 import { ToggleGroup, ToggleGroupItem } from '@ui-components/input/ToggleGroup';
 import Icon from '@ui-components/layout/Icon';
@@ -7,6 +9,14 @@ import MainPagesNav from '@ui-components/navigation/MainPagesNav';
 import Me from '@components/Me';
 
 import styles from "./MobilePageNav.module.css";
+
+const messages = defineMessages({
+  mainMenu: {
+    id: 'global.mainMenu',
+    defaultMessage: 'Main menu',
+    description: 'Reusable label for the menu that lists the app’s main pages',
+  },
+});
 
 type MobilePageNavProps = {
   currentValue?: string;
@@ -23,14 +33,25 @@ const MobilePageNav = ({
   right,
   onChange
 }: MobilePageNavProps) => {
+  const intl = useIntl();
+
   return (
     <footer className={styles.mobilePageNav}>
       <Modal
         className={styles.mobileMainPageNav}
         size="large"
+        title={
+          <FormattedMessage
+            id="global.mainMenu"
+            defaultMessage="Main menu"
+            description="Reusable label for the menu that lists the app’s main pages"
+          />
+        }
+        hideTitle
         trigger={
           <Button
-            iconLeft={<Icon id="list" />}
+            aria-label={intl.formatMessage(messages.mainMenu)}
+            iconLeft={<Icon id="list" aria-hidden />}
             size="medium"
             themeMode
           />

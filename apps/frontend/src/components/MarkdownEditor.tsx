@@ -144,7 +144,7 @@ const messages = defineMessages({
   },
   'linkPreview.copied': {
     id: 'mdxeditor.linkPreview.copied',
-    defaultMessage: 'Copied!',
+    defaultMessage: 'Copied',
     description: 'Confirmation shown in the rich text editor link preview after the link URL was copied to the clipboard',
   },
   'dialogControls.save': {

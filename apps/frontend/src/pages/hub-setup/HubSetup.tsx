@@ -117,7 +117,7 @@ const HubSetupPage = () => {
                 >
                   <HubSetupOrganizationStep />
                 </CurrentStep>
-                <FutureStep step="2" label={<FormattedMessage id="hubSetup.step1Title" defaultMessage="What should your chatbot know?" description="Right panel title for step 1 when no source exists" />} />
+                <FutureStep step="2" label={<FormattedMessage id="hubSetup.step1Title" defaultMessage="Add content for your chatbot" description="Right panel title for step 1 when no source exists" />} />
                 <FutureStep step="3" label={<FormattedMessage id="global.setupOnboardingAskQuestion" defaultMessage="Ask your chatbot a question" description="Title for setup and onboarding of the hub setup about starting a conversation with the chatbot" />} />
               </>
             )}
@@ -136,7 +136,7 @@ const HubSetupPage = () => {
                     ) : (
                       <FormattedMessage
                         id="hubSetup.step1Title"
-                        defaultMessage="What should your chatbot know?"
+                        defaultMessage="Add content for your chatbot"
                         description="Right panel title for step 1 when no source exists"
                       />
                     )

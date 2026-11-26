@@ -269,7 +269,7 @@ const MessagingIntegrations = () => {
             return (
               <FormattedMessage
                 id="global.messagingIntegrationsNoPermission"
-                defaultMessage="You don’t have permission to manage message integrations. Reach out to an administrator of your hub."
+                defaultMessage="You don’t have permission to manage message integrations. Contact an administrator of your hub."
                 description="Message displayed on Messaging Integrations page when user does not have permission"
               />
             );
@@ -327,7 +327,7 @@ const MessagingIntegrations = () => {
                         body={
                           <FormattedMessage
                             id="global.messagingIntegrationstelegramIntro"
-                            defaultMessage="Telegram is known for its large group capacity, customizable bots and secret chats with self-destruct timers."
+                            defaultMessage="Telegram is known for its large group capacity, customizable bots, and secret chats with self-destruct timers."
                             description="Intro description for Telegram on Messaging Integrations page"
                             tagName="span"
                           />
@@ -341,12 +341,12 @@ const MessagingIntegrations = () => {
                           label={
                             <FormattedMessage
                               id="global.messagingIntegrationstelegramIntroContinued"
-                              defaultMessage="Simple to configure, it just requires a chatbot token. <learnMoreLink>Learn more</learnMoreLink>."
-                              description="Intro description for what is required to connect Telegram as an integration"
+                              defaultMessage="Simple to configure, it just requires a <tokenLink>Telegram bot token</tokenLink>."
+                              description="Intro description for what is required to connect Telegram as an integration; the link opens Telegram’s instructions for creating a bot token"
                               tagName="p"
                               values={{
-                                learnMoreLink: msg => (
-                                  <a key="learnMoreLink" href="https://core.telegram.org/bots#how-do-i-create-a-bot" target="_blank" rel="noopener noreferrer">
+                                tokenLink: msg => (
+                                  <a key="tokenLink" href="https://core.telegram.org/bots#how-do-i-create-a-bot" target="_blank" rel="noopener noreferrer">
                                     {msg}
                                   </a>
                                 ),

@@ -1160,7 +1160,7 @@ SUBJECTLESS_QUERIES: list[str] = [
 ]
 
 
-@pytest.mark.skip(reason="flaky (SUWALI-1205): the classifier reads a subjectless 'where' as needing user location")
+@pytest.mark.skip(reason="flaky: the classifier reads a subjectless 'where' as needing user location")
 @pytest.mark.parametrize("query", SUBJECTLESS_QUERIES)
 @pytest.mark.order(5)
 def test_chat_api_subjectless_query_asks_for_clarification(prepare_test_data: None, query: str) -> None:
@@ -1181,7 +1181,7 @@ def test_chat_api_subjectless_query_asks_for_clarification(prepare_test_data: No
     assert not _document_ids_from_metadata(data), f"Must not retrieve: {data}"
 
 
-@pytest.mark.skip(reason="SUWALI-1205: guards the subjectless rule; skipped with its companion until the rule holds")
+@pytest.mark.skip(reason="guards the subjectless rule; skipped with its companion until the rule holds")
 @pytest.mark.order(5)
 def test_chat_api_subjectless_follow_up_uses_history(prepare_test_data: None) -> None:
     """Question words alone are a real question when history names the subject."""
@@ -2940,7 +2940,7 @@ NOTEBOOK_SUMMARY_LANGUAGE_CASES = [
 @pytest.mark.order(5)
 async def test_summarize_preserves_input_language(texts: list[str], case_label: str, expected_lang: str) -> None:
     """The /summarize output must match the language of the input notes, including the
-    multi-text case that previously regressed to English (SUWALI-865)."""
+    multi-text case that previously regressed to English."""
     from app.services.language import detect_text
 
     logger.info(f"Testing summarize language fidelity — {case_label}: {len(texts)} text(s)")

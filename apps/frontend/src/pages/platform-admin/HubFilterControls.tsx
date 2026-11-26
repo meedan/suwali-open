@@ -60,8 +60,10 @@ const HubFilterControls = ({
           />
         }
         placeholder={intl.formatMessage(messages.hubSearchPlaceholder)}
+        type="search"
         value={hubSearch}
         onChange={e => onSearchChange(e.target.value)}
+        onClear={() => onSearchChange('')}
       />
       <Select
         id="plan-filter"

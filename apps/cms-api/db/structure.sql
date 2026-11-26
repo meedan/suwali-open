@@ -1,4 +1,4 @@
-\restrict sy8OzXvchCQqc88dzATrLu4sSLGHZuft8KgiLfXYtRRaahYfX5fYygganDM2Y66
+\restrict azlzyUIsMckQmK4Ufqr5zrr39v7ils3baKH8hjwXfFYPQkpOYKCB9mnx8vZVkAn
 
 -- Dumped from database version 17.11 (Debian 17.11-1.pgdg12+2)
 -- Dumped by pg_dump version 17.11 (Debian 17.11-1.pgdg13+2)
@@ -914,7 +914,8 @@ CREATE TABLE public.documents (
     priority_tier integer DEFAULT 1 NOT NULL,
     last_sync_error_code character varying,
     published_at timestamp(6) without time zone,
-    summary text
+    summary text,
+    public_url text
 );
 
 
@@ -3470,11 +3471,12 @@ ALTER TABLE ONLY public.topic_subscriptions
 -- PostgreSQL database dump complete
 --
 
-\unrestrict sy8OzXvchCQqc88dzATrLu4sSLGHZuft8KgiLfXYtRRaahYfX5fYygganDM2Y66
+\unrestrict azlzyUIsMckQmK4Ufqr5zrr39v7ils3baKH8hjwXfFYPQkpOYKCB9mnx8vZVkAn
 
 SET search_path TO "$user", public;
 
 INSERT INTO "schema_migrations" (version) VALUES
+('20261119192145'),
 ('20261111204311'),
 ('20261111172124'),
 ('20261022193738'),

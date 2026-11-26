@@ -10,6 +10,23 @@
   padding-inline: 0 12px;
 }
 
+.searchIcon {
+  color: var(--text-color-secondary);
+  display: flex;
+  flex: 0 0 auto;
+  font-size: var(--icon-size-16);
+  padding-inline-start: 12px;
+}
+
+.clear {
+  flex: 0 0 auto;
+  padding-inline-end: 1px;
+}
+
+.search input::-webkit-search-cancel-button {
+  appearance: none;
+}
+
 .sizeLarge {
   .titleWrapper {
     min-height: 48px;
@@ -41,6 +58,10 @@
 
   &.autoGrow::after {
     padding: 16px 15px;
+  }
+
+  .clear {
+    padding-inline-end: 8px;
   }
 }
 

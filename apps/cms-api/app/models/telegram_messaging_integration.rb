@@ -10,6 +10,11 @@ class TelegramMessagingIntegration < MessagingIntegration
     "#{ENV.fetch("CMS_API_EXTERNAL_URL", "http://localhost:3000")}/api/webhooks/telegram/#{id}"
   end
 
+  # Telegram numbers messages per chat, so a new bot in the same hub restarts the ids in the same conversation
+  def message_external_id(message_id)
+    "#{id}:#{message_id}"
+  end
+
   def as_json(options = {})
     super.merge({"bot_name" => get_credential("bot_name"), "bot_username" => get_credential("bot_username")})
   end

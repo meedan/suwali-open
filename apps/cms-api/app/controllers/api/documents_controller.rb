@@ -63,7 +63,7 @@ module Api
     end
 
     def update_params
-      params.require(:document).permit(:active, :priority_tier, :summary)
+      params.require(:document).permit(:active, :priority_tier, :summary, :public_url)
     end
 
     def custom_filter_mappings

@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import { defineMessages, FormattedMessage, useIntl } from 'react-intl';
 import { useQueryClient } from '@tanstack/react-query';
 
+import { allPlans, formatPlanLabel } from '@helpers/plan';
+
 import { updateAdminHub } from '@services/AdminService';
 
 import { useToast } from '@hooks/useToast';
@@ -11,17 +13,6 @@ import { Select, SelectItem } from '@ui-components/input/SelectInput';
 import { Modal } from '@ui-components/layout/Modal';
 
 import styles from './HubDetails.module.css';
-
-const PLAN_LABELS: Record<string, string> = {
-  free: 'Trial (free)',
-  free_unrestricted: 'Trial (free, unrestricted)',
-  subsidized: 'Subsidized',
-  standard: 'Standard',
-  pro: 'Pro',
-  enterprise: 'Enterprise',
-};
-
-const PLANS = Object.keys(PLAN_LABELS);
 
 type Props = {
   hubId: number;
@@ -73,8 +64,8 @@ const UpdatePlanModal = ({ hubId, currentPlan, open, onOpenChange }: Props) => {
     }
   };
 
-  const fromLabel = PLAN_LABELS[currentPlan] ?? currentPlan;
-  const toLabel = step === 'confirm' ? (PLAN_LABELS[selectedPlan] ?? selectedPlan) : null;
+  const fromLabel = formatPlanLabel(intl, currentPlan);
+  const toLabel = step === 'confirm' ? formatPlanLabel(intl, selectedPlan) : null;
 
   const SelectBody = (
     <div className={styles.modalBody}>
@@ -90,9 +81,9 @@ const UpdatePlanModal = ({ hubId, currentPlan, open, onOpenChange }: Props) => {
         onValueChange={setSelectedPlan}
         size="large"
       >
-        {PLANS.map((plan) => (
+        {allPlans.map((plan) => (
           <SelectItem key={plan} value={plan}>
-            {PLAN_LABELS[plan]}
+            {formatPlanLabel(intl, plan)}
           </SelectItem>
         ))}
       </Select>

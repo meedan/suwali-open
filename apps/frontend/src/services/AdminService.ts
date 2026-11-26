@@ -89,6 +89,11 @@ type AdminHubUpdateParams = {
   custom_limits?: HubCustomLimits | null;
 };
 
+export const createAdminHub = async (params: { name: string; plan: string }): Promise<AdminHubDetail> => {
+  const response = await NetworkLayer.post<AdminHubDetail>('/admin/hubs', { hub: params });
+  return response.data;
+};
+
 export const updateAdminHub = async (hubId: number, params: AdminHubUpdateParams): Promise<AdminHubDetail> => {
   const response = await NetworkLayer.patch<AdminHubDetail>(`/admin/hubs/${hubId}`, { hub: params });
   return response.data;

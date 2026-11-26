@@ -175,7 +175,7 @@ const SetupWidget = ({ onHide }: {
         title={
           <FormattedMessage
             id="setupWidget.noContentTitle"
-            defaultMessage="Your chatbot isn’t ready yet!"
+            defaultMessage="Your chatbot isn’t ready yet"
             description="Title for the setup widget when hub setup has been skipped and is incomplete"
           />
         }
@@ -221,7 +221,7 @@ const SetupWidget = ({ onHide }: {
         title={
           <FormattedMessage
             id="setupWidget.goLiveTitle"
-            defaultMessage="Go live!"
+            defaultMessage="Go live"
             description="Title for the setup widget when the hub has content but no messaging platform connected"
           />
         }

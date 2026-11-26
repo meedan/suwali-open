@@ -325,7 +325,7 @@ class TestHistoryAwareQuestionRewriter:
 
     @patch("langchain_core.runnables.base.RunnableSequence.invoke")
     def test_payload_preserves_non_latin_script(self, mock_invoke: MagicMock) -> None:
-        """Test that the prompt payload contains raw non-Latin glyphs, not \\uXXXX escapes (SUWALI-1015)"""
+        """Test that the prompt payload contains raw non-Latin glyphs, not \\uXXXX escapes"""
         mock_invoke.return_value = HistoryAwareQuestionRewriterOutput(
             message="ආයුබෝවන්",
             reasoning="Greeting in Sinhala, returned unchanged",

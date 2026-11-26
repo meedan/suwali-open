@@ -1,5 +1,5 @@
 # RAILS_ENV=production bundle exec rake backfill_answered_no_answer_available
-# Dry run by default (prints the count only); pass apply=true to actually update (SUWALI-981).
+# Dry run by default (prints the count only); pass apply=true to actually update.
 desc "Backfills answered=false for outgoing replies with error_type NO_ANSWER_AVAILABLE that were left null"
 task backfill_answered_no_answer_available: :environment do
   def log(message, level: :info)

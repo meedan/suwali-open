@@ -74,6 +74,7 @@ classDiagram
         +string last_sync_error_code
         +int priority_tier
         +date published_at
+        +text public_url
     }
 
     Source --> Document : has

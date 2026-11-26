@@ -56,7 +56,7 @@ export const scenarioLabels: Record<Scenario, MessageDescriptor> = {
 const descriptions = defineMessages({
   roleDescription: {
     id: 'global.roleDescriptionDescription',
-    defaultMessage: 'When describing the purpose of the chatbot or what kind of things the end-user can ask about this resource will be included.',
+    defaultMessage: 'When the chatbot describes its purpose or what kind of things the end-user can ask about, it will include this resource.',
     description: 'Description for role description field',
   },
   unanswerableQuestions: {
@@ -76,12 +76,12 @@ const descriptions = defineMessages({
   },
   speakToPerson: {
     id: 'global.speakToPersonDescription',
-    defaultMessage: 'When the end-user indicates that they would like to speak to a human, this resource can be included by the chatbot.',
+    defaultMessage: 'When the end-user indicates that they would like to speak to a human, the chatbot will include this resource in the response to the end-user.',
     description: 'Description for speak to a person scenario',
   },
   purchaseSubscribe: {
     id: 'global.purchaseSubscribeDescription',
-    defaultMessage: 'When the end-user indicates that they are interested in buying, subscribing to products or services provided by your organization this resource can be provided by the chatbot.',
+    defaultMessage: 'When the end-user indicates that they are interested in buying or subscribing to products or services provided by your organization, the chatbot will include this resource in the response to the end-user.',
     description: 'Description for purchase or subscribe scenario',
   },
   conversationClosed: {

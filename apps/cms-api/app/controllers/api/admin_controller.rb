@@ -2,7 +2,7 @@ module Api
   class AdminController < ApplicationController
     before_action :authenticate_user!
     before_action :require_super_admin!
-    before_action :require_write_super_admin!, only: %i[update_hub destroy_hub destroy_user move_user_to_hub super_admins upgrade_to_write_admin]
+    before_action :require_write_super_admin!, only: %i[create_hub update_hub destroy_hub destroy_user move_user_to_hub super_admins upgrade_to_write_admin]
 
     def hubs
       aggregates = hub_aggregates
@@ -12,6 +12,13 @@ module Api
     def hub_detail
       hub = Hub.includes(:organization, :messaging_integrations).find(params[:id])
       render json: hub_row(hub, single_hub_aggregates(hub))
+    end
+
+    def create_hub
+      # No hub admins yet, so trial emails would be recorded as sent to nobody.
+      hub = Hub.create_with_organization!(name: create_hub_params[:name], plan: create_hub_params[:plan].presence || :free, trial_emails_enabled: false)
+      LogService.log(:info, "AdminController", "Hub #{hub.id} (#{hub.name}) created by #{current_user.email}")
+      render json: hub_row(hub, single_hub_aggregates(hub)), status: :created
     end
 
     def update_hub
@@ -184,7 +191,7 @@ module Api
     end
 
     def super_admins
-      users = User.where("email ILIKE ? OR email ILIKE ?", "%@meedan.com", "%@meedan.org").where.not(confirmed_at: nil).order(email: :asc)
+      users = User.super_admins.order(email: :asc)
       render json: users.map { |u| {id: u.id, email: u.email, admin_write_access: u.admin_write_access, created_at: u.created_at&.iso8601} }
     end
 
@@ -289,6 +296,10 @@ module Api
         comment: report.comment,
         created_at: report.created_at&.iso8601
       }
+    end
+
+    def create_hub_params
+      params.require(:hub).permit(:name, :plan)
     end
 
     def single_hub_aggregates(hub)

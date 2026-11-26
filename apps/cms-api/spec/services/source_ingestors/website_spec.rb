@@ -159,6 +159,7 @@ RSpec.describe SourceIngestors::Website do
     expect(doc[:title]).to eq("Example Post")
     expect(doc[:content]).to include("This is the body content.")
     expect(doc[:metadata][:url]).to eq("https://example.com/posts/1")
+    expect(doc[:public_url]).to eq("https://example.com/posts/1")
     expect(doc[:document_type]).to eq("blog_post")
   end
 

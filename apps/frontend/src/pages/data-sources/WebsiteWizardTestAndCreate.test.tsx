@@ -59,7 +59,7 @@ describe('WebsiteWizardTestAndCreate', () => {
 
     renderComponent();
     fireEvent.click(screen.getByText('Test configuration'));
-    await waitFor(() => screen.getByText('Test successful!'));
+    await waitFor(() => screen.getByText('Test successful'));
 
     fireEvent.click(screen.getByText('Add source'));
     await waitFor(() =>
@@ -78,7 +78,7 @@ describe('WebsiteWizardTestAndCreate', () => {
 
     renderComponent();
     fireEvent.click(screen.getByText('Test configuration'));
-    await waitFor(() => screen.getByText('Test successful!'));
+    await waitFor(() => screen.getByText('Test successful'));
 
     fireEvent.click(screen.getByText('Add source'));
     await waitFor(() =>
@@ -100,7 +100,7 @@ describe('WebsiteWizardTestAndCreate', () => {
     renderComponent({ isEditing: true, source });
 
     fireEvent.click(screen.getByText('Test configuration'));
-    await waitFor(() => screen.getByText('Test successful!'));
+    await waitFor(() => screen.getByText('Test successful'));
 
     fireEvent.click(screen.getByText('Save setup'));
     await waitFor(() =>
@@ -118,7 +118,7 @@ describe('WebsiteWizardTestAndCreate', () => {
 
     renderComponent({ onCreate });
     fireEvent.click(screen.getByText('Test configuration'));
-    await waitFor(() => screen.getByText('Test successful!'));
+    await waitFor(() => screen.getByText('Test successful'));
 
     fireEvent.click(screen.getByText('Add source'));
     await waitFor(() => expect(onCreate).toHaveBeenCalledWith(7));
@@ -132,7 +132,7 @@ describe('WebsiteWizardTestAndCreate', () => {
     const source: Source = { id: 3, name: 'My Custom Name', config: {}, documents_count: 0, updated_at: '', source_type: 'website' };
     renderComponent({ isEditing: true, source, onCreate });
     fireEvent.click(screen.getByText('Test configuration'));
-    await waitFor(() => screen.getByText('Test successful!'));
+    await waitFor(() => screen.getByText('Test successful'));
 
     fireEvent.click(screen.getByText('Save setup'));
     await waitFor(() => expect(onCreate).toHaveBeenCalledWith(3));

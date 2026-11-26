@@ -384,7 +384,7 @@ def test_narrow_matches_cms_ids_with_trailing_newline() -> None:
     cms_id = "Q29udHJpYnV0aW9uLzE=\n"
     contrib = (
         f'<{SOURCE_DOCUMENT_TAG} ref="{cms_id}" {SOURCE_PRIORITIZED_ATTRIBUTE}="true">\n'
-        f"Kristina Sekrst is the director.\n</{SOURCE_DOCUMENT_TAG}>"
+        f"Person Name is the director.\n</{SOURCE_DOCUMENT_TAG}>"
     )
     report = (
         f'<{SOURCE_DOCUMENT_TAG} ref="RG9jdW1lbnQvMTg=\n">\nDr. Dima Saber is the director.\n</{SOURCE_DOCUMENT_TAG}>'

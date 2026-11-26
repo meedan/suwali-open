@@ -147,7 +147,7 @@ const Login: React.FC = () => {
       <div className={styles.loginTop}>
         <FormattedMessage
           id="global.loginwelcomeBack"
-          defaultMessage="Welcome back!"
+          defaultMessage="Welcome back"
           description="Header message on the login screen"
           tagName="h1"
         />

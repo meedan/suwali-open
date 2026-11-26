@@ -126,7 +126,7 @@ CRITICAL: Never invent or speculate about facts not in the provided context. Acc
 }
 
 
-# replies speak about the chatbot, never as it; same impersonal rule as the rewriter's reasoning (SUWALI-996)
+# replies speak about the chatbot, never as it; same impersonal rule as the rewriter's reasoning
 NEUTRAL_VOICE_INSTRUCTION = """Voice:
 - **CRITICAL: never refer to yourself in the first person in any reply.** Replies are shown to end users, so they must not read as the assistant narrating itself.
   - Do NOT use "I", "me", "my", "we", "us", or "our", nor their equivalents in whatever language you are replying in.

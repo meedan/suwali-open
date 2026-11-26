@@ -202,7 +202,7 @@ describe('DataSourcesDocumentsFilter topics', () => {
     fireEvent.click(await screen.findByRole('checkbox', { name: 'Climate 12' }));
     fireEvent.click(screen.getByRole('checkbox', { name: 'Untagged 7' }));
     fireEvent.click(screen.getByRole('radio', { name: 'None of' }));
-    fireEvent.keyDown(screen.getByRole('textbox', { name: 'Search topics' }), { key: 'Escape' });
+    fireEvent.keyDown(screen.getByRole('searchbox', { name: 'Search topics' }), { key: 'Escape' });
     expect(applied().size).toBe(0);
 
     update();
@@ -234,7 +234,7 @@ describe('DataSourcesDocumentsFilter topics', () => {
 
     fireEvent.click(screen.getByRole('button', { name: 'Add topic' }));
     fireEvent.click(await screen.findByRole('radio', { name: 'None of' }));
-    fireEvent.keyDown(screen.getByRole('textbox', { name: 'Search topics' }), { key: 'Escape' });
+    fireEvent.keyDown(screen.getByRole('searchbox', { name: 'Search topics' }), { key: 'Escape' });
     update();
 
     expect(applied().size).toBe(0);

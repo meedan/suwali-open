@@ -29,6 +29,7 @@ type ModalProps = {
   open?: boolean;
   size?: 'small' | 'medium' | 'large' | 'xlarge';
   title?: string | React.ReactNode;
+  hideTitle?: boolean;
   description?: string | React.ReactNode;
   onOpenChange?: (open: boolean) => void;
   disableOutsideClose?: boolean;
@@ -48,6 +49,7 @@ const Modal = ({
   open,
   size = 'medium',
   title,
+  hideTitle = false,
   disableOutsideClose = false,
   trigger,
   triggerDisabled = false,
@@ -99,7 +101,14 @@ const Modal = ({
           }}
           onOpenAutoFocus={disableOpenAutoFocus ? (e) => e.preventDefault() : undefined}
         >
-          {title && (
+          {title && hideTitle && (
+            <VisuallyHidden.Root asChild>
+              <Dialog.Title>
+                {title}
+              </Dialog.Title>
+            </VisuallyHidden.Root>
+          )}
+          {title && !hideTitle && (
             <div className={styles.dialogTitle}>
               <Dialog.Title>
                 {title}

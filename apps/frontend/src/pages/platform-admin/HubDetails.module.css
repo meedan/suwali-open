@@ -209,6 +209,9 @@ main.adminHubDetailContainer {
 }
 
 .modalBody {
+  display: flex;
+  flex-flow: column nowrap;
+  gap: 16px;
   padding: 16px 24px;
   width: 100%;
 
@@ -216,9 +219,5 @@ main.adminHubDetailContainer {
     font-size: var(--font-size-14);
     line-height: 1.5;
     margin: 0;
-
-    + p {
-      margin: 12px 0 0;
-    }
   }
 }

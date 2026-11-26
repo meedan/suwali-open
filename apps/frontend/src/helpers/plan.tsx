@@ -1,13 +1,18 @@
-import type { MessageDescriptor } from 'react-intl';
+import type { IntlShape, MessageDescriptor } from 'react-intl';
 import { defineMessages } from 'react-intl';
 
 import type { Hub } from '@customTypes/hub';
 
 export const planMessages = defineMessages({
   trial: {
-    id: 'global.trialTierUpsell',
-    defaultMessage: 'Free trial!',
-    description: 'Generic label for the free trial pricing tier',
+    id: 'global.freeTrial',
+    defaultMessage: 'Free trial',
+    description: 'Label indicating the free trial pricing tier',
+  },
+  trialUnrestricted: {
+    id: 'global.freeTrialUnrestricted',
+    defaultMessage: 'Free trial (unrestricted)',
+    description: 'Plan label for an unrestricted free hub trial',
   },
   subsidized: {
     id: 'global.subsidizedTier',
@@ -40,3 +45,21 @@ const planMessageMap: Partial<Record<Hub['plan'], MessageDescriptor>> = {
 
 export const getPlanMessageDescriptor = (hub: Hub): MessageDescriptor =>
   planMessageMap[hub.plan] ?? planMessages.trial;
+
+// Every plan, in the order admins choose between them.
+const allPlanMessages: Record<Hub['plan'], MessageDescriptor> = {
+  free: planMessages.trial,
+  free_unrestricted: planMessages.trialUnrestricted,
+  subsidized: planMessages.subsidized,
+  standard: planMessages.standard,
+  pro: planMessages.pro,
+  enterprise: planMessages.enterprise,
+};
+
+export const allPlans = Object.keys(allPlanMessages) as Hub['plan'][];
+
+// Falls back to the raw value for a plan the API added before the frontend knew it.
+export const formatPlanLabel = (intl: IntlShape, plan: string): string => {
+  const message = (allPlanMessages as Partial<Record<string, MessageDescriptor>>)[plan];
+  return message ? intl.formatMessage(message) : plan;
+};

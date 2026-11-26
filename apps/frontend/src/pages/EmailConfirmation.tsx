@@ -150,7 +150,7 @@ const EmailConfirmation = () => {
             <Icon id="error" className={layoutStyles.interstitialIcon} />
             <FormattedMessage
               id="global.emailConfirmationfailure"
-              defaultMessage="Account could not be confirmed."
+              defaultMessage="We couldn’t confirm your account."
               description="Header message on the account confirmation page when confirmation fails"
               tagName="h1"
             />

@@ -157,7 +157,7 @@ const TopicsPicker = ({ itemType, sourceId, selected, mode, onToggle, onModeChan
       return (
         <FormattedMessage
           id="global.topicsLoadError"
-          defaultMessage="The topics could not be loaded. Please try again."
+          defaultMessage="We couldn’t load the topics. Please try again."
           description="Reusable message shown when a list of topics failed to load"
           tagName="p"
         />
@@ -219,8 +219,10 @@ const TopicsPicker = ({ itemType, sourceId, selected, mode, onToggle, onModeChan
         ]}
       />
       <TextInput
+        type="search"
         inputProps={{ 'aria-label': intl.formatMessage(messages.searchLabel) }}
         onChange={e => setSearch(e.target.value)}
+        onClear={() => setSearch('')}
         placeholder={intl.formatMessage(messages.searchPlaceholder)}
         value={search}
       />

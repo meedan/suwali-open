@@ -50,6 +50,33 @@ RSpec.describe User, type: :model do
       user = build(:user, email: "admin@meedan.com\n")
       expect(user.is_admin).to be false
     end
+
+    it "uses the domains in SUPER_ADMIN_EMAIL_DOMAINS" do
+      allow(ENV).to receive(:fetch).and_call_original
+      allow(ENV).to receive(:fetch).with("SUPER_ADMIN_EMAIL_DOMAINS", "").and_return(" Example.org ")
+      expect(build(:user, email: "admin@example.org").is_admin).to be true
+      expect(build(:user, email: "admin@meedan.com").is_admin).to be false
+    end
+
+    it "ignores public email domains in SUPER_ADMIN_EMAIL_DOMAINS" do
+      allow(ENV).to receive(:fetch).and_call_original
+      allow(ENV).to receive(:fetch).with("SUPER_ADMIN_EMAIL_DOMAINS", "").and_return("gmail.com,example.org")
+      expect(build(:user, email: "anyone@gmail.com").is_admin).to be false
+      expect(build(:user, email: "admin@example.org").is_admin).to be true
+    end
+
+    it "returns false for an address with more than one @" do
+      user = create(:user)
+      user.update_column(:email, "a@evil.io@meedan.com")
+      expect(user.reload.is_admin).to be false
+      expect(User.super_admins).not_to include(user)
+    end
+
+    it "returns false for everyone when SUPER_ADMIN_EMAIL_DOMAINS is empty" do
+      allow(ENV).to receive(:fetch).and_call_original
+      allow(ENV).to receive(:fetch).with("SUPER_ADMIN_EMAIL_DOMAINS", "").and_return("")
+      expect(build(:user, email: "admin@meedan.com").is_admin).to be false
+    end
   end
 
   describe "#is_write_admin" do

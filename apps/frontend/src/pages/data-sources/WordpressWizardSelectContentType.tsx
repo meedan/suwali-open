@@ -36,7 +36,7 @@ const WordpressWizardSelectContentType =({
           description={
             <FormattedMessage
               id="wordpressWizard.postsDescription"
-              defaultMessage="Posts are individual pieces of time-based content on a site. Think of them as blog posts, articles, or updates that you share to offer up new content to your readers. This is most likely the content you want available to your chatbot."
+              defaultMessage="Posts are individual pieces of time-based content on a site. Think of them as blog posts, articles, or updates that you share to offer new content to your readers. This is most likely the content you want available to your chatbot."
               description="A description of the Wordpress content type Post"
             />
           }

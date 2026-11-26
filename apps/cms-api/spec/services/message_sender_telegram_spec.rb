@@ -18,7 +18,7 @@ RSpec.describe MessageSenderServices::TelegramService, type: :service do
     expect(message.reload.external_id).to be_nil
     service.send_message
     expect(message.reload.status).to eq("sent")
-    expect(message.reload.external_id).to eq("mid")
+    expect(message.reload.external_id).to eq(TelegramMessagingIntegration.find_by(hub: hub).message_external_id("mid"))
   end
 
   it "should update message status when message is not sent" do

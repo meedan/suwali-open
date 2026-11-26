@@ -20,7 +20,7 @@ const MarkdownPreview = ({ className, content }: { className?: string, content: 
           body={
             <FormattedMessage
               id="markdownPreview.parseFailed"
-              defaultMessage="This content could not be displayed with formatting and is shown as plain text instead."
+              defaultMessage="We couldn’t display this content with formatting, so we’re showing it as plain text."
               description="Warning shown when markdown content could not be parsed for rich rendering"
             />
           }

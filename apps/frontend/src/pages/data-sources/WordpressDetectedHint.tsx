@@ -47,7 +47,7 @@ const WordpressDetectedHint = ({ url, onSwitchToWordpress }: WordpressDetectedHi
       body={
         <FormattedMessage
           id="dataSourceWizard.wordpressDetectedBody"
-          defaultMessage="Connect it as a WordPress site instead. It takes fewer steps, imports your posts directly and updates automatically."
+          defaultMessage="Connect it as a WordPress site instead. It takes fewer steps, imports your posts directly, and updates automatically."
           description="Body of the hint shown in the RSS feed and website wizards when the URL the user entered belongs to a WordPress site"
         />
       }

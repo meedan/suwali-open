@@ -134,7 +134,7 @@ const TopicPicker = ({ itemType, itemId, onAdded, existingTopicNames, onDone }: 
       return (
         <FormattedMessage
           id="global.topicsLoadError"
-          defaultMessage="The topics could not be loaded. Please try again."
+          defaultMessage="We couldn’t load the topics. Please try again."
           description="Reusable message shown when a list of topics failed to load"
           tagName="p"
         />
@@ -226,8 +226,10 @@ const TopicPicker = ({ itemType, itemId, onAdded, existingTopicNames, onDone }: 
   return (
     <div className={listStyles.picker}>
       <TextInput
+        type="search"
         inputProps={{ 'aria-label': intl.formatMessage(messages.searchLabel), maxLength: about?.max_topic_name_length }}
         onChange={e => setSearch(e.target.value)}
+        onClear={() => setSearch('')}
         onKeyDown={e => {
           if (e.key === 'ArrowDown') {
             e.preventDefault();

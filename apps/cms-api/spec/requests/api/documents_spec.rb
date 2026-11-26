@@ -210,6 +210,27 @@ RSpec.describe "Documents API", type: :request do
       expect(document1.ai_summary).to eq("AI summary")
     end
 
+    it "updates the public_url" do
+      patch "/api/documents/#{document1.id}", params: {document: {public_url: "https://example.com/page"}}, headers: headers
+      expect(response).to have_http_status(:ok)
+      expect(JSON.parse(response.body)["public_url"]).to eq("https://example.com/page")
+      expect(document1.reload.public_url).to eq("https://example.com/page")
+    end
+
+    it "clears the public_url" do
+      document1.update!(public_url: "https://example.com/page")
+      patch "/api/documents/#{document1.id}", params: {document: {public_url: ""}}, headers: headers
+      expect(response).to have_http_status(:ok)
+      expect(document1.reload.public_url).to be_nil
+    end
+
+    it "refuses a public_url that is not an http(s) URL" do
+      patch "/api/documents/#{document1.id}", params: {document: {public_url: "not a url"}}, headers: headers
+      expect(response).to have_http_status(:unprocessable_content)
+      expect(JSON.parse(response.body)["errors"]).to be_present
+      expect(document1.reload.public_url).to be_nil
+    end
+
     it "updates the active status" do
       patch "/api/documents/#{document1.id}", params: {document: {active: false}}, headers: headers
       expect(response).to have_http_status(:ok)
@@ -682,6 +703,13 @@ describe "Documents API" do
                 maxLength: 2000,
                 example: "A summary written by a user",
                 description: "Summary written by a user, which takes precedence over the AI-generated one (ai_summary)"
+              },
+              public_url: {
+                type: :string,
+                nullable: true,
+                maxLength: 1000,
+                example: "https://example.com/article",
+                description: "http(s) URL shown to end users under \"Show more\"; blank clears it"
               }
             }
           }

@@ -41,7 +41,7 @@ const MarkdownEditor = lazy(() => import('@components/MarkdownEditor'));
 const messages = defineMessages({
   saved: {
     id: 'notebookSummaryPanel.saved',
-    defaultMessage: 'Saved!',
+    defaultMessage: 'Saved',
     description: 'Confirmation title that appears when the save was successful',
   },
   publishButton: {
@@ -56,7 +56,7 @@ const messages = defineMessages({
   },
   published: {
     id: 'notebookSummaryPanel.published',
-    defaultMessage: 'Published!',
+    defaultMessage: 'Published',
     description: 'Confirmation title that appears when the notebook was published to the data sources',
   },
   unpublished: {

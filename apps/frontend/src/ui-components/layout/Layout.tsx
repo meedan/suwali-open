@@ -1,32 +1,11 @@
 import clsx from 'clsx';
 import React, { useEffect, useState } from "react";
-import { defineMessages, FormattedMessage, useIntl } from 'react-intl';
 
-import { useHubSettingsDialog } from '@hooks/useHubSettingsDialog';
 import { useIsTabletScreen } from '@hooks/useLayout';
 
-import Button from '@ui-components/input/Button';
-import Icon from '@ui-components/layout/Icon';
-import Tooltip from '@ui-components/layout/Tooltip.tsx';
+import LayoutRail from '@ui-components/layout/LayoutRail';
 import MobilePageNav from '@ui-components/navigation/MobilePageNav';
 import TopNav from '@ui-components/navigation/TopNav';
-
-import Hub from '@components/Hub';
-import HubSettings from '@components/HubSettings';
-import Me from '@components/Me';
-
-const messages = defineMessages({
-  showHideMenu: {
-    id: 'global.showHideMenu',
-    defaultMessage: 'Show/Hide menu',
-    description: 'Label for button to show or hide a menu',
-  },
-  hubSettings: {
-    id: 'global.hubSettings',
-    defaultMessage: 'System settings',
-    description: 'Title for main navigation to go to the settings page for this system',
-  },
-});
 
 type LayoutProps = {
   children?: React.ReactNode;
@@ -102,39 +81,34 @@ export const Layout = ({
   const childArray = React.Children.toArray(children);
   const { hasRightColumn, leftName, mainName, rightName } = getLayoutInfo(childArray);
 
-  // Clone the LayoutLeft child with controlled props
-  const controlledChildren = React.Children.map(children, child => {
-    if (React.isValidElement(child) && child.type === Layout.Left) {
-      return React.cloneElement(child as React.ReactElement<LeftProps>, {
-        isOpen: leftDrawerOpen,
-        onOpenChange: handleLeftDrawerOpenChange,
-      });
-    }
-    return child;
-  });
-
   const hasAnyName = leftName || mainName || rightName;
 
   return (
     <>
-      <main
-        className={clsx(
-          className,
-          mobileTab,
-          {
-            'layout-three-column': hasRightColumn,
-            'layout-responsive-drawer-open': leftDrawerOpen,
-            'layout-responsive-drawer-closed': !leftDrawerOpen,
-          })
-        }
-      >
-        {controlledChildren}
-        <div
-          className="layout-cover"
-          onClick={() => handleLeftDrawerOpenChange(false)}
-          aria-hidden="true"
+      <div className="layout-frame">
+        <LayoutRail
+          leftDrawerOpen={leftDrawerOpen}
+          onLeftDrawerToggle={() => handleLeftDrawerOpenChange(!leftDrawerOpen)}
         />
-      </main>
+        <main
+          className={clsx(
+            className,
+            mobileTab,
+            {
+              'layout-three-column': hasRightColumn,
+              'layout-responsive-drawer-open': leftDrawerOpen,
+              'layout-responsive-drawer-closed': !leftDrawerOpen,
+            })
+          }
+        >
+          {children}
+          <div
+            className="layout-cover"
+            onClick={() => handleLeftDrawerOpenChange(false)}
+            aria-hidden="true"
+          />
+        </main>
+      </div>
       {hasAnyName && (
         <MobilePageNav
           onChange={handleMobileTab}
@@ -154,76 +128,32 @@ type LeftProps = {
   homePage?: boolean;
   /** Used by parent Layout component, not by LayoutLeft itself */
   name?: string | React.ReactNode;
-  isOpen?: boolean;
-  onOpenChange?: (open: boolean) => void;
 };
 
 const LayoutLeft = ({
   children,
   className,
   homePage = false,
-  isOpen,
-  onOpenChange,
-}: LeftProps) => {
-  const intl = useIntl();
-  const { openHubSettings } = useHubSettingsDialog();
-
-  const handleLeftNavClick = () => {
-    if (onOpenChange) {
-      onOpenChange(!(isOpen ?? false));
-    }
-  };
-
-  return (
-    <section
-      className={clsx(
-        'layout-left-column',
-        className,
-        {
-          'layout-left-column-homepage': homePage,
-        }
-      )}
-    >
-      <div className="layout-shelf">
-        <header>
-          <Hub avatar />
-          <Tooltip content={intl.formatMessage(messages.showHideMenu)}>
-            <Button
-              aria-label={intl.formatMessage(messages.showHideMenu)}
-              themeMode
-              variant="filled"
-              size="small"
-              iconLeft={isOpen ? <Icon id="sidebar" aria-hidden /> : <Icon id="sidebar_closed" aria-hidden />}
-              onClick={handleLeftNavClick}
-            />
-          </Tooltip>
-        </header>
-        <footer>
-          <Tooltip content={<FormattedMessage {...messages.hubSettings} />}>
-            <Button
-              aria-label={intl.formatMessage(messages.hubSettings)}
-              themeMode
-              variant="filled"
-              size="small"
-              iconLeft={<Icon id="settings" aria-hidden />}
-              onClick={openHubSettings}
-            />
-          </Tooltip>
-          <Me />
-        </footer>
+}: LeftProps) => (
+  <section
+    className={clsx(
+      'layout-left-column',
+      className,
+      {
+        'layout-left-column-homepage': homePage,
+      }
+    )}
+  >
+    <div className="layout-drawer-wrapper">
+      <header>
+        <TopNav homePage={homePage} />
+      </header>
+      <div className="layout-drawer">
+        {children}
       </div>
-      <div className="layout-drawer-wrapper">
-        <header>
-          <TopNav homePage={homePage} />
-        </header>
-        <div className="layout-drawer">
-          {children}
-        </div>
-      </div>
-      <HubSettings />
-    </section>
-  );
-}
+    </div>
+  </section>
+);
 
 Layout.Left = LayoutLeft;
 

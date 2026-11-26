@@ -180,7 +180,7 @@ const Signup = () => {
       <div className={styles.loginTop}>
         <FormattedMessage
           id="global.signupwelcome"
-          defaultMessage="Welcome, create your Suwali account!"
+          defaultMessage="Welcome, create your Suwali account"
           description="Header message on the sign up screen"
           tagName="h1"
         />

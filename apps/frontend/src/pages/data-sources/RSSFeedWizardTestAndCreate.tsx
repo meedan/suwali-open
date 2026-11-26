@@ -240,7 +240,7 @@ const RSSFeedWizardTestAndCreate = ({
             title={
               <FormattedMessage
                 id="global.testSuccessful"
-                defaultMessage="Test successful!"
+                defaultMessage="Test successful"
                 description="Generic message indicating a successful test"
               />
             }
@@ -267,7 +267,7 @@ const RSSFeedWizardTestAndCreate = ({
             body={
               <FormattedMessage
                 id="global.unableToRetrieveArticles"
-                defaultMessage="Unable to retrieve articles. There may be something wrong with your configuration. Please verify your settings and retry. Reach out to our support if you need help. The error is: {error}"
+                defaultMessage="Unable to retrieve articles. There may be something wrong with your configuration. Please verify your settings and retry. Contact our support team if you need help. The error is: {error}"
                 description="Message displayed when unable to retrieve articles from a data source"
                 values={{ error: <strong key="error">{previewError}</strong> }}
               />
